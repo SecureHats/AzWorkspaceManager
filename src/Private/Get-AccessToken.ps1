@@ -21,14 +21,13 @@ function Get-AccessToken {
 
     Write-Verbose -Message "Current Subscription: $($azProfile.DefaultContext.Subscription.Name) in tenant $($azProfile.DefaultContext.Tenant.Id)"
 
-    $subscriptionId = $azProfile.DefaultContext.Subscription.Id
-    $tenantId = $azProfile.DefaultContext.Tenant.Id
+    $script:subscriptionId = $azProfile.DefaultContext.Subscription.Id
+    $script:tenantId = $azProfile.DefaultContext.Tenant.Id
 
     $profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
-    $accessToken = $profileClient.AcquireAccessToken($script:tenantId)
+    $script:accessToken = $profileClient.AcquireAccessToken($script:tenantId)
 
-    $authHeader = @{
+    $script:authHeader = @{
         'Authorization' = 'Bearer ' + $script:accessToken.AccessToken
     }
-
 }

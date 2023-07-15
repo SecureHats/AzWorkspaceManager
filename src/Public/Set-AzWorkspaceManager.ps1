@@ -1,18 +1,16 @@
-function Enable-AzSentinelAlertRule {
+function Set-AzWorkspaceManager {
     <#
       .SYNOPSIS
-      Enable Azure Sentinel Alert Rules
+      Enable Azure Sentinel Workspace Manager
       .DESCRIPTION
-      With this function you can enable Azure Sentinel Alert rule
+      With this function you can enable Azure Sentinel Workspace Manager
       .PARAMETER SubscriptionId
       Enter the subscription ID, if no subscription ID is provided then current AZContext subscription will be used
-      .PARAMETER WorkspaceName
-      Enter the Workspace name
-      .PARAMETER RuleName
-      Enter the name of the Alert rule
+      .PARAMETER Name
+      Enter the Name of the log analytics workspace
+      .PARAMETER ResourceGroupName
+      Enter the name of the ResouceGroup where the log analytics workspace is located
       .EXAMPLE
-      Enable-AzSentinelAlertRule -WorkspaceName "" -RuleName "",""
-      In this example you can get configuration of multiple alert rules in once
     #>
     [cmdletbinding(SupportsShouldProcess)]
     param (
@@ -22,12 +20,16 @@ function Enable-AzSentinelAlertRule {
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [string]$WorkspaceName
+        [string]$Name,
+
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ResourceGroupName
     )
 
     begin {
         Invoke-AzWorkspaceManager
-        $workspace = Get-LogAnalyticsWorkspace -WorkspaceName $WorkspaceName //TODO: return values and build query
+        $currentWorkspace = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroup $ResourceGroupName
     }
 
     process {
