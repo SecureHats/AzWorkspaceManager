@@ -69,9 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @(
-        'Set-AzWorkspaceManager'
-    )
+    FunctionsToExport = 'Set-AzWorkspaceManager'
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport   = '*'
@@ -89,10 +87,18 @@
     # ModuleList = @()
 
     # List of all files packaged with this module
-    # FileList = @()
+    FileList = 'Private\Get-AccessToken.ps1',
+        'Private\Get-LogAnalyticsWorkspace.ps1',
+        'Private\Invoke-AzWorkspaceManager.ps1',
+        'Public\Set-AzWorkspaceManager.ps1',
+        'AzWorkspaceManager.psd1',
+        'AzWorkspaceManager.psm1'
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData       = @{
+
+        #IsPrerelease of this module
+        IsPrerelease = $true
 
         PSData = @{
 

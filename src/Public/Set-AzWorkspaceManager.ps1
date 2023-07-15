@@ -22,7 +22,7 @@ function Set-AzWorkspaceManager {
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName
     )
