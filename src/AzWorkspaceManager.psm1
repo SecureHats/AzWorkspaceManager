@@ -12,4 +12,21 @@ foreach ($script in ($privateScripts + $publicScripts)) {
     }
 }
 
+#region load module variables
+$SessionVariables = [ordered]@{
+    baseUri           = 'https://management.azure.com/subscriptions/'
+    User                = $null
+    Customer            = $null
+    ApiVersion          = $null
+    AuthToken           = $null
+    StartTime           = $null
+    ElapsedTime         = $null
+    LastCommand         = $null
+    LastCommandTime     = $null
+    LastCommandResults  = $null
+    RefreshTime         = $null
+}
+
+New-Variable -Name SessionVariables -Value $SessionVariables -Scope Script
+#ecdregion  
 Export-ModuleMember -Function $publicScripts.BaseName
