@@ -31,7 +31,9 @@
 		"ms-vscode.powershell",
 		"Gruntfuggly.todo-tree",
 		"TylerLeonhardt.vscode-inline-values-powershell",
-		"GitHub.copilot"
+		"GitHub.copilot",
+		"DavidAnson.vscode-markdownlint",
+		"eamodio.gitlens"
 	]
     }
   }
