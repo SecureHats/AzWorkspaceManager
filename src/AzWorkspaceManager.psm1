@@ -26,7 +26,5 @@ $SessionVariables = [ordered]@{
     LastCommandResults  = $null
     RefreshTime         = $null
 }
-
-New-Variable -Name SessionVariables -Value $SessionVariables -Scope Script
-#ecdregion  
+#endregion load module variables  
 Export-ModuleMember -Function $publicScripts.BaseName
