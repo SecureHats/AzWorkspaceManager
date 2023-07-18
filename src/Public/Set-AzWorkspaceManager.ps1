@@ -14,10 +14,6 @@ function Set-AzWorkspaceManager {
     #>
     [cmdletbinding(SupportsShouldProcess)]
     param (
-        [Parameter(Mandatory = $false)]
-        [ValidateNotNullOrEmpty()]
-        [string] $SubscriptionId,
-
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
@@ -28,45 +24,42 @@ function Set-AzWorkspaceManager {
     )
 
     begin {
-        Invoke-AzWorkspaceManager
-        $currentWorkspace = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroup $ResourceGroupName
+        Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+        if ($ResourceGroupName) {
+            $currentWorkspace = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
+        } else {
+            $currentWorkspace = Get-LogAnalyticsWorkspace -Name $Name
+        }
     }
 
     process {
-        switch ($PsCmdlet.ParameterSetName) {
-            Sub {
-                $arguments = @{
-                    WorkspaceName  = $WorkspaceName
-                    SubscriptionId = $SubscriptionId
-                }
-            }
-            default {
-                $arguments = @{
-                    WorkspaceName = $WorkspaceName
-                }
-            }
-        }
-
         #Region Set Constants
         $baseUri = "https://management.azure.com/subscriptions/"
         $apiVersion = '2023-05-01-preview'
         #EndRegion Set Constants
 
-        try {
-            $uri = "$baseUri$($arguments.SubscriptionId)/resourceGroups/$($arguments.ResourceGroupName)/providers/Microsoft.OperationalInsights/workspaces/$($arguments.WorkspaceName)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
-            $reponse = Invoke-AzRestMethod 
-        }
-        catch {
-            $return = $_.Exception.Message
-            Write-Error $return
-        }
+        # try {
+            if ($ResourceGroupName) {
+                Write-Verbose "Resource Group Name: $ResourceGroupName"
+                # $uri = "$baseUri$($Script:SubscriptionId)/resourceGroups/$ResourceGroupName/providers/Microsoft.OperationalInsights/workspaces/$Name/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/demo01?api-version=$apiVersion"
+                $uri = "$baseUri$($Script:SubscriptionId)/resourceGroups/$ResourceGroupName/providers/Microsoft.OperationalInsights/workspaces/$Name/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=2023-05-01-preview"
+            } else {
+                Write-Verbose "No Resource Group Name specified"
+                $uri = "$baseUri$($Script:SubscriptionId)/providers/Microsoft.OperationalInsights/workspaces/$Name)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/demo01?api-version=$apiVersion"
+            }
+            Write-Verbose "Trying to enable Azure Sentinel Workspace Manager for workspace [$Name)]"
+            Write-Output "URI: $uri"
+            Invoke-RestMethod `
+                     -Method GET `
+                     -Uri $uri `
+                     -Headers $script:authHeader
+        # }
+        # catch {
+        #     $return = $_.Exception.Message
+        #     Write-Output $uri  #$return
+        # }
     }
 }
-
-#Region Set Constants
-$baseUri = "https://management.azure.com/subscriptions/"
-$apiVersion = '2023-05-01-preview'
-#EndRegion Set Constants
 
 
 # "$SubscriptionID/resourceGroups/$ResourceGroupName/providers/Microsoft.OperationalInsights/workspaces/$MasterSentinelName/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion""

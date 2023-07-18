@@ -2,6 +2,11 @@
 #requires -version 6.2
 
 function Invoke-AzWorkspaceManager {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$FunctionName
+    )
     <#
     .SYNOPSIS
     Get prerequisites and validate access to the Microsoft Azure API
@@ -12,35 +17,38 @@ function Invoke-AzWorkspaceManager {
     .NOTES
     NAME: Invoke-AzWorkspaceManager
     #>
+    
+    Write-Verbose 'Function Name: $FunctionName' 
+    $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
   
-      $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
-  
-      if ($azProfile.Contexts -ne 0) {
-          if ([string]::IsNullOrEmpty($script:accessToken)) {
-              try {
-                  Get-AccessToken
-              } catch {
-                    Write-Error -Exception 'Unable to get access token'
-                    break
-              }
-          }
-          elseif ($script:accessToken.ExpiresOn.DateTime - [datetime]::UtcNow.AddMinutes(-5) -le 0) {
-              # if token expires within 5 minutes, request a new one
-              try {
-                Get-AccessToken  
-              }
-              catch {
+    if ($azProfile.Contexts.Count -ne 0) {
+        if ([string]::IsNullOrEmpty($script:accessToken)) {
+            try {
+                Get-AccessToken
+            }
+            catch {
                 Write-Error -Exception 'Unable to get access token'
                 break
-              }
-              
-          }
-  
-          # Set the subscription from AzContext
-          $script:subscriptionId = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile.DefaultContext.Subscription.Id
-      }
-      else {
-          Write-Error 'Run Connect-AzAccount to login'
-          break
-      }
-  }
+            }
+        }
+        elseif ($SessionVariables.ExpiresOn - [datetime]::UtcNow.AddMinutes(-5) -le 0) {
+            # if token expires within 5 minutes, request a new one
+            try {
+                Get-AccessToken  
+            }
+            catch {
+                Write-Error -Exception 'Unable to get access token'
+                break
+            }
+            
+        }
+
+        # Set the subscription from AzContext
+        $subscriptionId = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile.DefaultContext.Subscription.Id
+        $SessionVariables.baseUri = "https://management.azure.com/subscriptions/$subscriptionId"
+    }
+    else {
+        Write-Host 'Invoke-AzWorkspaceManager: Run Connect-AzAccount to login' -ForegroundColor Red
+        break
+    }
+}

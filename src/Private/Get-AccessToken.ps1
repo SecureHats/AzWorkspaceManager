@@ -19,15 +19,16 @@ function Get-AccessToken {
 
     $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
 
-    Write-Verbose -Message "Current Subscription: $($azProfile.DefaultContext.Subscription.Name) in tenant $($azProfile.DefaultContext.Tenant.Id)"
+    Write-Verbose "Current Subscription: $($azProfile.DefaultContext.Subscription.Name) in tenant $($azProfile.DefaultContext.Tenant.Id)"
 
-    $script:subscriptionId = $azProfile.DefaultContext.Subscription.Id
-    $script:tenantId = $azProfile.DefaultContext.Tenant.Id
+    $SessionVariables.subscriptionId = $azProfile.DefaultContext.Subscription.Id
+    $SessionVariables.tenantId       = $azProfile.DefaultContext.Tenant.Id
 
-    $profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
-    $script:accessToken = $profileClient.AcquireAccessToken($script:tenantId)
+    $profileClient              = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
+    $script:accessToken         = $profileClient.AcquireAccessToken($SessionVariables.tenantId)
+    $SessionVariables.ExpiresOn = $script:accessToken.ExpiresOn.DateTime
 
-    $script:authHeader = @{
+    $SessionVariables.authHeader = @{
         'Authorization' = 'Bearer ' + $script:accessToken.AccessToken
     }
 }
