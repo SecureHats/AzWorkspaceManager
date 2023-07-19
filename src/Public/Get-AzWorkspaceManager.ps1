@@ -1,4 +1,4 @@
-function List-AzWorkspaceManager {
+function Get-AzWorkspaceManager {
     <#
       .SYNOPSIS
       Enable Azure Sentinel Workspace Manager
@@ -26,9 +26,9 @@ function List-AzWorkspaceManager {
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
         if ($ResourceGroupName) {
-            $currentWorkspace = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
+            Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
         } else {
-            $currentWorkspace = Get-LogAnalyticsWorkspace -Name $Name
+            Get-LogAnalyticsWorkspace -Name $Name
         }
     }
 
@@ -38,11 +38,14 @@ function List-AzWorkspaceManager {
         #EndRegion Set Constants
 
         try {
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
+                if ($SessionVariables.workspace) {
+                    Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
+                    $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
             
-                Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
-                Write-Output "URI: $uri"
-                $reponse = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($SessionVariables.authHeader))
+                    $reponse = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($SessionVariables.authHeader))
+                } else {
+                    break
+                }
                 
                 return $reponse
         }

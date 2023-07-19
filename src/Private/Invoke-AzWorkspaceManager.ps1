@@ -18,7 +18,7 @@ function Invoke-AzWorkspaceManager {
     NAME: Invoke-AzWorkspaceManager
     #>
     
-    Write-Verbose 'Function Name: $FunctionName' 
+    Write-Verbose "Function Name: $($FunctionName)" 
     $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
   
     if ($azProfile.Contexts.Count -ne 0) {

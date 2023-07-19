@@ -29,6 +29,6 @@ function Get-AccessToken {
     $SessionVariables.ExpiresOn = $script:accessToken.ExpiresOn.DateTime
 
     $SessionVariables.authHeader = @{
-        'Authorization' = 'Bearer ' + $script:accessToken.AccessToken
+        'Authorization' = 'Bearer ' + $script:accessToken.AccessToken # // TODO: This should be a Secure-String
     }
 }

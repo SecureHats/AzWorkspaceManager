@@ -70,7 +70,7 @@
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @('Set-AzWorkspaceManager', 
-        'List-AzWorkspaceManager'
+        'Get-AzWorkspaceManager'
         )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -94,8 +94,7 @@
         'Private\Invoke-AzWorkspaceManager.ps1',
         'Public\Get-LogAnalyticsWorkspace.ps1',
         'Public\Set-AzWorkspaceManager.ps1',
-        'Public\List-AzWorkspaceManager.ps1',
-        'Public\Get-AzWorkspaceManagerSession.ps1',
+        'Public\Get-AzWorkspaceManager.ps1',
         'AzWorkspaceManager.psd1',
         'AzWorkspaceManager.psm1'
 
