@@ -42,9 +42,10 @@ function Get-LogAnalyticsWorkspace {
                 Invoke-RestMethod `
                     -Method GET `
                     -Uri $uri `
-                    -Headers $($SessionVariables.authHeader)).value `
-            | Where-Object { $_.name -eq $Name } `
-            -ErrorVariable "ErrVar"
+                    -Headers $($SessionVariables.authHeader) `
+                    -ErrorVariable "ErrVar" `
+                ).value `
+                | Where-Object { $_.name -eq $Name } 
                 
             switch ($workspace.count) {
                 { $_ -eq 1 } { $_workspacePath = ("https://management.azure.com$($workspace.id)").ToLower() }
