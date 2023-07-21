@@ -34,7 +34,6 @@ function Set-AzWorkspaceManager {
 
     process {
         #Region Set Constants
-        $baseUri = "https://management.azure.com/subscriptions/"
         $apiVersion = '2023-05-01-preview'
         #EndRegion Set Constants
 

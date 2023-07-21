@@ -44,8 +44,10 @@ function Invoke-AzWorkspaceManager {
         }
 
         # Set the subscription from AzContext
-        $subscriptionId = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile.DefaultContext.Subscription.Id
-        $SessionVariables.baseUri = "https://management.azure.com/subscriptions/$subscriptionId"
+        $SessionVariables.baseUri = "https://management.azure.com/subscriptions/$($SessionVariables.subscriptionId)"
+        $script:authHeader = @{
+            'Authorization' = 'Bearer ' + $($SessionVariables.AccessToken | ConvertFrom-SecureString -AsPlainText)  # // TODO: This should be a Secure-String
+        }
     }
     else {
         Write-Host 'Invoke-AzWorkspaceManager: Run Connect-AzAccount to login' -ForegroundColor Red

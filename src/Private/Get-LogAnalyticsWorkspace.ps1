@@ -38,11 +38,12 @@ function Get-LogAnalyticsWorkspace {
         
         try {
             Write-Verbose "Trying to get the Microsoft Sentinel workspace [$($Name)]"
+
             $workspace = (
                 Invoke-RestMethod `
                     -Method GET `
                     -Uri $uri `
-                    -Headers $($SessionVariables.authHeader) `
+                    -Headers $($authHeader) `
                     -ErrorVariable "ErrVar" `
                 ).value `
                 | Where-Object { $_.name -eq $Name } 
@@ -66,7 +67,7 @@ function Get-LogAnalyticsWorkspace {
                 $uri = "$(($_workspacePath).Split('microsoft.operationalinsights')[0])Microsoft.OperationsManagement/solutions/SecurityInsights($($workspace.name))?api-version=2015-11-01-preview"
                     
                 try {
-                    $_sentinelInstance = Invoke-RestMethod -Method GET -Uri $uri -Headers $($SessionVariables.authHeader)
+                    $_sentinelInstance = Invoke-RestMethod -Method GET -Uri $uri -Headers $($authHeader)
                     if ($_sentinelInstance.properties.provisioningState -eq 'Succeeded') {
                         Write-Verbose "Microsoft Sentinel workspace [$($Name)] found"
                         $SessionVariables.workspace = "https://management.azure.com$($workspace.id)"

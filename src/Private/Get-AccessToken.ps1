@@ -17,18 +17,19 @@ function Get-AccessToken {
     param (
     )
 
-    $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
+    try {
+        $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
 
-    Write-Verbose "Current Subscription: $($azProfile.DefaultContext.Subscription.Name) in tenant $($azProfile.DefaultContext.Tenant.Id)"
+        Write-Verbose "Current Subscription: $($azProfile.DefaultContext.Subscription.Name) in tenant $($azProfile.DefaultContext.Tenant.Id)"
 
-    $SessionVariables.subscriptionId = $azProfile.DefaultContext.Subscription.Id
-    $SessionVariables.tenantId       = $azProfile.DefaultContext.Tenant.Id
+        $SessionVariables.subscriptionId = $azProfile.DefaultContext.Subscription.Id
+        $SessionVariables.tenantId       = $azProfile.DefaultContext.Tenant.Id
 
-    $profileClient              = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
-    $script:accessToken         = $profileClient.AcquireAccessToken($SessionVariables.tenantId)
-    $SessionVariables.ExpiresOn = $script:accessToken.ExpiresOn.DateTime
-
-    $SessionVariables.authHeader = @{
-        'Authorization' = 'Bearer ' + $script:accessToken.AccessToken # // TODO: This should be a Secure-String
+        $profileClient                = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
+        $SessionVariables.accessToken = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken | ConvertTo-SecureString -AsPlainText -Force
+        $SessionVariables.ExpiresOn   = $script:accessToken.ExpiresOn.DateTime    
+    }
+    catch {
+        Write-Error -Message 'An error has occured requesting the Access Token'
     }
 }

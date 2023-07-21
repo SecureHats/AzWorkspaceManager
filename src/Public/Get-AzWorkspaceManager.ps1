@@ -1,11 +1,9 @@
 function Get-AzWorkspaceManager {
     <#
       .SYNOPSIS
-      Enable Azure Sentinel Workspace Manager
+      Get the Azure Sentinel Workspace Manager
       .DESCRIPTION
-      With this function you can enable Azure Sentinel Workspace Manager
-      .PARAMETER SubscriptionId
-      Enter the subscription ID, if no subscription ID is provided then current AZContext subscription will be used
+      This function checks if the Workspace Manager is enabled on the Azure Sentinel Workspace Manager
       .PARAMETER Name
       Enter the Name of the log analytics workspace
       .PARAMETER ResourceGroupName
@@ -42,12 +40,12 @@ function Get-AzWorkspaceManager {
                     Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
                     $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
             
-                    $reponse = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($SessionVariables.authHeader))
+                    $reponse = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($authHeader))
                 } else {
                     break
                 }
                 
-                return $reponse
+                return $reponse.value
         }
         catch {
             $return = $_.Exception.Message
