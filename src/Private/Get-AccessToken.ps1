@@ -23,11 +23,11 @@ function Get-AccessToken {
         Write-Verbose "Current Subscription: $($azProfile.DefaultContext.Subscription.Name) in tenant $($azProfile.DefaultContext.Tenant.Id)"
 
         $SessionVariables.subscriptionId = $azProfile.DefaultContext.Subscription.Id
-        $SessionVariables.tenantId       = $azProfile.DefaultContext.Tenant.Id
+        $SessionVariables.tenantId = $azProfile.DefaultContext.Tenant.Id
 
-        $profileClient                = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
+        $profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
         $SessionVariables.accessToken = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken | ConvertTo-SecureString -AsPlainText -Force
-        $SessionVariables.ExpiresOn   = $script:accessToken.ExpiresOn.DateTime    
+        $SessionVariables.ExpiresOn = $script:accessToken.ExpiresOn.DateTime    
     }
     catch {
         Write-Error -Message 'An error has occured requesting the Access Token'

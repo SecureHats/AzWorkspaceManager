@@ -40,7 +40,6 @@ function Invoke-AzWorkspaceManager {
                 Write-Error -Exception 'Unable to get access token'
                 break
             }
-            
         }
 
         # Set the subscription from AzContext
