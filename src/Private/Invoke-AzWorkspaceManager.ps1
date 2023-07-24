@@ -46,7 +46,7 @@ function Invoke-AzWorkspaceManager {
         # Set the subscription from AzContext
         $SessionVariables.baseUri = "https://management.azure.com/subscriptions/$($SessionVariables.subscriptionId)"
         $script:authHeader = @{
-            'Authorization' = 'Bearer ' + $($SessionVariables.AccessToken | ConvertFrom-SecureString -AsPlainText)  # // TODO: This should be a Secure-String
+            'Authorization' = 'Bearer ' + $($SessionVariables.AccessToken | ConvertFrom-SecureString -AsPlainText)
         }
     }
     else {

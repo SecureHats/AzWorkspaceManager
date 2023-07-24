@@ -7,7 +7,7 @@ $SessionVariables = [ordered]@{
     workspace        = ''
 }
 
-New-Variable -Name SessionVariables -Value $SessionVariables -Scope Script -Force
+New-Variable -Name SessionVariables -Value $SessionVariables -Scope Global -Force
  
 # #endregion load module variables
 

@@ -18,7 +18,11 @@ function Get-AzWorkspaceManager {
 
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-        [string]$ResourceGroupName
+        [string]$ResourceGroupName,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateNotNullOrEmpty()]
+        [string]$WorskpaceConfigurationName
     )
 
     begin {
@@ -39,13 +43,21 @@ function Get-AzWorkspaceManager {
                 if ($SessionVariables.workspace) {
                     Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
                     $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
-            
-                    $reponse = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($authHeader))
+
+                    $response = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($authHeader)).value
                 } else {
                     break
                 }
                 
-                return $reponse.value
+                if ($response.properties.mode -eq "Enabled") {
+                    return $response
+                } elseif ($response.properties.mode -eq "Disabled") {
+                    Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'Enabled' on workspace [$($Name)]"
+                    return $response
+                } else {
+                    Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'configured' for workspace [$($Name)]"
+                }
+                
         }
         catch {
             $return = $_.Exception.Message
