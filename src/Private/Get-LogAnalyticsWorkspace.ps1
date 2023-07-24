@@ -38,16 +38,15 @@ function Get-LogAnalyticsWorkspace {
         
         try {
             Write-Verbose "Trying to get the Microsoft Sentinel workspace [$($Name)]"
+            $requestParam = @{
+                Headers = $authHeader
+                Uri     = $uri
+                Method  = 'GET'
+            }
 
             $workspace = (
-                Invoke-RestMethod `
-                    -Method GET `
-                    -Uri $uri `
-                    -Headers $($authHeader) `
-                    -ErrorVariable "ErrVar" `
-                ).value `
-                | Where-Object { $_.name -eq $Name } 
-                
+                Invoke-RestMethod @$requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
+
             switch ($workspace.count) {
                 { $_ -eq 1 } { $_workspacePath = ("https://management.azure.com$($workspace.id)").ToLower() }
                 { $_ -gt 1 } {
@@ -60,31 +59,41 @@ function Get-LogAnalyticsWorkspace {
                     Write-Host "$($MyInvocation.MyCommand.Name): The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -ForegroundColor Red
                     break
                 }
-                Default{}
+                Default {}
             }
                 
             if ($_workspacePath) {
                 $uri = "$(($_workspacePath).Split('microsoft.operationalinsights')[0])Microsoft.OperationsManagement/solutions/SecurityInsights($($workspace.name))?api-version=2015-11-01-preview"
                     
                 try {
-                    $_sentinelInstance = Invoke-RestMethod -Method GET -Uri $uri -Headers $($authHeader)
+                    $requestParam = @{
+                        Headers = $authHeader
+                        Uri     = $uri
+                        Method  = 'GET'
+                    }
+
+                    $_sentinelInstance = Invoke-RestMethod @requestParam
                     if ($_sentinelInstance.properties.provisioningState -eq 'Succeeded') {
                         Write-Verbose "Microsoft Sentinel workspace [$($Name)] found"
                         $SessionVariables.workspace = "https://management.azure.com$($workspace.id)"
-                    } else {
+                    }
+                    else {
                         $SessionVariables.workspace = $null
                         Write-Warning -Message "Microsoft Sentinel workspace [$($Name)] was found but is not yet provisioned.."
                     }
-                } catch {
+                }
+                catch {
                     $SessionVariables.workspace = $null
                     Write-Host "Microsoft Sentinel was not found on workspace [$($Name)]" -ForegroundColor Yellow
                 }
             }
-        } catch {
+        }
+        catch {
             $SessionVariables.workspace = $null
             if ($ErrVar.Message -like '*ResourceGroupNotFound*') {
                 Write-Host "$($MyInvocation.MyCommand.Name): Provided resource group does not exist." -ForegroundColor Red
-            } else {
+            }
+            else {
                 Write-Output -Exception $_.Exception
             }
         }

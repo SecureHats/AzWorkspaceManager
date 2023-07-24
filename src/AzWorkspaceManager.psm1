@@ -2,9 +2,9 @@
 Write-Verbose -Message "Creating modules variables"
 # [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
 $SessionVariables = [ordered]@{
-    baseUri          = ''
-    ExpiresOn        = ''
-    workspace        = ''
+    baseUri   = ''
+    ExpiresOn = ''
+    workspace = ''
 }
 
 New-Variable -Name SessionVariables -Value $SessionVariables -Scope Global -Force
@@ -27,7 +27,7 @@ Write-Verbose -Message "Loading module $ModuleName"
 
 #region dot source public and private function definition files, export publich functions
 try {
-    foreach ($Scope in 'Public','Private') {
+    foreach ($Scope in 'Public', 'Private') {
         Get-ChildItem (Join-Path -Path $ScriptPath -ChildPath $Scope) -Filter *.ps1 | ForEach-Object {
             . $_.FullName
             if ($Scope -eq 'Public') {
@@ -35,9 +35,8 @@ try {
             }
         }
     }
-}
-catch {
-    Write-Error ("{0}: {1}" -f $_.BaseName,$_.Exception.Message)
+} catch {
+    Write-Error ("{0}: {1}" -f $_.BaseName, $_.Exception.Message)
     exit 1
 }
 #endregion dot source public and private function definition files, export publich functionsUser                = $null

@@ -10,7 +10,7 @@ function Get-AzWorkspaceManager {
       Enter the name of the ResouceGroup where the log analytics workspace is located
       .EXAMPLE
     #>
-    [cmdletbinding(SupportsShouldProcess)]
+    [cmdletbinding()]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -29,7 +29,8 @@ function Get-AzWorkspaceManager {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
         if ($ResourceGroupName) {
             Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
-        } else {
+        }
+        else {
             Get-LogAnalyticsWorkspace -Name $Name
         }
     }
@@ -40,24 +41,31 @@ function Get-AzWorkspaceManager {
         #EndRegion Set Constants
 
         try {
-                if ($SessionVariables.workspace) {
-                    Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
-                    $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
+            if ($SessionVariables.workspace) {
+                Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
 
-                    $response = (Invoke-RestMethod -Method GET -Uri $uri -Headers $($authHeader)).value
-                } else {
-                    break
+                $requestParam = @{
+                    Headers = $authHeader
+                    Uri     = $uri
+                    Method  = 'GET'
                 }
+                $response = (Invoke-RestMethod @requestParam).value
+            }
+            else {
+                break
+            }
                 
-                if ($response.properties.mode -eq "Enabled") {
-                    return $response
-                } elseif ($response.properties.mode -eq "Disabled") {
-                    Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'Enabled' on workspace [$($Name)]"
-                    return $response
-                } else {
-                    Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'configured' for workspace [$($Name)]"
-                }
-                
+            if ($response.properties.mode -eq "Enabled") {
+                return $response
+            }
+            elseif ($response.properties.mode -eq "Disabled") {
+                Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'Enabled' on workspace [$($Name)]"
+                return $response
+            }
+            else {
+                Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'configured' for workspace [$($Name)]"
+            } 
         }
         catch {
             $return = $_.Exception.Message

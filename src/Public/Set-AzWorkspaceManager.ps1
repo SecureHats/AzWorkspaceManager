@@ -10,7 +10,7 @@ function Set-AzWorkspaceManager {
       Enter the name of the ResouceGroup where the log analytics workspace is located
       .EXAMPLE
     #>
-    [cmdletbinding(SupportsShouldProcess)]
+    [cmdletbinding()]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -30,9 +30,10 @@ function Set-AzWorkspaceManager {
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
         if ($ResourceGroupName) {
-            Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
-        } else {
-            Get-LogAnalyticsWorkspace -Name $Name
+            $null = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
+        }
+        else {
+            $null = Get-LogAnalyticsWorkspace -Name $Name
         }
     }
 
@@ -42,9 +43,11 @@ function Set-AzWorkspaceManager {
         
         if ($Enabled) {
             $mode = 'Enabled'
-        } else {
+        }
+        else {
             $mode = 'Disabled'
         }
+        
         $payload = @{
             properties = @{
                 mode = $mode
@@ -55,7 +58,7 @@ function Set-AzWorkspaceManager {
         try {
             if ($SessionVariables.workspace) {
                 Write-Verbose "Enabling Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
-                if ($WorkspaceConfigurationName) {Write-Host $WorkspaceConfigurationName }
+                if ($WorkspaceConfigurationName) { Write-Host $WorkspaceConfigurationName }
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$apiVersion"
                 
                 if ($Enable) {
@@ -66,22 +69,25 @@ function Set-AzWorkspaceManager {
                         Body        = $payload
                         ContentType = 'application/json'
                     }
-                } else {
+                }
+                else {
                     $requestParam = @{
-                        Headers     = $authHeader
-                        Uri         = $uri
-                        Method      = 'DELETE'
+                        Headers = $authHeader
+                        Uri     = $uri
+                        Method  = 'DELETE'
                     }
                 }
                 
                 $reponse = Invoke-RestMethod @requestParam
-            } else {
+                return $reponse
+            }
+            else {
                 Write-Host "$($MyInvocation.MyCommand.Name): No valid workspace found"
             }
         }
         catch {
-            $return = $_.Exception.Message
-            Write-Output $return
+            $reponse = $_.Exception.Message
+            Write-Output $reponse
         }
     }
 }
