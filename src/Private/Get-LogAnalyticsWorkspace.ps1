@@ -38,13 +38,15 @@ function Get-LogAnalyticsWorkspace {
         
         try {
             Write-Verbose "Trying to get the Microsoft Sentinel workspace [$($Name)]"
+
             $requestParam = @{
-                Headers = $authHeader
-                Uri     = $uri
-                Method  = 'GET'
+                Headers       = $authHeader
+                Uri           = $uri
+                Method        = 'GET'
+                ErrorVariable = "ErrVar"
             }
 
-            $workspace = (
+             $workspace = (
                 Invoke-RestMethod @$requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
 
             switch ($workspace.count) {
@@ -56,7 +58,7 @@ function Get-LogAnalyticsWorkspace {
                 }
                 { $_ -lt 1 } { 
                     $SessionVariables.workspace = $null
-                    Write-Host "$($MyInvocation.MyCommand.Name): The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -ForegroundColor Red
+                    Write-Error "$($MyInvocation.MyCommand.Name): The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -ForegroundColor Red
                     break
                 }
                 Default {}
@@ -94,7 +96,7 @@ function Get-LogAnalyticsWorkspace {
                 Write-Host "$($MyInvocation.MyCommand.Name): Provided resource group does not exist." -ForegroundColor Red
             }
             else {
-                Write-Output -Exception $_.Exception
+                Write-Error -Message "An error has occured requesting the workspace"#-Exception $_.Exception
             }
         }
     }
