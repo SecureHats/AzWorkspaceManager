@@ -49,7 +49,9 @@ function Invoke-AzWorkspaceManager {
         }
     }
     else {
-        Write-Host 'Invoke-AzWorkspaceManager: Run Connect-AzAccount to login' -ForegroundColor Red
+        $message = ("**$($MyInvocation.MyCommand.Name): Run Connect-AzAccount to login**" | ConvertFrom-Markdown -AsVt100EncodedString).VT100EncodedString
+        Write-Host $message -ForegroundColor Yellow -NoNewline
+        Write-Host "$($MyInvocation.MyCommand.Name): Run Connect-AzAccount to login" -ForegroundColor Yellow
         break
     }
 }

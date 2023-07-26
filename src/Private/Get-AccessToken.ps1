@@ -26,10 +26,19 @@ function Get-AccessToken {
         $SessionVariables.tenantId = $azProfile.DefaultContext.Tenant.Id
 
         $profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
-        $SessionVariables.accessToken = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken | ConvertTo-SecureString -AsPlainText -Force
-        $SessionVariables.ExpiresOn = $script:accessToken.ExpiresOn.DateTime    
+        
+        try {
+            $SessionVariables.accessToken = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken | ConvertTo-SecureString -AsPlainText -Force
+            $SessionVariables.ExpiresOn = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).ExpiresOn.DateTime
+            Write-Verbose "Access Token expires on: $($SessionVariables.ExpiresOn)" 
+        }
+        catch {
+            Write-Host "**$($MyInvocation.MyCommand.Name):  Run Connect-AzAccount to login**" | ConvertFrom-Markdown -ForegroundColor Red
+            break
+        }
     }
     catch {
         Write-Error -Message 'An error has occured requesting the Access Token'
+        break
     }
 }
