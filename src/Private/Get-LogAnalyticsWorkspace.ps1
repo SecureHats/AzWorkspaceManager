@@ -47,7 +47,7 @@ function Get-LogAnalyticsWorkspace {
             }
 
              $workspace = (
-                Invoke-RestMethod @$requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
+                 Invoke-RestMethod @requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
 
             switch ($workspace.count) {
                 { $_ -eq 1 } { $_workspacePath = ("https://management.azure.com$($workspace.id)").ToLower() }
@@ -58,7 +58,7 @@ function Get-LogAnalyticsWorkspace {
                 }
                 { $_ -lt 1 } { 
                     $SessionVariables.workspace = $null
-                    Write-Error "$($MyInvocation.MyCommand.Name): The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -ForegroundColor Red
+                    Write-Host "$($MyInvocation.MyCommand.Name): The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -ForegroundColor Red
                     break
                 }
                 Default {}
@@ -96,7 +96,7 @@ function Get-LogAnalyticsWorkspace {
                 Write-Host "$($MyInvocation.MyCommand.Name): Provided resource group does not exist." -ForegroundColor Red
             }
             else {
-                Write-Error -Message "An error has occured requesting the workspace"#-Exception $_.Exception
+                Write-Error -Message "$($MyInvocation.MyCommand.Name): An error has occured requesting the Log Analytics workspace"
             }
         }
     }
