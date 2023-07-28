@@ -33,7 +33,6 @@ function Get-AccessToken {
             Write-Verbose "Access Token expires on: $($SessionVariables.ExpiresOn)" 
         }
         catch {
-            #Write-Host "**$($MyInvocation.MyCommand.Name):  Run Connect-AzAccount to login**" | ConvertFrom-Markdown -ForegroundColor Red
             Write-Error 'Run Connect-AzAccount to login'
             break
         }

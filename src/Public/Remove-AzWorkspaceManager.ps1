@@ -1,4 +1,4 @@
-function Set-AzWorkspaceManager {
+function Remove-AzWorkspaceManager {
     <#
       .SYNOPSIS
       Remove Azure Sentinel Workspace Manager
@@ -40,7 +40,7 @@ function Set-AzWorkspaceManager {
         
         try {
             if ($SessionVariables.workspace) {
-                Write-Verbose "Remove Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
+                Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"
                 if ($WorkspaceConfigurationName) { $Name = $WorkspaceConfigurationName }
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$apiVersion"
                 
