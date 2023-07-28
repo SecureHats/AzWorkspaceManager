@@ -69,8 +69,8 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Set-AzWorkspaceManager', 
-        'Get-AzWorkspaceManager'
+    FunctionsToExport = @('Get-AzWorkspaceManager', 
+        'Set-AzWorkspaceManager', 'Remove-AzWorkspaceManager'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -89,12 +89,12 @@
     # ModuleList = @()
 
     # List of all files packaged with this module
-    FileList          = 'Private\Get-AccessToken.ps1',
-    # 'Private\Get-LogAnalyticsWorkspace.ps1',
+    FileList = 'Private\Get-AccessToken.ps1',
     'Private\Invoke-AzWorkspaceManager.ps1',
     'Public\Get-LogAnalyticsWorkspace.ps1',
-    'Public\Set-AzWorkspaceManager.ps1',
     'Public\Get-AzWorkspaceManager.ps1',
+    'Public\Set-AzWorkspaceManager.ps1',
+    'Public\Remove-AzWorkspaceManager.ps1',
     'AzWorkspaceManager.psd1',
     'AzWorkspaceManager.psm1'
 

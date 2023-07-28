@@ -44,28 +44,34 @@ function Get-AzWorkspaceManager {
             if ($SessionVariables.workspace) {
                 Write-Verbose "List Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$apiVersion"
-
+                Write-Verbose $uri
                 $requestParam = @{
                     Headers = $authHeader
                     Uri     = $uri
                     Method  = 'GET'
                 }
-                $response = (Invoke-RestMethod @requestParam).value
+                $apiResponse = (Invoke-RestMethod @requestParam).value
             }
             else {
                 break
             }
-                
-            if ($response.properties.mode -eq "Enabled") {
-                return $response
-            }
-            elseif ($response.properties.mode -eq "Disabled") {
-                Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'Enabled' on workspace [$($Name)]"
-                return $response
+            
+            if ($apiResponse -ne '') {
+                $split = $apiResponse.id.Split('/')
+                $result = [ordered]@{
+                    Name              = $split[-1]
+                    ResourceGroupName = $split[-9]
+                    ResourceType      = '{0}/{1}' -f $split[-3], $split[-2]
+                    Location          = $apiResponse.location
+                    ResourceId        = $apiResponse.id
+                    Tags              = $apiResponse.tags
+                    Properties        = $apiResponse.properties
+                } | ConvertTo-Json | ConvertFrom-Json
+                return $result
             }
             else {
                 Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'configured' for workspace [$($Name)]"
-            } 
+            }
         }
         catch {
             $return = $_.Exception.Message

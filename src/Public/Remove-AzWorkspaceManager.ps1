@@ -1,11 +1,13 @@
 function Set-AzWorkspaceManager {
     <#
       .SYNOPSIS
-      Set Azure Sentinel Workspace Manager
+      Remove Azure Sentinel Workspace Manager
       .DESCRIPTION
-      With this function you can set the Azure Sentinel Workspace Manager
+      With this function you can enable Azure Sentinel Workspace Manager
       .PARAMETER Name
       Enter the Name of the log analytics workspace
+      .PARAMETER WorkspaceConfigurationName
+      The name of the workspace configuration when different than the workspace name.
       .PARAMETER ResourceGroupName
       Enter the name of the ResouceGroup where the log analytics workspace is located
       .EXAMPLE
@@ -20,10 +22,7 @@ function Set-AzWorkspaceManager {
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false)]
-        [string]$WorkspaceConfigurationName,
-
-        [Parameter(Mandatory = $false)]
-        [bool]$Enabled
+        [string]$WorkspaceConfigurationName
     )
 
     begin {
@@ -39,46 +38,23 @@ function Set-AzWorkspaceManager {
     process {
         $apiVersion = '2023-06-01-preview'
         
-        if ($Enabled -eq $true) {
-            $mode = 'Enabled'
-        }
-        else {
-            $mode = 'Disabled'
-        }
-        
-        $payload = @{
-            properties = @{
-                mode = $mode
-            }
-        } | ConvertTo-Json
-
         try {
             if ($SessionVariables.workspace) {
-                Write-Verbose "Configuring Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
+                Write-Verbose "Remove Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
                 if ($WorkspaceConfigurationName) { $Name = $WorkspaceConfigurationName }
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$apiVersion"
                 
                 $requestParam = @{
-                    Headers     = $authHeader
-                    Uri         = $uri
-                    Method      = 'PUT'
-                    Body        = $payload
-                    ContentType = 'application/json'
+                    Headers = $authHeader
+                    Uri     = $uri
+                    Method  = 'DELETE'
                 }
-                # else {
-                #     Write-Verbose "Disable Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
-                #     $requestParam = @{
-                #         Headers = $authHeader
-                #         Uri     = $uri
-                #         Method  = 'DELETE'
-                #     }
-                # }
                 
                 $reponse = Invoke-RestMethod @requestParam
                 return $reponse
             }
             else {
-                Write-Host "$($MyInvocation.MyCommand.Name): No valid workspace found"
+                Write-Host "$($MyInvocation.MyCommand.Name): No valid Workspace Manager configuration found"
             }
         }
         catch {
