@@ -69,8 +69,10 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Get-AzWorkspaceManager', 
-        'Set-AzWorkspaceManager', 'Remove-AzWorkspaceManager'
+    FunctionsToExport = @('Get-AzWorkspaceManagerConfiguration', 
+        'Set-AzWorkspaceManagerConfiguration', 'Remove-AzWorkspaceManagerConfiguration',
+        'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers'
+        'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -92,9 +94,14 @@
     FileList = 'Private\Get-AccessToken.ps1',
     'Private\Invoke-AzWorkspaceManager.ps1',
     'Public\Get-LogAnalyticsWorkspace.ps1',
-    'Public\Get-AzWorkspaceManager.ps1',
-    'Public\Set-AzWorkspaceManager.ps1',
-    'Public\Remove-AzWorkspaceManager.ps1',
+    'Public\Get-AzWorkspaceManagerConfiguration.ps1',
+    'Public\Set-AzWorkspaceManagerConfiguration.ps1',
+    'Public\Remove-AzWorkspaceManagerConfiguration.ps1',
+    'Public\Get-AzWorkspaceManagerMembers.ps1',
+    'Public\Add-AzWorkspaceManagerMembers.ps1',
+    'Public\Remove-AzWorkspaceManagerMembers.ps1',
+    'Public\Get-AzWorkspaceManagerGroups.ps1',
+    'Public\Add-AzWorkspaceManagerGroups.ps1',
     'AzWorkspaceManager.psd1',
     'AzWorkspaceManager.psm1'
 

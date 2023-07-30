@@ -1,4 +1,4 @@
-function Set-AzWorkspaceManager {
+function Set-AzWorkspaceManagerConfiguration {
     <#
       .SYNOPSIS
       Set Azure Sentinel Workspace Manager
@@ -37,8 +37,6 @@ function Set-AzWorkspaceManager {
     }
 
     process {
-        $apiVersion = '2023-06-01-preview'
-        
         if ($Enabled -eq $true) {
             $mode = 'Enabled'
         }
@@ -56,7 +54,7 @@ function Set-AzWorkspaceManager {
             if ($SessionVariables.workspace) {
                 Write-Verbose "Configuring Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
                 if ($WorkspaceConfigurationName) { $Name = $WorkspaceConfigurationName }
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$apiVersion"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{
                     Headers     = $authHeader
@@ -65,15 +63,7 @@ function Set-AzWorkspaceManager {
                     Body        = $payload
                     ContentType = 'application/json'
                 }
-                # else {
-                #     Write-Verbose "Disable Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
-                #     $requestParam = @{
-                #         Headers = $authHeader
-                #         Uri     = $uri
-                #         Method  = 'DELETE'
-                #     }
-                # }
-                
+
                 $reponse = Invoke-RestMethod @requestParam
                 return $reponse
             }

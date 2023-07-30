@@ -87,6 +87,7 @@ function Get-LogAnalyticsWorkspace {
                 catch {
                     $SessionVariables.workspace = $null
                     Write-Host "Microsoft Sentinel was not found on workspace [$($Name)]" -ForegroundColor Yellow
+                    break
                 }
             }
         }

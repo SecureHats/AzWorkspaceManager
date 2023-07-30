@@ -1,18 +1,20 @@
-function Remove-AzWorkspaceManager {
+function Remove-AzWorkspaceManagerConfiguration {
     <#
       .SYNOPSIS
       Remove Azure Sentinel Workspace Manager
       .DESCRIPTION
-      With this function you can enable Azure Sentinel Workspace Manager
+      This function removes the Azure Sentinel Workspace Manager configuration
       .PARAMETER Name
-      Enter the Name of the log analytics workspace
+      The Name of the log analytics workspace
+      .PARAMETER ResourceGroupName
+      The name of the ResouceGroup where the log analytics workspace is located
       .PARAMETER WorkspaceConfigurationName
       The name of the workspace configuration when different than the workspace name.
-      .PARAMETER ResourceGroupName
-      Enter the name of the ResouceGroup where the log analytics workspace is located
+      .PARAMETER Force
+      Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
     #>
-    [cmdletbinding()]
+    [cmdletbinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -22,7 +24,10 @@ function Remove-AzWorkspaceManager {
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false)]
-        [string]$WorkspaceConfigurationName
+        [string]$WorkspaceConfigurationName,
+
+        [Parameter(Mandatory = $false)]
+        [switch]$Force
     )
 
     begin {
@@ -33,16 +38,17 @@ function Remove-AzWorkspaceManager {
         else {
             $null = Get-LogAnalyticsWorkspace -Name $Name
         }
+        if ($Force){
+            $ConfirmPreference = 'None'
+        }
     }
 
     process {
-        $apiVersion = '2023-06-01-preview'
-        
         try {
-            if ($SessionVariables.workspace) {
+            if ($PSCmdlet.ShouldProcess($SessionVariables.workspace)) {
                 Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"
                 if ($WorkspaceConfigurationName) { $Name = $WorkspaceConfigurationName }
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$apiVersion"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{
                     Headers = $authHeader

@@ -2,9 +2,10 @@
 Write-Verbose -Message "Creating modules variables"
 # [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
 $SessionVariables = [ordered]@{
-    baseUri   = ''
-    ExpiresOn = ''
-    workspace = ''
+    baseUri    = ''
+    ExpiresOn  = ''
+    workspace  = ''
+    apiVersion = '2023-06-01-preview'
 }
 
 New-Variable -Name SessionVariables -Value $SessionVariables -Scope Global -Force
@@ -35,7 +36,8 @@ try {
             }
         }
     }
-} catch {
+}
+catch {
     Write-Error ("{0}: {1}" -f $_.BaseName, $_.Exception.Message)
     exit 1
 }
