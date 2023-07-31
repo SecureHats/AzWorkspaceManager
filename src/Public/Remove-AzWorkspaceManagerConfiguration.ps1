@@ -60,12 +60,11 @@ function Remove-AzWorkspaceManagerConfiguration {
                 return $reponse
             }
             else {
-                Write-Host "$($MyInvocation.MyCommand.Name): No valid Workspace Manager configuration found"
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No valid Workspace Manager configuration found" -Severity 'Error'
             }
         }
         catch {
-            $reponse = $_.Exception.Message
-            Write-Output $reponse
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
         }
     }
 }
