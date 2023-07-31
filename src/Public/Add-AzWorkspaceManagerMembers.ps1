@@ -5,15 +5,33 @@ function Add-AzWorkspaceManagerMembers {
       .DESCRIPTION
       With this function you can add a Microsoft Sentinel Workspace Manager Member
       .PARAMETER WorkspaceName
-      Enter the Name of the log analytics workspace
+      The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
-      Enter the name of the ResouceGroup where the log analytics workspace is located
+      The name of the ResouceGroup where the log analytics workspace is located
       .PARAMETER targetWorkspaceResourceId
       The ResourceId of the target workspace to add as a member
       .PARAMETER targetWorkspaceTenantId
       The TenantId of the target workspace to add as a member
       .EXAMPLE
-    #>
+      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -targetWorkspaceResourceId "/subscriptions/***/resourcegroups/***/providers/microsoft.operationalinsights/workspaces/myWorkspace" -targetWorkspaceTenantId "***"
+      
+      This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myWorkspace' as a member.
+      
+      Name              : MyChildWorkspace(***)
+      ResourceGroupName : MyRg
+      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
+      ResourceId        : /subscriptions/***/resourceGroups/MyRg/providers/M
+                          icrosoft.OperationalInsights/workspaces/muWorkspac
+                          e/providers/Microsoft.SecurityInsights/workspaceMa
+                          nagerMembers/myChildWorkspace(***)
+      Tags              : 
+      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/reso
+                          urceGroups/myRg/providers/Microsoft.OperationalInsi
+                          ghts/workspaces/myChildWorkspace; targetWorkspaceTe
+                          nantId=***}
+      .NOTES
+      The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
+      #>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
@@ -26,7 +44,7 @@ function Add-AzWorkspaceManagerMembers {
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$targetWorkspaceResourceId,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$targetWorkspaceTenantId
     )
 
@@ -52,7 +70,6 @@ function Add-AzWorkspaceManagerMembers {
 
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
-                Write-Host $workspaceManagerMemberName
                 Write-Verbose "Adding Workspace Manager Member to workspace [$WorkspaceName)]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($workspaceManagerMemberName)?api-version=$($SessionVariables.apiVersion)"
             

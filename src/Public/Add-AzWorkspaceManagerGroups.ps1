@@ -1,9 +1,9 @@
 function Add-AzWorkspaceManagerGroups {
     <#
       .SYNOPSIS
-      Get the Azure Sentinel Workspace Manager Groups
+      Adds a Microsoft Sentinel Workspace Manager Group
       .DESCRIPTION
-      This function gets the Workspace Manager Groups and properties
+      This function adds a workspace manager group and adds the child workspaces
       .PARAMETER WorkspaceName
       The name of the log analytics workspace
       .PARAMETER ResourceGroupName
@@ -11,7 +11,7 @@ function Add-AzWorkspaceManagerGroups {
       .PARAMETER Name
       The name of the workspace manager group
       .PARAMETER Description
-      The description of the workspace manager group
+      The description of the workspace manager group. If not specified, the name will be used.
       .PARAMETER workspaceManagerMembers
       The name of the workspace manager member(s) to add to the workspace manager group
       .EXAMPLE
@@ -20,9 +20,6 @@ function Add-AzWorkspaceManagerGroups {
       .EXAMPLE
       Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -ResourceGroupName 'MyRg' -Name "Banks" -Description "Group of all financial and banking institutions" -workspaceManagerMembers @('myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)', 'otherWorkspace(f5fa104e-c0e3-4747-9182-d342dc048a9e)')
       Adds a Workspace Manager Group to the workspace and adds multiple child workspaces to the group.
-      .NOTES
-      NAME: Add-AzWorkspaceManagerGroups
-    
     #>
     [cmdletbinding()]
     param (
