@@ -12,17 +12,17 @@ function Get-AzWorkspaceManagerConfiguration {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName
     )
 
     begin {
-        Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+        $MyInvocation.MyCommand.Name | Invoke-AzWorkspaceManager
         if ($ResourceGroupName) {
             Get-LogAnalyticsWorkspace -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
@@ -45,7 +45,7 @@ function Get-AzWorkspaceManagerConfiguration {
                 $apiResponse = (Invoke-RestMethod @requestParam).value
             }
             else {
-                Write-Verbose "$($MyInvocation.MyCommand.Name): Microsoft Sentinel Workspace is not found for workspace [$($WorkspaceName)]"
+                Write-Message "Microsoft Sentinel Workspace is not found for workspace [$($WorkspaceName)]" -Severity 'Error'
                 break
             }
             

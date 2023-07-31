@@ -12,10 +12,10 @@ function Get-LogAnalyticsWorkspace {
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$Name,
 
-        [Parameter()]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$ResourceGroupName
     )
 
@@ -53,12 +53,12 @@ function Get-LogAnalyticsWorkspace {
                 { $_ -eq 1 } { $_workspacePath = ("https://management.azure.com$($workspace.id)").ToLower() }
                 { $_ -gt 1 } {
                     $SessionVariables.workspace = $null
-                    Write-Warning -Message "Multiple resource '/Microsoft.OperationalInsights/workspaces/$($Name)' found. Please specify the resourcegroup"
+                    Write-Message -Message "Multiple resource '/Microsoft.OperationalInsights/workspaces/$($Name)' found. Please specify the resourcegroup" -Severity 'Information'
                     break
                 }
                 { $_ -lt 1 } { 
                     $SessionVariables.workspace = $null
-                    Write-Host "$($MyInvocation.MyCommand.Name): The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -ForegroundColor Red
+                    Write-Message "The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -Severity 'Error'
                     break
                 }
                 Default {}
@@ -81,12 +81,12 @@ function Get-LogAnalyticsWorkspace {
                     }
                     else {
                         $SessionVariables.workspace = $null
-                        Write-Warning -Message "Microsoft Sentinel workspace [$($Name)] was found but is not yet provisioned.."
+                        Write-Message -Message "Microsoft Sentinel workspace [$($Name)] was found but is not yet provisioned.." -Severity 'Information'
                     }
                 }
                 catch {
                     $SessionVariables.workspace = $null
-                    Write-Host "Microsoft Sentinel was not found on workspace [$($Name)]" -ForegroundColor Yellow
+                    Write-Message "Microsoft Sentinel was not found on workspace [$($Name)]" -Severity 'Information'
                     break
                 }
             }
@@ -94,10 +94,10 @@ function Get-LogAnalyticsWorkspace {
         catch {
             $SessionVariables.workspace = $null
             if ($ErrVar.Message -like '*ResourceGroupNotFound*') {
-                Write-Host "$($MyInvocation.MyCommand.Name): Provided resource group does not exist." -ForegroundColor Red
+                Write-Message "$($MyInvocation.MyCommand.Name): Provided resource group does not exist." -Severity 'Error'
             }
             else {
-                Write-Error -Message "$($MyInvocation.MyCommand.Name): An error has occured requesting the Log Analytics workspace"
+                Write-Message -Message "An error has occured requesting the Log Analytics workspace" -Severity 'Error'
             }
         }
     }

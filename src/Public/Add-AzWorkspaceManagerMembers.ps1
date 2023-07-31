@@ -16,17 +16,17 @@ function Add-AzWorkspaceManagerMembers {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$targetWorkspaceResourceId,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$targetWorkspaceTenantId
     )
 
@@ -88,7 +88,7 @@ function Add-AzWorkspaceManagerMembers {
             }
         }
         else {
-            Write-Host "$($MyInvocation.MyCommand.Name): The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'"
+            Write-Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity Information
         }
     }
 }

@@ -33,12 +33,12 @@ function Get-AccessToken {
             Write-Verbose "Access Token expires on: $($SessionVariables.ExpiresOn)" 
         }
         catch {
-            Write-Error 'Run Connect-AzAccount to login'
+            Write-Message 'Run Connect-AzAccount to login' -Severity 'Error'
             break
         }
     }
     catch {
-        Write-Error -Message 'An error has occured requesting the Access Token'
+        Write-Message -Message 'An error has occured requesting the Access Token' -Severity 'Error'
         break
     }
 }

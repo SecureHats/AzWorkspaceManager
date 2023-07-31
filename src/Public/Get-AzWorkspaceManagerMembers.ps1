@@ -14,11 +14,11 @@ function Get-AzWorkspaceManagerMembers {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$ResourceGroupName
     )
 

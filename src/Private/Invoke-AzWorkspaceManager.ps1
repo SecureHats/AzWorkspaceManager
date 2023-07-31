@@ -4,7 +4,7 @@
 function Invoke-AzWorkspaceManager {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$FunctionName
     )
     <#
@@ -27,17 +27,17 @@ function Invoke-AzWorkspaceManager {
                 Get-AccessToken
             }
             catch {
-                Write-Error -Exception 'Unable to get access token'
+                Write-Error -Exception $_.Exception.Message
                 break
             }
         }
         elseif ($SessionVariables.ExpiresOn - [datetime]::UtcNow.AddMinutes(-5) -le 0) {
-            # if token expires within 5 minutes, request a new one
+            # if token expires within 5 minutes, request a new access token
             try {
                 Get-AccessToken  
             }
             catch {
-                Write-Error -Exception 'Unable to get access token'
+                Write-Error -Exception $_.Exception.Message
                 break
             }
         }
@@ -49,8 +49,7 @@ function Invoke-AzWorkspaceManager {
         }
     }
     else {
-        $message = ("**$($MyInvocation.MyCommand.Name): Run Connect-AzAccount to login**" | ConvertFrom-Markdown -AsVt100EncodedString).VT100EncodedString
-        Write-Host "$($MyInvocation.MyCommand.Name): $message" -ForegroundColor Red
+        Write-Message "$($FunctionName): Run Connect-AzAccount to login" -Severity 'Error'
         break
     }
 }
