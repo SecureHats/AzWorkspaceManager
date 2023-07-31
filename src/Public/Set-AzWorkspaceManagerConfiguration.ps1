@@ -14,7 +14,7 @@ function Set-AzWorkspaceManagerConfiguration {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Name,
+        [string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$ResourceGroupName,
@@ -29,10 +29,10 @@ function Set-AzWorkspaceManagerConfiguration {
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
         if ($ResourceGroupName) {
-            $null = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
+            Get-LogAnalyticsWorkspace -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-LogAnalyticsWorkspace -Name $Name
+            Get-LogAnalyticsWorkspace -Name $WorkspaceName
         }
     }
 
@@ -68,12 +68,13 @@ function Set-AzWorkspaceManagerConfiguration {
                 return $reponse
             }
             else {
-                Write-Host "$($MyInvocation.MyCommand.Name): No valid workspace found"
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Error configuring Workspace Manager for workspace $($WorkspaceName)" -Severity 'Error'
+                break
             }
         }
         catch {
             $reponse = $_.Exception.Message
-            Write-Output $reponse
+            Write-Message -FunctionName 
         }
     }
 }

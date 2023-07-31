@@ -64,16 +64,17 @@ function Get-AzWorkspaceManagerMembers {
                     return $result
                 }
                 else {
-                    Write-Output "$($MyInvocation.MyCommand.Name): No Workspace Manager Member(s) found for workspace [$($WorkspaceName)]"
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) "No Workspace Manager Member(s) found for workspace [$($WorkspaceName)]" -Severity 'Information'
+                    break
                 }
             }
             catch {
-                $reponse = $_.Exception.Message
-                Write-Output $reponse
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
             }
         }
         else {
-            Write-Host "$($MyInvocation.MyCommand.Name): The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'"
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity 'Information'
+            break
         }
     }
 }

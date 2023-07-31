@@ -61,12 +61,11 @@ function Remove-AzWorkspaceManagerMembers {
                 
             }
             catch {
-                $reponse = $_.Exception.Message
-                Write-Output $reponse
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
             }
         }
         else {
-            Write-Host "$($MyInvocation.MyCommand.Name): The Workspace Manager configuration is not 'Enabled' for workspace '$($Name)'"
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($Name)'" -Severity 'Information'
         }
     }
 }

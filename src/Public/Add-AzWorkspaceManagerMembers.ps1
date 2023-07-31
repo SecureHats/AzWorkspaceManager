@@ -83,12 +83,11 @@ function Add-AzWorkspaceManagerMembers {
                 }
             }
             catch {
-                $reponse = $_.Exception.Message
-                Write-Output $reponse
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
             }
         }
         else {
-            Write-Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity Information
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity 'Information'
         }
     }
 }

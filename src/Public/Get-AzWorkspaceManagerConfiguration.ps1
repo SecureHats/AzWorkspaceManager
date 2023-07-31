@@ -45,7 +45,7 @@ function Get-AzWorkspaceManagerConfiguration {
                 $apiResponse = (Invoke-RestMethod @requestParam).value
             }
             else {
-                Write-Message "Microsoft Sentinel Workspace is not found for workspace [$($WorkspaceName)]" -Severity 'Error'
+                Write-Verbose "Microsoft Sentinel Workspace is not found for workspace [$($WorkspaceName)]"
                 break
             }
             
@@ -64,14 +64,13 @@ function Get-AzWorkspaceManagerConfiguration {
                 return $result
             }
             else {
-                Write-Output "$($MyInvocation.MyCommand.Name): Workspace Manager is not 'configured' for workspace [$($WorkspaceName)]"
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager is not 'configured' for workspace [$($WorkspaceName)]" -Severity 'Information'
                 $SessionVariables.workspaceManagerConfiguration = $false
                 break
             }
         }
         catch {
-            $return = $_.Exception.Message
-            Write-Output $return
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
         }
     }
 }

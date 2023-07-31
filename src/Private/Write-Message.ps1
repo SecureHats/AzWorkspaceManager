@@ -5,7 +5,7 @@ function Write-Message {
     .DESCRIPTION
     This function is used internally to prompt messages to the PowerShell console
     .EXAMPLE
-    Write-Message -Message 'This is a message' -Severity 'Information'
+    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message 'This is a message' -Severity 'Information'
     .NOTES
     NAME: Write-Message
     #>
@@ -15,12 +15,15 @@ function Write-Message {
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$Message,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateSet("Error", "Information", "Debug")]
-        [string]$Severity
+        [string]$Severity,
+
+        [Parameter(Mandatory = $true)]
+        [string]$FunctionName
     )
 
-    $messageBody = ("**$($Message)**" | ConvertFrom-Markdown -AsVt100EncodedString).VT100EncodedString
+    $messageBody = ("**$($FunctionName): $($Message)**" | ConvertFrom-Markdown -AsVt100EncodedString).VT100EncodedString
 
     switch ($Severity) {
         'Error' { Write-Host -Object $messageBody -ForegroundColor Red }

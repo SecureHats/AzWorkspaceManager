@@ -15,6 +15,14 @@ function Add-AzWorkspaceManagerGroups {
       .PARAMETER workspaceManagerMembers
       The name of the workspace manager member(s) to add to the workspace manager group
       .EXAMPLE
+      Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -Description "" -workspaceManagerMembers 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)'
+      Adds a Workspace Manager Group to the workspace with the name 'Banks' and adds a child workspace with the name 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)' to the group.
+      .EXAMPLE
+      Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -ResourceGroupName 'MyRg' -Name "Banks" -Description "Group of all financial and banking institutions" -workspaceManagerMembers @('myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)', 'otherWorkspace(f5fa104e-c0e3-4747-9182-d342dc048a9e)')
+      Adds a Workspace Manager Group to the workspace and adds multiple child workspaces to the group.
+      .NOTES
+      NAME: Add-AzWorkspaceManagerGroups
+    
     #>
     [cmdletbinding()]
     param (
@@ -93,16 +101,16 @@ function Add-AzWorkspaceManagerGroups {
                     return $result
                 }
                 else {
-                    Write-Output "$($MyInvocation.MyCommand.Name): $_.Exception.Message"
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
+                    break
                 }
             }
             catch {
-                $reponse = $_.Exception.Message
-                Write-Output $reponse
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
             }
         }
         else {
-            Write-Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity Information
+            Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity 'Information'
         }
     }
 }

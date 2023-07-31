@@ -45,11 +45,11 @@ function Invoke-AzWorkspaceManager {
         # Set the subscription from AzContext
         $SessionVariables.baseUri = "https://management.azure.com/subscriptions/$($SessionVariables.subscriptionId)"
         $script:authHeader = @{
-            'Authorization' = 'Bearer ' + $($SessionVariables.AccessToken | ConvertFrom-SecureString -AsPlainText)
+            'Authorization' = 'Bearer ' + [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($($SessionVariables.AccessToken | ConvertFrom-SecureString -AsPlainText)))
         }
     }
     else {
-        Write-Message "$($FunctionName): Run Connect-AzAccount to login" -Severity 'Error'
+        Write-Message -FunctionName $MyInvocation.MyCommand.Name "Run Connect-AzAccount to login" -Severity 'Error'
         break
     }
 }
