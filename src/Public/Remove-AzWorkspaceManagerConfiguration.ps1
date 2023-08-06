@@ -8,8 +8,6 @@ function Remove-AzWorkspaceManagerConfiguration {
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER WorkspaceConfigurationName
-      The name of the workspace configuration when different than the workspace name.
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
@@ -22,9 +20,6 @@ function Remove-AzWorkspaceManagerConfiguration {
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$ResourceGroupName,
-
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [string]$WorkspaceConfigurationName,
 
         [Parameter(Mandatory = $false)]
         [switch]$Force
@@ -47,7 +42,6 @@ function Remove-AzWorkspaceManagerConfiguration {
         try {
             if ($PSCmdlet.ShouldProcess($SessionVariables.workspace)) {
                 Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"
-                if ($WorkspaceConfigurationName) { $Name = $WorkspaceConfigurationName }
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{

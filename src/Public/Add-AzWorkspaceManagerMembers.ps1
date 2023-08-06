@@ -8,12 +8,12 @@ function Add-AzWorkspaceManagerMembers {
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER targetWorkspaceResourceId
+      .PARAMETER ResourceId
       The ResourceId of the target workspace to add as a member
-      .PARAMETER targetWorkspaceTenantId
+      .PARAMETER TenantId
       The TenantId of the target workspace to add as a member
       .EXAMPLE
-      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -targetWorkspaceResourceId "/subscriptions/***/resourcegroups/***/providers/microsoft.operationalinsights/workspaces/myWorkspace" -targetWorkspaceTenantId "***"
+      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/***/providers/microsoft.operationalinsights/workspaces/myWorkspace" -TenantId "***"
       
       This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myWorkspace' as a member.
       
@@ -42,14 +42,15 @@ function Add-AzWorkspaceManagerMembers {
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [string]$targetWorkspaceResourceId,
+        [string]$ResourceId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [string]$targetWorkspaceTenantId
+        [string]$TenantId
     )
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+        
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
@@ -60,25 +61,27 @@ function Add-AzWorkspaceManagerMembers {
 
     process {
 
-        $workspaceManagerMemberName = "$($targetWorkspaceResourceId.Split('/')[-1])($($targetWorkspaceResourceId.Split('/')[2]))"
+        $Name = "$($ResourceId.Split('/')[-1])($($ResourceId.Split('/')[2]))"
+        
         $payload = @{
             properties = @{
-                targetWorkspaceResourceId = $targetWorkspaceResourceId
-                targetWorkspaceTenantId   = $targetWorkspaceTenantId
+                targetWorkspaceResourceId = $ResourceId
+                targetWorkspaceTenantId   = $TenantId
             }
-        } | ConvertTo-Json
+        } | ConvertTo-Json -Compress
 
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "Adding Workspace Manager Member to workspace [$WorkspaceName)]"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($workspaceManagerMemberName)?api-version=$($SessionVariables.apiVersion)"
-            
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
+
                 $requestParam = @{
-                    Headers     = $authHeader
-                    Uri         = $uri
-                    Method      = 'PUT'
-                    Body        = $payload
-                    ContentType = 'application/json'
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'PUT'
+                    Body          = $payload
+                    ContentType   = 'application/json'
+                    ErrorVariable = "ErrVar"
                 }
             
                 $apiResponse = Invoke-RestMethod @requestParam
@@ -100,7 +103,14 @@ function Add-AzWorkspaceManagerMembers {
                 }
             }
             catch {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
+                if ($ErrVar.Message -like '*LinkedAuthorizationFailed*') {
+                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Unable to link workspace in tenant '$tenantId'. Check if the ResourceId is correct and the the account has permissions" -Severity 'Error'
+                }
+                elseif ($ErrVar.Message -like '*InternalServerError*') {
+                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Unable to connect to tenant '$tenantId'" -Severity 'Error'
+                } else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                }
             }
         }
         else {

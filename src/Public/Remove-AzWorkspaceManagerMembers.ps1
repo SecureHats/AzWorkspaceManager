@@ -4,12 +4,12 @@ function Remove-AzWorkspaceManagerMembers {
       Remove Azure Sentinel Workspace Manager
       .DESCRIPTION
       This function removes a Microsoft Sentinel Workspace Manager Member
-      .PARAMETER Name
+      .PARAMETER WorkspaceName
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER WorkspaceManagerMemberName
-      The name of the workspace manager member to remove from the workspace name.
+      .PARAMETER Name
+      The Name of the log analytics workspace
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
@@ -18,13 +18,14 @@ function Remove-AzWorkspaceManagerMembers {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Name,
+        [string]$WorkspaceName,    
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [string]$workspaceManagerMemberName,
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Name,
 
         [Parameter(Mandatory = $false)]
         [switch]$Force
@@ -32,12 +33,14 @@ function Remove-AzWorkspaceManagerMembers {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+        
         if ($ResourceGroupName) {
-            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $Name -ResourceGroupName $ResourceGroupName
+            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $Name
+            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
+        
         if ($Force) {
             $ConfirmPreference = 'None'
         }
@@ -47,25 +50,48 @@ function Remove-AzWorkspaceManagerMembers {
         if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {
             try {
                 
-                Write-Verbose "Performing the operation 'Removing workspace manager member...' on target '$Name'"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($workspaceManagerMemberName)?api-version=$($SessionVariables.apiVersion)"
+                Write-Verbose "Performing the operation 'Removing workspace manager member' on target '$Name'"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
 
                 $requestParam = @{
-                    Headers = $authHeader
-                    Uri     = $uri
-                    Method  = 'DELETE'
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'GET'
+                    ErrorVariable = 'ErrVar'
                 }
+
+                $apiResponse = Invoke-RestMethod @requestParam
+
+                if ($apiResponse -ne '') {
+                    
+                    $requestParam = @{
+                        Headers       = $authHeader
+                        Uri           = $uri
+                        Method        = 'DELETE'
+                        ErrorVariable = 'ErrVar'
+                    }
                 
-                $reponse = Invoke-RestMethod @requestParam
-                return $reponse
-                
+                    Invoke-RestMethod @requestParam
+                    Write-Host $response
+                    if ($null -eq $response) {
+                        Write-Output "Workspace Manager Member '$($Name)' was removed from workspace '$WorkspaceName'"
+                    }
+                }
+                else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager Member '$($Name)' does not exist" -Severity 'Error'
+                }
             }
             catch {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
+                if ($ErrVar.Message -like '*ResourceNotFound*') {
+                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Member '$($Name)' was not found under workspace '$WorkspaceName'" -Severity 'Error'
+                }
+                else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                }
             }
         }
         else {
-            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($Name)'" -Severity 'Information'
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($Name)'" -Severity 'Error'
         }
     }
 }

@@ -46,8 +46,8 @@ function Get-LogAnalyticsWorkspace {
                 ErrorVariable = "ErrVar"
             }
 
-             $workspace = (
-                 Invoke-RestMethod @requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
+            $workspace = (
+                Invoke-RestMethod @requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
 
             switch ($workspace.count) {
                 { $_ -eq 1 } { $_workspacePath = ("https://management.azure.com$($workspace.id)").ToLower() }
@@ -69,9 +69,10 @@ function Get-LogAnalyticsWorkspace {
                     
                 try {
                     $requestParam = @{
-                        Headers = $authHeader
-                        Uri     = $uri
-                        Method  = 'GET'
+                        Headers       = $authHeader
+                        Uri           = $uri
+                        Method        = 'GET'
+                        ErrorVariable = "ErrVar"
                     }
 
                     $_sentinelInstance = Invoke-RestMethod @requestParam
@@ -81,12 +82,18 @@ function Get-LogAnalyticsWorkspace {
                     }
                     else {
                         $SessionVariables.workspace = $null
-                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel workspace [$($Name)] was found but is not yet provisioned.." -Severity 'Information'
+                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was found under workspace '$Name' but is not yet provisioned.." -Severity 'Information'
                     }
                 }
                 catch {
                     $SessionVariables.workspace = $null
-                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found on workspace [$($Name)]" -Severity 'Information'
+                    if ($ErrVar.Message -like '*ResourceNotFound*') {
+                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$Name'" -Severity 'Error'
+                    }
+                    else {
+                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "An error has occured requesting the Log Analytics workspace" -Severity 'Error'
+                    }
+                    
                     break
                 }
             }

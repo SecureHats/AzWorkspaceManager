@@ -20,9 +20,6 @@ function Set-AzWorkspaceManagerConfiguration {
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [string]$WorkspaceConfigurationName,
-
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [bool]$Enabled
     )
 
@@ -52,20 +49,20 @@ function Set-AzWorkspaceManagerConfiguration {
 
         try {
             if ($SessionVariables.workspace) {
-                Write-Verbose "Configuring Azure Sentinel Workspace Manager Configuration for workspace [$Name)]"
-                if ($WorkspaceConfigurationName) { $Name = $WorkspaceConfigurationName }
+                Write-Verbose "Configuring Azure Sentinel Workspace Manager Configuration for workspace [$WorkspaceName]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{
-                    Headers     = $authHeader
-                    Uri         = $uri
-                    Method      = 'PUT'
-                    Body        = $payload
-                    ContentType = 'application/json'
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'PUT'
+                    Body          = $payload
+                    ContentType   = 'application/json'
+                    ErrorVariable = "ErrVar"
                 }
 
-                $reponse = Invoke-RestMethod @requestParam
-                return $reponse
+                $response = Invoke-RestMethod @requestParam
+                return $response
             }
             else {
                 Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Error configuring Workspace Manager for workspace $($WorkspaceName)" -Severity 'Error'
@@ -73,8 +70,7 @@ function Set-AzWorkspaceManagerConfiguration {
             }
         }
         catch {
-            $reponse = $_.Exception.Message
-            Write-Message -FunctionName 
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $ErrVar  -Severity 'Error'
         }
     }
 }

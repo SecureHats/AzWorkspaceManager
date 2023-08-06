@@ -39,7 +39,7 @@ function Add-AzWorkspaceManagerGroups {
         [ValidateNotNullOrEmpty()]
         [string]$Description,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [array]$workspaceManagerMembers
 

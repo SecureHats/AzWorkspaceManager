@@ -19,7 +19,11 @@ function Get-AzWorkspaceManagerMembers {
         [string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [string]$ResourceGroupName
+        [string]$ResourceGroupName,
+
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Name
     )
 
     begin {
@@ -32,24 +36,29 @@ function Get-AzWorkspaceManagerMembers {
         }
 
         if ($Name) {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers?api-version=$($SessionVariables.apiVersion)"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
         } 
         else {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers?api-version=$($SessionVariables.apiVersion)"
         }
     }
 
     process {        
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
-                Write-Verbose "Get Workspace Manager Member for workspace [$WorkspaceName)]"        
+                Write-Verbose "Get Workspace Manager Member(s) for workspace [$($WorkspaceName)]"
                 $requestParam = @{
-                    Headers = $authHeader
-                    Uri     = $uri
-                    Method  = 'GET'
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'GET'
+                    ErrorVariable = 'ErrVar'
                 }
-                
-                $apiResponse = (Invoke-RestMethod @requestParam).value
+                if ($Name) {
+                    $apiResponse = (Invoke-RestMethod @requestParam)
+                } 
+                else {
+                    $apiResponse = (Invoke-RestMethod @requestParam).value
+                }
             
                 if ($apiResponse -ne '') {
                     $split = $apiResponse.id.Split('/')
@@ -69,7 +78,14 @@ function Get-AzWorkspaceManagerMembers {
                 }
             }
             catch {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
+                $SessionVariables.workspace = $null
+                if ($ErrVar.Message -like '*ResourceNotFound*') {
+                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Member '$($Name)' was not found under workspace '$WorkspaceName'" -Severity 'Error'
+                }
+                else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                }
+                break
             }
         }
         else {
