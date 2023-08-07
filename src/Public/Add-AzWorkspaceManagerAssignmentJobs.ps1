@@ -25,7 +25,7 @@ function Add-AzWorkspaceManagerAssignmentJobs {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$WorkspaceName,
+        [string]$WorkspaceName, # //TODO: Add validation for workspace name
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -49,7 +49,7 @@ function Add-AzWorkspaceManagerAssignmentJobs {
         else {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
-        
+
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "Adding Workspace Manager Assignment Job to group '$Name'"
