@@ -65,7 +65,7 @@ function Get-LogAnalyticsWorkspace {
             }
                 
             if ($_workspacePath) {
-                $uri = "$(($_workspacePath).Split('microsoft.operationalinsights')[0])Microsoft.OperationsManagement/solutions/SecurityInsights($($workspace.name))?api-version=2015-11-01-preview"
+                $uri = "$(($_workspacePath).Split('microsoft.')[0])Microsoft.OperationsManagement/solutions/SecurityInsights($($workspace.name))?api-version=2015-11-01-preview"
                     
                 try {
                     $requestParam = @{

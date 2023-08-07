@@ -18,20 +18,24 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
     #>
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,    
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$AssignmentName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
+
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [ValidateNotNullOrEmpty()]
+        [array]$ResourceId,
 
         [Parameter(Mandatory = $false)]
         [switch]$Force
@@ -57,25 +61,27 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
         try {
                 
             Write-Verbose "Performing the operation 'Removing workspace manager assignment'"
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($AssignmentName)/jobs/$($Name)?api-version=$($SessionVariables.apiVersion)"
+            foreach ($id in $ResourceId) {
+                Write-Host $id
+                # Write-Host "Removing workspace manager assignment job '$($value)' from assignment '$($AssignmentName)'" -ForegroundColor Yellow
+                $uri = "https://management.azure.com$($id)?api-version=$($SessionVariables.apiVersion)"
+                $requestParam = @{
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'GET'
+                    ErrorVariable = 'ErrVar'
+                }
 
-            $requestParam = @{
-                Headers       = $authHeader
-                Uri           = $uri
-                Method        = 'GET'
-                ErrorVariable = 'ErrVar'
-            }
+                if ($Name) {
+                    $apiResponse = (Invoke-RestMethod @requestParam)
+                } 
+                else {
+                    $apiResponse = (Invoke-RestMethod @requestParam).value
+                }
 
-            if ($Name) {
-                $apiResponse = (Invoke-RestMethod @requestParam)
-            } 
-            else {
-                $apiResponse = (Invoke-RestMethod @requestParam).value
-            }
-
-            if ($apiResponse -ne '') {
-                if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {    
-                    
+                if ($apiResponse -ne '') {
+                    if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {    
+                        
                         $requestParam = @{
                             Headers       = $authHeader
                             Uri           = $uri
@@ -84,19 +90,20 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
                         }
 
                         Invoke-RestMethod @requestParam
-                    
-                    if ($null -eq $response) {
-                        Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager Assignment Job '$($Name)' was removed from Assignment '$($AssignmentName)'" -Severity 'Information'
+        
+                        if ($null -eq $response) {
+                            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager Assignment Job '$($value)' was removed from Assignment '$($AssignmentName)'" -Severity 'Information'
+                        }
                     }
                 }
-            }
-            else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager Assignment Job '$($Name)' does not exist" -Severity 'Error'
+                else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager Assignment Job '$($value)' does not exist" -Severity 'Error'
+                }
             }
         }
         catch {
             if ($ErrVar.Message -like '*ResourceNotFound*') {
-                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Assignment Job '$($Name)' was not found under Assignment '$($AssignmentName)'" -Severity 'Error'
+                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Assignment Job '$($value)' was not found under Assignment '$($AssignmentName)'" -Severity 'Error'
             }
             else {
                 Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'

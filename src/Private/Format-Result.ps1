@@ -27,7 +27,7 @@ function Format-Result {
         ResourceId        = $apiResponse.id
         Tags              = $apiResponse.tags
         Properties        = $apiResponse.properties
-    } | ConvertTo-Json | ConvertFrom-Json
+    } | ConvertTo-Json -Depth 10 | ConvertFrom-Json -Depth 10
 
     return $result
                     
