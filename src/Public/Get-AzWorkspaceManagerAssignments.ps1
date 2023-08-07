@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerGroups {
+function Get-AzWorkspaceManagerAssignments {
     <#
       .SYNOPSIS
       Get the Microsoft Sentinel Workspace Manager Groups
@@ -9,7 +9,7 @@ function Get-AzWorkspaceManagerGroups {
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
       .PARAMETER Name
-      The name of the workspace manager group
+      The name of the workspace manager assignment
       .EXAMPLE
     #>
     [cmdletbinding()]
@@ -37,17 +37,17 @@ function Get-AzWorkspaceManagerGroups {
         }
 
         if ($null -ne $Name) {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups/$($Name)?api-version=$($SessionVariables.apiVersion)"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)?api-version=$($SessionVariables.apiVersion)"
         }
         else {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups?api-version=$($SessionVariables.apiVersion)"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments?api-version=$($SessionVariables.apiVersion)"
         }
     }
 
     process {
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
-                Write-Verbose "List Microsoft Sentinel Workspace Manager Groups for workspace [$WorkspaceName)]"
+                Write-Verbose "List Microsoft Sentinel Workspace Manager Assignments for workspace '$WorkspaceName'"
 
                 $requestParam = @{
                     Headers = $authHeader
@@ -79,7 +79,7 @@ function Get-AzWorkspaceManagerGroups {
                     return $result
                 }
                 else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Group(s) found for workspace [$($WorkspaceName)]" -Severity 'Information'
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignments found for workspace '$WorkspaceName'" -Severity 'Information'
                 }
             }
             catch {
@@ -88,7 +88,7 @@ function Get-AzWorkspaceManagerGroups {
             }
         }
         else {
-            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity 'Information'
+            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$WorkspaceName'" -Severity 'Information'
         }
     }
 }

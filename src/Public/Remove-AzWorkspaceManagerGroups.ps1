@@ -1,7 +1,7 @@
 function Remove-AzWorkspaceManagerGroups {
     <#
       .SYNOPSIS
-      Remove Azure Sentinel Workspace Manager
+      Remove Microsoft Sentinel Workspace Manager
       .DESCRIPTION
       This function removes a Microsoft Sentinel Workspace Manager Member
       .PARAMETER WorkspaceName
@@ -50,7 +50,7 @@ function Remove-AzWorkspaceManagerGroups {
         if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {
             try {
                 
-                Write-Verbose "Performing the operation 'Removing workspace manager member' on target '$Name'"
+                Write-Verbose "Performing the operation 'Removing workspace manager group' on target '$Name'"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups/$($Name)?api-version=$($SessionVariables.apiVersion)"
 
                 $requestParam = @{

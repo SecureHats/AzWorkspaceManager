@@ -1,7 +1,7 @@
 function Get-AzWorkspaceManagerConfiguration {
     <#
       .SYNOPSIS
-      Get the Azure Sentinel Workspace Manager
+      Get the Microsoft Sentinel Workspace Manager
       .DESCRIPTION
       This function gets the Workspace Manager and returns the properties if enabled
       .PARAMETER WorkspaceName

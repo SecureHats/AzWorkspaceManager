@@ -1,9 +1,9 @@
 function Set-AzWorkspaceManagerConfiguration {
     <#
       .SYNOPSIS
-      Set Azure Sentinel Workspace Manager
+      Set Microsoft Sentinel Workspace Manager
       .DESCRIPTION
-      With this function you can set the Azure Sentinel Workspace Manager
+      With this function you can set the Microsoft Sentinel Workspace Manager
       .PARAMETER Name
       Enter the Name of the log analytics workspace
       .PARAMETER ResourceGroupName
@@ -49,7 +49,7 @@ function Set-AzWorkspaceManagerConfiguration {
 
         try {
             if ($SessionVariables.workspace) {
-                Write-Verbose "Configuring Azure Sentinel Workspace Manager Configuration for workspace [$WorkspaceName]"
+                Write-Verbose "Configuring Microsoft Sentinel Workspace Manager Configuration for workspace [$WorkspaceName]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{

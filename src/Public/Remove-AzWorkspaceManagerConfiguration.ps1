@@ -1,9 +1,9 @@
 function Remove-AzWorkspaceManagerConfiguration {
     <#
       .SYNOPSIS
-      Remove Azure Sentinel Workspace Manager
+      Remove Microsoft Sentinel Workspace Manager
       .DESCRIPTION
-      This function removes the Azure Sentinel Workspace Manager configuration
+      This function removes the Microsoft Sentinel Workspace Manager configuration
       .PARAMETER Name
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName

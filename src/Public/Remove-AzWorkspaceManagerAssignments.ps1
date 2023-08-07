@@ -1,4 +1,4 @@
-function Remove-AzWorkspaceManagerMembers {
+function Remove-AzWorkspaceManagerAssignments {
     <#
       .SYNOPSIS
       Remove Microsoft Sentinel Workspace Manager
@@ -9,7 +9,7 @@ function Remove-AzWorkspaceManagerMembers {
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
       .PARAMETER Name
-      The Name of the Workspace Manager Member
+      The Name of the Workspace Manager Group
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
@@ -47,23 +47,23 @@ function Remove-AzWorkspaceManagerMembers {
     }
 
     process {
-        if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {
-            try {
+        
+        try {
                 
-                Write-Verbose "Performing the operation 'Removing workspace manager member' on target '$Name'"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
+            Write-Verbose "Performing the operation 'Removing workspace manager assignment'"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)?api-version=$($SessionVariables.apiVersion)"
 
-                $requestParam = @{
-                    Headers       = $authHeader
-                    Uri           = $uri
-                    Method        = 'GET'
-                    ErrorVariable = 'ErrVar'
-                }
+            $requestParam = @{
+                Headers       = $authHeader
+                Uri           = $uri
+                Method        = 'GET'
+                ErrorVariable = 'ErrVar'
+            }
 
-                $apiResponse = Invoke-RestMethod @requestParam
+            $apiResponse = Invoke-RestMethod @requestParam
 
-                if ($apiResponse -ne '') {
-                    
+            if ($apiResponse -ne '') {
+                if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {    
                     $requestParam = @{
                         Headers       = $authHeader
                         Uri           = $uri
@@ -74,24 +74,21 @@ function Remove-AzWorkspaceManagerMembers {
                     Invoke-RestMethod @requestParam
                     Write-Host $response
                     if ($null -eq $response) {
-                        Write-Output "Workspace Manager Member '$($Name)' was removed from workspace '$WorkspaceName'"
+                        Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager Assignment '$($Name)' was removed from workspace '$WorkspaceName'" -Severity 'Information'
                     }
                 }
-                else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager Member '$($Name)' does not exist" -Severity 'Error'
-                }
             }
-            catch {
-                if ($ErrVar.Message -like '*ResourceNotFound*') {
-                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Member '$($Name)' was not found under workspace '$WorkspaceName'" -Severity 'Error'
-                }
-                else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
-                }
+            else {
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager Assignment '$($Name)' does not exist" -Severity 'Error'
             }
         }
-        else {
-            Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($Name)'" -Severity 'Error'
+        catch {
+            if ($ErrVar.Message -like '*ResourceNotFound*') {
+                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Assignment '$($Name)' was not found under workspace '$WorkspaceName'" -Severity 'Error'
+            }
+            else {
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+            }
         }
     }
 }

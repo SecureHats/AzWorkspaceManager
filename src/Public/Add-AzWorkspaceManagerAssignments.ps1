@@ -1,4 +1,4 @@
-function Add-AzWorkspaceManagerGroups {
+function Add-AzWorkspaceManagerAssignments {
     <#
       .SYNOPSIS
       Adds a Microsoft Sentinel Workspace Manager Group
@@ -8,18 +8,18 @@ function Add-AzWorkspaceManagerGroups {
       The name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER Name
+      .PARAMETER GroupName
       The name of the workspace manager group
-      .PARAMETER Description 
-      The description of the workspace manager group. If not specified, the name will be used.
-      .PARAMETER workspaceManagerMembers
-      The name of the workspace manager member(s) to add to the workspace manager group
+      .PARAMETER Name
+      The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
+      .PARAMETER ItemResourceId
+      The ResourceId's of the items that to be added to the Workspace Manager Assignment. This can be a single value or an array of values.
       .EXAMPLE
-      Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -Description "" -workspaceManagerMembers 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)'
-      Adds a Workspace Manager Group to the workspace with the name 'Banks' and adds a child workspace with the name 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)' to the group.
+      Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
+      Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
       .EXAMPLE
-      Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -ResourceGroupName 'MyRg' -Name "Banks" -Description "Group of all financial and banking institutions" -workspaceManagerMembers @('myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)', 'otherWorkspace(f5fa104e-c0e3-4747-9182-d342dc048a9e)')
-      Adds a Workspace Manager Group to the workspace and adds multiple child workspaces to the group.
+      Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
+      Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(<GUID>)' and assigns this to the group 'myGroup'.
     #>
     [cmdletbinding()]
     param (
@@ -33,14 +33,13 @@ function Add-AzWorkspaceManagerGroups {
         
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Name,
+        [string]$GroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [string]$Description = "",
+        [array]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [array]$workspaceManagerMembers
-
+        [array]$ItemResourceId
     )
 
     begin {
@@ -56,29 +55,39 @@ function Add-AzWorkspaceManagerGroups {
     process {
         $payload = @{
             properties = @{
-                displayName         = $Name
-                description         = $Description
-                memberResourceNames = @(foreach ($workspaceManagerMember in $workspaceManagerMembers) { $workspaceManagerMember })
+                targetResourceName = $GroupName
+                items              = @()
             }
-        } | ConvertTo-Json
+        }
+        if ($ItemResourceId) {
+            foreach ($resourceId in $ItemResourceId) {
+                $items = [PSCustomObject]@{
+                    resourceId = $resourceId
+                }  
+                $payload.properties.items += $items
+            }
+        }
 
-        write-host $payload
+        if (-Not($Name)) { $name = '{0}({1})' -f $GroupName, (New-Guid).Guid }
+
+        Write-Output $payload | ConvertTo-Json -Depth 10 -Compress
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
-                Write-Verbose "Adding Workspace Manager Group to workspace [$WorkspaceName)]"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups/$($Name)?api-version=$($SessionVariables.apiVersion)"
+                Write-Verbose "Adding Workspace Manager Assignment to group '$GroupName'"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($name)?api-version=$($SessionVariables.apiVersion)"
                 write-host $uri
 
                 $requestParam = @{
-                    Headers     = $authHeader
-                    Uri         = $uri
-                    Method      = 'PUT'
-                    Body        = $payload
-                    ContentType = 'application/json'
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'PUT'
+                    Body          = $payload | ConvertTo-Json -Depth 10 -Compress
+                    ContentType   = 'application/json'
+                    ErrorVariable = 'ErrVar'
                 }
                 
                 $apiResponse = Invoke-RestMethod @requestParam
-                
+                if ($apiResponse -eq '') {Write-Host 'An Error in the response occured'}
                 if ($apiResponse -ne '') {
                     $split = $apiResponse.id.Split('/')
                     $result = [ordered]@{
@@ -97,7 +106,12 @@ function Add-AzWorkspaceManagerGroups {
                 }
             }
             catch {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
+                if ($ErrVar.Message -like '*existing Assignment*') {
+                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message (($ErrVar.ErrorRecord) | ConvertFrom-Json).error.message -Severity 'Error'
+                }
+                else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                }
             }
         }
         else {
@@ -105,3 +119,4 @@ function Add-AzWorkspaceManagerGroups {
         }
     }
 }
+#  /subscriptions/7570c6f7-9ca9-409b-aeaf-cb0f5ac1ad50/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/sentinel-playground/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da

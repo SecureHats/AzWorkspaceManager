@@ -71,8 +71,9 @@
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @('Get-AzWorkspaceManagerConfiguration', 
         'Set-AzWorkspaceManagerConfiguration', 'Remove-AzWorkspaceManagerConfiguration',
-        'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers'
-        'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups'
+        'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers',
+        'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups',
+        'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -103,6 +104,9 @@
     'Public\Get-AzWorkspaceManagerGroups.ps1',
     'Public\Add-AzWorkspaceManagerGroups.ps1',
     'Public\Remove-AzWorkspaceManagerGroups.ps1',
+    'Public\Get-AzWorkspaceManagerAssignments.ps1',
+    'Public\Add-AzWorkspaceManagerAssignments.ps1',
+    'Public\Remove-AzWorkspaceManagerAssignments.ps1',
     'AzWorkspaceManager.psd1',
     'AzWorkspaceManager.psm1'
 
