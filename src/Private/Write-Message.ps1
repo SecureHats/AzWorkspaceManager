@@ -31,4 +31,8 @@ function Write-Message {
         'Debug' { Write-Host -Object $messageBody -ForegroundColor Blue }
         Default { Write-Host -Object $messageBody }
     }
+
+    if ($Severity -eq 'Error') {
+        break
+    }
 }

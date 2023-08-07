@@ -63,17 +63,7 @@ function Get-AzWorkspaceManagerGroups {
 
                 if ($apiResponse -ne '') {
                     foreach ($object in $apiResponse) {
-                        $split = $object.id.Split('/')
-                        $result += @(
-                            [ordered]@{
-                                Name              = $split[-1]
-                                ResourceGroupName = $split[-9]
-                                ResourceType      = '{0}/{1}' -f $split[-3], $split[-2]
-                                ResourceId        = $object.id
-                                Tags              = $object.tags
-                                Properties        = $object.properties
-                            } | ConvertTo-Json -Depth 20 | ConvertFrom-Json -Depth 20
-                        )
+                        $result = Format-Result -Message $apiResponse
                     }
                     
                     return $result
@@ -84,7 +74,6 @@ function Get-AzWorkspaceManagerGroups {
             }
             catch {
                 Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
-                break
             }
         }
         else {

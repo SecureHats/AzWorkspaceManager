@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerAssignments {
+function Get-AzWorkspaceManagerAssignmentJobs {
     <#
       .SYNOPSIS
       Get the Microsoft Sentinel Workspace Manager Groups
@@ -8,8 +8,10 @@ function Get-AzWorkspaceManagerAssignments {
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
+      .PARAMETER GroupName
+      The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
       .PARAMETER Name
-      The name of the workspace manager assignment
+      The name of the Workspace Manager Assignment Job 
       .EXAMPLE
     #>
     [cmdletbinding()]
@@ -21,6 +23,10 @@ function Get-AzWorkspaceManagerAssignments {
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
+
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$AssignmentName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
@@ -36,26 +42,27 @@ function Get-AzWorkspaceManagerAssignments {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
 
+        $null = Get-AzWorkspaceManagerAssignments -WorkspaceName $WorkspaceName -Name $AssignmentName
+
         if ($null -ne $Name) {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)?api-version=$($SessionVariables.apiVersion)"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($AssignmentName)/jobs/$($Name)?api-version=$($SessionVariables.apiVersion)"
         }
         else {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments?api-version=$($SessionVariables.apiVersion)"
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($AssignmentName)/jobs?api-version=$($SessionVariables.apiVersion)"
         }
     }
 
     process {
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
-                Write-Verbose "List Microsoft Sentinel Workspace Manager Assignments for workspace '$WorkspaceName'"
+                Write-Verbose "List Microsoft Sentinel Workspace Manager Assignments Jobs for workspace '$WorkspaceName'"
 
                 $requestParam = @{
-                    Headers = $authHeader
-                    Uri     = $uri
-                    Method  = 'GET'
+                    Headers       = $authHeader
+                    Uri           = $uri
+                    Method        = 'GET'
                     ErrorVariable = 'ErrVar'
                 }
-                
                 if ($Name) {
                     $apiResponse = (Invoke-RestMethod @requestParam)
                 } 
@@ -65,18 +72,27 @@ function Get-AzWorkspaceManagerAssignments {
 
                 if ($apiResponse -ne '') {
                     foreach ($object in $apiResponse) {
-                        $result = Format-Result -Message $apiResponse
+                        $split = $object.id.Split('/')
+                        $result += @(
+                            [ordered]@{
+                                Name              = $split[-1]
+                                ResourceGroupName = $split[-11]
+                                ResourceType      = '{0}/{1}/{2}' -f $split[-5], $split[-4], $split[-2]
+                                ResourceId        = $object.id
+                                Properties        = $object.properties
+                            } | ConvertTo-Json -Depth 20 | ConvertFrom-Json -Depth 20
+                        )
                     }
                     
                     return $result
                 }
                 else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignments found for workspace '$WorkspaceName'" -Severity 'Information'
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignments Jobs found for workspace '$WorkspaceName'" -Severity 'Information'
                 }
             }
             catch {
                 if ($ErrVar.Message -like '*ResourceNotFound*') {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignments with name '$($Name)' found under workspace '$WorkspaceName'" -Severity 'Error'
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignment Job with name '$($Name)' found for Assignment Group '$($AssignmentName)'" -Severity 'Error'
                 }
                 else {
                     Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'

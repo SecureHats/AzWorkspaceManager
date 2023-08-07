@@ -61,12 +61,12 @@ function Set-AzWorkspaceManagerConfiguration {
                     ErrorVariable = "ErrVar"
                 }
 
-                $response = Invoke-RestMethod @requestParam
-                return $response
+                $apiResponse = Invoke-RestMethod @requestParam
+                $result = Format-Result -Message $apiResponse
+                return $result
             }
             else {
                 Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Error configuring Workspace Manager for workspace $($WorkspaceName)" -Severity 'Error'
-                break
             }
         }
         catch {

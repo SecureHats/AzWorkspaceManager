@@ -1,7 +1,7 @@
-function Add-AzWorkspaceManagerAssignments {
+function Add-AzWorkspaceManagerAssignmentJobs {
     <#
       .SYNOPSIS
-      Adds a Microsoft Sentinel Workspace Manager Group
+      Adds a Microsoft Sentinel Workspace Manager Assignment Job
       .DESCRIPTION
       This function adds a workspace manager group and adds the child workspaces
       .PARAMETER WorkspaceName
@@ -30,10 +30,6 @@ function Add-AzWorkspaceManagerAssignments {
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
-        
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty()]
-        [string]$GroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [array]$Name,
@@ -53,49 +49,31 @@ function Add-AzWorkspaceManagerAssignments {
     }
 
     process {
-        $payload = @{
-            properties = @{
-                targetResourceName = $GroupName
-                items              = @()
-            }
-        }
-        if ($ItemResourceId) {
-            foreach ($resourceId in $ItemResourceId) {
-                $items = [PSCustomObject]@{
-                    resourceId = $resourceId
-                }  
-                $payload.properties.items += $items
-            }
-        }
-
-        if (-Not($Name)) { $name = $GroupName }
-
-        Write-Output $payload | ConvertTo-Json -Depth 10 -Compress
+        
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
-                Write-Verbose "Adding Workspace Manager Assignment to group '$GroupName'"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($name)?api-version=$($SessionVariables.apiVersion)"
+                Write-Verbose "Adding Workspace Manager Assignment Job to group '$Name'"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)/jobs?api-version=$($SessionVariables.apiVersion)"
                 write-host $uri
 
                 $requestParam = @{
                     Headers       = $authHeader
                     Uri           = $uri
-                    Method        = 'PUT'
-                    Body          = $payload | ConvertTo-Json -Depth 10 -Compress
-                    ContentType   = 'application/json'
+                    Method        = 'POST'
                     ErrorVariable = 'ErrVar'
                 }
                 
                 $apiResponse = Invoke-RestMethod @requestParam
-                if ($Name) {
-                    $apiResponse = (Invoke-RestMethod @requestParam)
-                } 
-                else {
-                    $apiResponse = (Invoke-RestMethod @requestParam).value
-                }
-
+                if ($apiResponse -eq '') {Write-Host 'An Error in the response occured'}
                 if ($apiResponse -ne '') {
-                    $result = Format-Result -Message $apiResponse
+                    $split = $apiResponse.id.Split('/')
+                    $result = [ordered]@{
+                        Name              = $split[-1]
+                        ResourceGroupName = $split[-11]
+                        ResourceType      = '{0}/{1}/{2}' -f $split[-5], $split[-4], $split[-2]
+                        ResourceId        = $apiResponse.id
+                        Properties        = $apiResponse.properties
+                    } | ConvertTo-Json | ConvertFrom-Json
                     return $result
                 }
                 else {
@@ -104,12 +82,12 @@ function Add-AzWorkspaceManagerAssignments {
                 }
             }
             catch {
-                if ($ErrVar.Message -like '*existing Assignment*') {
-                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message (($ErrVar.ErrorRecord) | ConvertFrom-Json).error.message -Severity 'Error'
-                }
-                else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
-                }
+                # if ($ErrVar.Message -like '*existing Assignment*') {
+                #     Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message (($ErrVar.ErrorRecord) | ConvertFrom-Json).error.message -Severity 'Error'
+                # }
+                # else {
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $ErrVar.Message -Severity 'Error'
+                # }
             }
         }
         else {

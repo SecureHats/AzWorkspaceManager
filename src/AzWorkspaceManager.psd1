@@ -73,7 +73,8 @@
         'Set-AzWorkspaceManagerConfiguration', 'Remove-AzWorkspaceManagerConfiguration',
         'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers',
         'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups',
-        'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments'
+        'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments',
+        'Get-AzWorkspaceManagerAssignmentJobs', 'Add-AzWorkspaceManagerAssignmentJobs'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -94,6 +95,7 @@
     # List of all files packaged with this module
     FileList = 'Private\Get-AccessToken.ps1',
     'Private\Invoke-AzWorkspaceManager.ps1',
+    'Private\Format-Result.ps1',
     'Public\Get-LogAnalyticsWorkspace.ps1',
     'Public\Get-AzWorkspaceManagerConfiguration.ps1',
     'Public\Set-AzWorkspaceManagerConfiguration.ps1',
@@ -107,6 +109,8 @@
     'Public\Get-AzWorkspaceManagerAssignments.ps1',
     'Public\Add-AzWorkspaceManagerAssignments.ps1',
     'Public\Remove-AzWorkspaceManagerAssignments.ps1',
+    'Public\Get-AzWorkspaceManagerAssignmentJobs.ps1',
+    'Public\Add-AzWorkspaceManagerAssignmentJobs.ps1',
     'AzWorkspaceManager.psd1',
     'AzWorkspaceManager.psm1'
 
@@ -119,7 +123,7 @@
         PSData       = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @("Sentinel", "Azure", "WorkspaceManager", "ARM")
+            Tags       = @("Sentinel", "Microsoft", "Azure", "WorkspaceManager", "ARM")
 
             # A URL to the license for this module.
             # LicenseUri = 'https://github.com/securehats/AzWorkspaceManager/blob/master/LICENSE'

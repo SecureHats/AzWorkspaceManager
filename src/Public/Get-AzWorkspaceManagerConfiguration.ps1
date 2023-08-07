@@ -45,22 +45,12 @@ function Get-AzWorkspaceManagerConfiguration {
                 $apiResponse = (Invoke-RestMethod @requestParam).value
             }
             else {
-                Write-Verbose "Microsoft Sentinel Workspace is not found for workspace [$($WorkspaceName)]"
-                break
+                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$WorkspaceName'" -Severity 'Error'
             }
             
             if ($apiResponse -ne '') {
-                $split = $apiResponse.id.Split('/')
-                $result = [ordered]@{
-                    Name              = $split[-1]
-                    ResourceGroupName = $split[-9]
-                    ResourceType      = '{0}/{1}' -f $split[-3], $split[-2]
-                    Location          = $apiResponse.location
-                    ResourceId        = $apiResponse.id
-                    Tags              = $apiResponse.tags
-                    Properties        = $apiResponse.properties
-                } | ConvertTo-Json | ConvertFrom-Json
                 $SessionVariables.workspaceManagerConfiguration = $apiResponse.properties.mode
+                $result = Format-Result -Message $apiResponse
                 return $result
             }
             else {
