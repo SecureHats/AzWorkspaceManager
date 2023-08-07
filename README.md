@@ -25,6 +25,6 @@ inline `code-example`
 
 ## Not happy?
 
-If you encounter any issues, or hae suggestions for improvements, feel free to open an Issue
+If you encounter any issues, or have suggestions for improvements, feel free to open an Issue
 
 [Create Issue](../../issues/new/choose)
