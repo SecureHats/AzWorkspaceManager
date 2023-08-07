@@ -40,15 +40,15 @@ function Add-AzWorkspaceManagerAssignmentJobs {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
-    }
-
-    process {
         
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {

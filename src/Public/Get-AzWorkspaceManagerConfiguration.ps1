@@ -12,26 +12,26 @@ function Get-AzWorkspaceManagerConfiguration {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName
     )
 
     begin {
         $MyInvocation.MyCommand.Name | Invoke-AzWorkspaceManager
+    }
+
+    process {
         if ($ResourceGroupName) {
             Get-LogAnalyticsWorkspace -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
             Get-LogAnalyticsWorkspace -Name $WorkspaceName
         }
-    }
-
-    process {
+        
         try {
             if ($SessionVariables.workspace) {
                 Write-Verbose "Get Microsoft Sentinel Workspace Manager Configuration for workspace [$WorkspaceName)]"

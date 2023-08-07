@@ -33,7 +33,9 @@ function Remove-AzWorkspaceManagerMembers {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
-        
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
@@ -44,9 +46,7 @@ function Remove-AzWorkspaceManagerMembers {
         if ($Force) {
             $ConfirmPreference = 'None'
         }
-    }
-
-    process {
+        
         if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {
             try {
                 

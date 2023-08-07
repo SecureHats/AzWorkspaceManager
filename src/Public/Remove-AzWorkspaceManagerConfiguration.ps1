@@ -27,6 +27,9 @@ function Remove-AzWorkspaceManagerConfiguration {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
         }
@@ -36,9 +39,7 @@ function Remove-AzWorkspaceManagerConfiguration {
         if ($Force){
             $ConfirmPreference = 'None'
         }
-    }
-
-    process {
+        
         try {
             if ($PSCmdlet.ShouldProcess($SessionVariables.workspace)) {
                 Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"

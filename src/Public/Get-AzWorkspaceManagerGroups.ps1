@@ -29,6 +29,9 @@ function Get-AzWorkspaceManagerGroups {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
@@ -42,9 +45,7 @@ function Get-AzWorkspaceManagerGroups {
         else {
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups?api-version=$($SessionVariables.apiVersion)"
         }
-    }
-
-    process {
+        
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "List Microsoft Sentinel Workspace Manager Groups for workspace [$WorkspaceName)]"

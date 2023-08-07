@@ -12,11 +12,11 @@ function Set-AzWorkspaceManagerConfiguration {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -25,15 +25,16 @@ function Set-AzWorkspaceManagerConfiguration {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+    }
+
+    process {
         if ($ResourceGroupName) {
             Get-LogAnalyticsWorkspace -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
             Get-LogAnalyticsWorkspace -Name $WorkspaceName
         }
-    }
-
-    process {
+        
         if ($Enabled -eq $true) {
             $mode = 'Enabled'
         }

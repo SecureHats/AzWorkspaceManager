@@ -19,7 +19,6 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
-        [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,    
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
@@ -43,26 +42,23 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
-        
+    }
+
+    process {
         if ($ResourceGroupName) {
-            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
+            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $($WorkspaceName) -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
+            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $($WorkspaceName)
         }
         
         if ($Force) {
             $ConfirmPreference = 'None'
         }
-    }
 
-    process {
-        
-        try {
-                
-            Write-Verbose "Performing the operation 'Removing workspace manager assignment'"
+        try {     
+            Write-Verbose "Performing the operation 'Removing workspace manager assignment' on target '$($WorkspaceName)'."
             foreach ($id in $ResourceId) {
-                Write-Host $id
                 # Write-Host "Removing workspace manager assignment job '$($value)' from assignment '$($AssignmentName)'" -ForegroundColor Yellow
                 $uri = "https://management.azure.com$($id)?api-version=$($SessionVariables.apiVersion)"
                 $requestParam = @{

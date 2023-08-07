@@ -16,11 +16,11 @@ function Get-AzWorkspaceManagerAssignmentJobs {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
 
@@ -35,6 +35,9 @@ function Get-AzWorkspaceManagerAssignmentJobs {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
@@ -50,9 +53,7 @@ function Get-AzWorkspaceManagerAssignmentJobs {
         else {
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($AssignmentName)/jobs?api-version=$($SessionVariables.apiVersion)"
         }
-    }
-
-    process {
+        
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "List Microsoft Sentinel Workspace Manager Assignments Jobs for workspace '$WorkspaceName'"
@@ -78,6 +79,7 @@ function Get-AzWorkspaceManagerAssignmentJobs {
                                 Name              = $split[-1]
                                 ResourceGroupName = $split[-11]
                                 ResourceType      = '{0}/{1}/{2}' -f $split[-5], $split[-4], $split[-2]
+                                WorkspaceName     = $WorkspaceName
                                 ResourceId        = $object.id
                                 Properties        = $object.properties
                             } | ConvertTo-Json -Depth 20 | ConvertFrom-Json -Depth 20
@@ -88,6 +90,7 @@ function Get-AzWorkspaceManagerAssignmentJobs {
                 }
                 else {
                     Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignments Jobs found for workspace '$WorkspaceName'" -Severity 'Information'
+                    break
                 }
             }
             catch {

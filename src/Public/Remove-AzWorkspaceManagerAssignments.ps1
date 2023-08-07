@@ -33,7 +33,9 @@ function Remove-AzWorkspaceManagerAssignments {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
-        
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
@@ -44,12 +46,8 @@ function Remove-AzWorkspaceManagerAssignments {
         if ($Force) {
             $ConfirmPreference = 'None'
         }
-    }
 
-    process {
-        
-        try {
-                
+        try {        
             Write-Verbose "Performing the operation 'Removing workspace manager assignment'"
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)?api-version=$($SessionVariables.apiVersion)"
 

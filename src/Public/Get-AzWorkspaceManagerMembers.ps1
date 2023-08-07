@@ -28,6 +28,9 @@ function Get-AzWorkspaceManagerMembers {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
+    }
+
+    process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         } 
@@ -41,9 +44,7 @@ function Get-AzWorkspaceManagerMembers {
         else {
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers?api-version=$($SessionVariables.apiVersion)"
         }
-    }
-
-    process {        
+        
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "Get Workspace Manager Member(s) for workspace [$($WorkspaceName)]"

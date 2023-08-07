@@ -50,17 +50,17 @@ function Add-AzWorkspaceManagerMembers {
 
     begin {
         Invoke-AzWorkspaceManager -FunctionName $MyInvocation.MyCommand.Name
-        
+    }
+
+    process {
+
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
-    }
-
-    process {
-
+        
         $Name = "$($ResourceId.Split('/')[-1])($($ResourceId.Split('/')[2]))"
         
         $payload = @{
