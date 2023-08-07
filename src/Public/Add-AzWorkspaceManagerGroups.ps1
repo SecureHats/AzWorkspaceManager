@@ -10,7 +10,7 @@ function Add-AzWorkspaceManagerGroups {
       The name of the ResouceGroup where the log analytics workspace is located
       .PARAMETER Name
       The name of the workspace manager group
-      .PARAMETER Description
+      .PARAMETER Description 
       The description of the workspace manager group. If not specified, the name will be used.
       .PARAMETER workspaceManagerMembers
       The name of the workspace manager member(s) to add to the workspace manager group
@@ -36,13 +36,10 @@ function Add-AzWorkspaceManagerGroups {
         [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty()]
-        [string]$Description,
+        [string]$Description = $WorkspaceName, # //TODO - Support Empty Value
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty()]
-        [array]$workspaceManagerMembers
-
+        [array]$workspaceManagerMembers = @() # //TODO - Support Empty Array
 
     )
 

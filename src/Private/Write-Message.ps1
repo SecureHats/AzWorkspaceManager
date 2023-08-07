@@ -15,11 +15,11 @@ function Write-Message {
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$Message,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateSet("Error", "Information", "Debug")]
         [string]$Severity,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [string]$FunctionName
     )
 
