@@ -16,9 +16,11 @@ function Add-AzWorkspaceManagerAssignments {
       The ResourceId's of the items that to be added to the Workspace Manager Assignment. This can be a single value or an array of values.
       .EXAMPLE
       Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
+      
       Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
       .EXAMPLE
       Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
+
       Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(<GUID>)' and assigns this to the group 'myGroup'.
     #>
     [cmdletbinding()]
