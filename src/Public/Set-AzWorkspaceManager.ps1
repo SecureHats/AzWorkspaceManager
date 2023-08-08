@@ -1,7 +1,5 @@
 function Set-AzWorkspaceManager {
     <#
-      .NAME
-          Set-AzWorkspaceManager
       .SYNOPSIS
           Creates a Workspace Manager Configuration
       .DESCRIPTION
@@ -41,7 +39,7 @@ function Set-AzWorkspaceManager {
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateSet("Enabled", "Disabled")]
-        [string]$Mode = Enabled
+        [string]$Mode = 'Enabled'
     )
 
     begin {
