@@ -12,7 +12,7 @@ function Add-AzWorkspaceManagerAssignments {
       The name of the workspace manager group
       .PARAMETER Name
       The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
-      .PARAMETER ItemResourceId
+      .PARAMETER ResourceId
       The ResourceId's of the items that to be added to the Workspace Manager Assignment. This can be a single value or an array of values.
       .EXAMPLE
       Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
@@ -23,12 +23,12 @@ function Add-AzWorkspaceManagerAssignments {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
         
@@ -37,12 +37,12 @@ function Add-AzWorkspaceManagerAssignments {
         [ValidateNotNullOrEmpty()]
         [string]$GroupName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [array]$Name,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [array]$ItemResourceId
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [array]$ResourceId
     )
 
     begin {
@@ -63,10 +63,10 @@ function Add-AzWorkspaceManagerAssignments {
                 items              = @()
             }
         }
-        if ($ItemResourceId) {
-            foreach ($resourceId in $ItemResourceId) {
+        if ($ResourceId) {
+            foreach ($id in $ResourceId) {
                 $items = [PSCustomObject]@{
-                    resourceId = $resourceId
+                    resourceId = $id
                 }  
                 $payload.properties.items += $items
             }

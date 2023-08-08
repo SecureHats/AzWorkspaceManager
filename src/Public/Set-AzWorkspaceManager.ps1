@@ -42,15 +42,16 @@ function Set-AzWorkspaceManager {
         
         $payload = @{
             properties = @{
-                mode = $Mode
+                mode = "$Mode"
             }
-        } | ConvertTo-Json
+        } | ConvertTo-Json -Compress
 
+        Write-Debug $payload
         try {
             if ($SessionVariables.workspace) {
                 Write-Verbose "Configuring Microsoft Sentinel Workspace Manager Configuration for workspace [$WorkspaceName]"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
-                
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($WorkspaceName)?api-version=$($SessionVariables.apiVersion)"
+                Write-Host $uri
                 $requestParam = @{
                     Headers       = $authHeader
                     Uri           = $uri

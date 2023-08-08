@@ -96,6 +96,7 @@
     FileList = 'Private\Get-AccessToken.ps1',
     'Private\Invoke-AzWorkspaceManager.ps1',
     'Private\Format-Result.ps1',
+    'Private\Write-Message.ps1',
     'Public\Get-LogAnalyticsWorkspace.ps1',
     'Public\Get-AzWorkspaceManagerConfiguration.ps1',
     'Public\Set-AzWorkspaceManager.ps1',

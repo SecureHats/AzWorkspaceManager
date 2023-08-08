@@ -12,8 +12,6 @@ function Add-AzWorkspaceManagerAssignmentJobs {
       The name of the workspace manager group
       .PARAMETER Name
       The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
-      .PARAMETER ItemResourceId
-      The ResourceId's of the items that to be added to the Workspace Manager Assignment. This can be a single value or an array of values.
       .EXAMPLE
       Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
       Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
@@ -23,21 +21,18 @@ function Add-AzWorkspaceManagerAssignmentJobs {
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName, # //TODO: Add validation for workspace name
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
-        [array]$Name = (New-Guid).Guid,
-
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [array]$ItemResourceId
+        [array]$Name = (New-Guid).Guid
     )
 
     begin {

@@ -14,12 +14,12 @@ function Remove-AzWorkspaceManagerConfiguration {
     #>
     [cmdletbinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
-        [string]$Name,
+        [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false)]
@@ -32,10 +32,10 @@ function Remove-AzWorkspaceManagerConfiguration {
 
     process {
         if ($ResourceGroupName) {
-            $null = Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
+            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-LogAnalyticsWorkspace -Name $Name
+            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
         if ($Force){
             $ConfirmPreference = 'None'
@@ -43,8 +43,8 @@ function Remove-AzWorkspaceManagerConfiguration {
         
         try {
             if ($PSCmdlet.ShouldProcess($SessionVariables.workspace)) {
-                Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
+                Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$WorkspaceName'"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($WorkspaceName)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{
                     Headers = $authHeader

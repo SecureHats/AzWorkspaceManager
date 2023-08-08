@@ -1,20 +1,20 @@
 function Get-AzWorkspaceManagerAssignments {
-    <#
-      .SYNOPSIS
-      Get the Microsoft Sentinel Workspace Manager Groups
-      .DESCRIPTION
-      This function gets the Workspace Manager Groups and properties
-      .PARAMETER WorkspaceName
-      The Name of the log analytics workspace
-      .PARAMETER ResourceGroupName
-      The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER Name
-      The name of the workspace manager assignment
-      .EXAMPLE
-    #>
+<#
+.SYNOPSIS
+Get the Microsoft Sentinel Workspace Manager Groups
+.DESCRIPTION
+This function gets the Workspace Manager Groups and properties
+.PARAMETER WorkspaceName
+The Name of the log analytics workspace
+.PARAMETER ResourceGroupName
+The name of the ResouceGroup where the log analytics workspace is located
+.PARAMETER Name
+The name of the workspace manager assignment
+.EXAMPLE
+#>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,
