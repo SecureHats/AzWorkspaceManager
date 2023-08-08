@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-AzWorkspaceManagerConfiguration
+# Remove-AzWorkspaceManagerAssignments
 
 ## SYNOPSIS
 Remove Microsoft Sentinel Workspace Manager
@@ -13,12 +13,12 @@ Remove Microsoft Sentinel Workspace Manager
 ## SYNTAX
 
 ```
-Remove-AzWorkspaceManagerConfiguration [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Force]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
+ [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function removes the Microsoft Sentinel Workspace Manager configuration
+This function removes a Microsoft Sentinel Workspace Manager Member
 
 ## EXAMPLES
 
@@ -30,7 +30,7 @@ This function removes the Microsoft Sentinel Workspace Manager configuration
 ## PARAMETERS
 
 ### -WorkspaceName
-{{ Fill WorkspaceName Description }}
+The Name of the log analytics workspace
 
 ```yaml
 Type: String
@@ -54,6 +54,21 @@ Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Name
+The Name of the Workspace Manager Group
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

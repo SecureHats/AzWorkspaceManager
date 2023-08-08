@@ -5,20 +5,21 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-AzWorkspaceManagerConfiguration
+# Remove-AzWorkspaceManagerAssignmentJobs
 
 ## SYNOPSIS
-Remove Microsoft Sentinel Workspace Manager
+Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
 ```
-Remove-AzWorkspaceManagerConfiguration [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Force]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+ [[-AssignmentName] <String>] [[-Name] <String>] [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function removes the Microsoft Sentinel Workspace Manager configuration
+This function gets the Workspace Manager Groups and properties
 
 ## EXAMPLES
 
@@ -30,7 +31,7 @@ This function removes the Microsoft Sentinel Workspace Manager configuration
 ## PARAMETERS
 
 ### -WorkspaceName
-{{ Fill WorkspaceName Description }}
+The Name of the log analytics workspace
 
 ```yaml
 Type: String
@@ -59,8 +60,53 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -AssignmentName
+The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Name
+The name of the Workspace Manager Assignment Job
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ResourceId
+{{ Fill ResourceId Description }}
+
+```yaml
+Type: Array
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Force
-Confirms the removal of the Workspace manager configuration.
+Confirms the removal of the Workspace manager configuration
 
 ```yaml
 Type: SwitchParameter

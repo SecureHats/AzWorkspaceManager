@@ -5,32 +5,39 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-AzWorkspaceManagerGroups
+# Add-AzWorkspaceManagerAssignmentJobs
 
 ## SYNOPSIS
-Get the Microsoft Sentinel Workspace Manager Groups
+Adds a Microsoft Sentinel Workspace Manager Assignment Job
 
 ## SYNTAX
 
 ```
-Get-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
- [<CommonParameters>]
+Add-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+ [[-Name] <Array>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function gets the Workspace Manager Groups and properties
+This function adds a workspace manager group and adds the child workspaces
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
+Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
+Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
+```
 
+### EXAMPLE 2
+```
+Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
+Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(<GUID>)' and assigns this to the group 'myGroup'.
 ```
 
 ## PARAMETERS
 
 ### -WorkspaceName
-The Name of the log analytics workspace
+The name of the log analytics workspace
 
 ```yaml
 Type: String
@@ -40,7 +47,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -55,21 +62,23 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -Name
-The name of the workspace manager group
+The name of the workspace manager assignment.
+if no value is provided a GUID will be generated and added to the name groupname.
+'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
 
 ```yaml
-Type: String
+Type: Array
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 3
-Default value: None
+Default value: (New-Guid).Guid
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```

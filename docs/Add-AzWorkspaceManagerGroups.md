@@ -14,7 +14,7 @@ Adds a Microsoft Sentinel Workspace Manager Group
 
 ```
 Add-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
- [[-Description] <String>] [-workspaceManagerMembers] <Array> [<CommonParameters>]
+ [[-Description] <String>] [[-workspaceManagerMembers] <Array>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,7 +47,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -62,7 +62,7 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -105,7 +105,7 @@ Type: Array
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 5
 Default value: None
 Accept pipeline input: True (ByValue)

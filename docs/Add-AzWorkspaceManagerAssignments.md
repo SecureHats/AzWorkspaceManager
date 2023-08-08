@@ -5,32 +5,39 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-AzWorkspaceManagerMembers
+# Add-AzWorkspaceManagerAssignments
 
 ## SYNOPSIS
-Remove Microsoft Sentinel Workspace Manager
+Adds a Microsoft Sentinel Workspace Manager Group
 
 ## SYNTAX
 
 ```
-Remove-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
- [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Add-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+ [-GroupName] <String> [[-Name] <Array>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function removes a Microsoft Sentinel Workspace Manager Member
+This function adds a workspace manager group and adds the child workspaces
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
+Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
+Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
+```
 
+### EXAMPLE 2
+```
+Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
+Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(<GUID>)' and assigns this to the group 'myGroup'.
 ```
 
 ## PARAMETERS
 
 ### -WorkspaceName
-The Name of the log analytics workspace
+The name of the log analytics workspace
 
 ```yaml
 Type: String
@@ -59,8 +66,8 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Name
-The Name of the Workspace Manager Member
+### -GroupName
+The name of the workspace manager group
 
 ```yaml
 Type: String
@@ -70,53 +77,40 @@ Aliases:
 Required: True
 Position: 3
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Force
-Confirms the removal of the Workspace manager configuration.
+### -Name
+The name of the workspace manager assignment.
+if no value is provided a GUID will be generated and added to the name groupname.
+'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
 
 ```yaml
-Type: SwitchParameter
+Type: Array
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+### -ResourceId
+The ResourceId's of the items that to be added to the Workspace Manager Assignment.
+This can be a single value or an array of values.
 
 ```yaml
-Type: SwitchParameter
+Type: Array
 Parameter Sets: (All)
-Aliases: wi
+Aliases:
 
 Required: False
-Position: Named
+Position: 5
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

@@ -13,8 +13,8 @@ Add a Microsoft Sentinel Workspace Manager Member
 ## SYNTAX
 
 ```
-Add-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
- [-targetWorkspaceResourceId] <String> [-targetWorkspaceTenantId] <String> [<CommonParameters>]
+Add-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-ResourceId] <String>
+ [-TenantId] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,11 +24,11 @@ With this function you can add a Microsoft Sentinel Workspace Manager Member
 
 ### EXAMPLE 1
 ```
-Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -targetWorkspaceResourceId "/subscriptions/***/resourcegroups/***/providers/microsoft.operationalinsights/workspaces/myWorkspace" -targetWorkspaceTenantId "***"
+Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/***/providers/microsoft.operationalinsights/workspaces/myWorkspace" -TenantId "***"
 ```
+
 This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myWorkspace' as a member.
 
-```
 Name              : MyChildWorkspace(***)
 ResourceGroupName : MyRg
 ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
@@ -41,7 +41,6 @@ Properties        : @{targetWorkspaceResourceId=/subscriptions/***/reso
                     urceGroups/myRg/providers/Microsoft.OperationalInsi
                     ghts/workspaces/myChildWorkspace; targetWorkspaceTe
                     nantId=***}
-```
 
 ## PARAMETERS
 
@@ -56,7 +55,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -71,11 +70,11 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -targetWorkspaceResourceId
+### -ResourceId
 The ResourceId of the target workspace to add as a member
 
 ```yaml
@@ -86,11 +85,11 @@ Aliases:
 Required: True
 Position: 3
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -targetWorkspaceTenantId
+### -TenantId
 The TenantId of the target workspace to add as a member
 
 ```yaml

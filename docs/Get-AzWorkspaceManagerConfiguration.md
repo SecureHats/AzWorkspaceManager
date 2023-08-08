@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AzWorkspaceManagerConfiguration
 
 ## SYNOPSIS
-Get the Azure Sentinel Workspace Manager
+Get the Microsoft Sentinel Workspace Manager
 
 ## SYNTAX
 
@@ -40,7 +40,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -55,7 +55,7 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

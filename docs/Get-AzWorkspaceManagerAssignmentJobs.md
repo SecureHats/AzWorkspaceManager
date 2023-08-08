@@ -5,20 +5,20 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-AzWorkspaceManagerMembers
+# Get-AzWorkspaceManagerAssignmentJobs
 
 ## SYNOPSIS
-Add a Microsoft Sentinel Workspace Manager Member
+Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
 ```
-Get-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
- [<CommonParameters>]
+Get-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+ [[-Name] <String>] [[-JobName] <String>] [[-ResourceId] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-With this function you can add a Microsoft Sentinel Workspace Manager Member
+This function gets the Workspace Manager Groups and properties
 
 ## EXAMPLES
 
@@ -30,7 +30,7 @@ With this function you can add a Microsoft Sentinel Workspace Manager Member
 ## PARAMETERS
 
 ### -WorkspaceName
-Enter the Name of the log analytics workspace
+The Name of the log analytics workspace
 
 ```yaml
 Type: String
@@ -40,12 +40,12 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -ResourceGroupName
-Enter the name of the ResouceGroup where the log analytics workspace is located
+The name of the ResouceGroup where the log analytics workspace is located
 
 ```yaml
 Type: String
@@ -55,12 +55,12 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -Name
-Enter the name of the workspace manager member
+The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
 
 ```yaml
 Type: String
@@ -70,7 +70,37 @@ Aliases:
 Required: False
 Position: 3
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -JobName
+The name of the Workspace Manager Assignment Job
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
+Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ResourceId
+{{ Fill ResourceId Description }}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

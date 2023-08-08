@@ -5,20 +5,20 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-AzWorkspaceManagerMembers
+# Get-AzWorkspaceManagerAssignments
 
 ## SYNOPSIS
-Add a Microsoft Sentinel Workspace Manager Member
+Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
 ```
-Get-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
- [<CommonParameters>]
+Get-AzWorkspaceManagerAssignments [[-WorkspaceName] <String>] [[-ResourceGroupName] <String>]
+ [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-With this function you can add a Microsoft Sentinel Workspace Manager Member
+This function gets the Workspace Manager Groups and properties
 
 ## EXAMPLES
 
@@ -30,14 +30,14 @@ With this function you can add a Microsoft Sentinel Workspace Manager Member
 ## PARAMETERS
 
 ### -WorkspaceName
-Enter the Name of the log analytics workspace
+The Name of the log analytics workspace
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceGroupName
-Enter the name of the ResouceGroup where the log analytics workspace is located
+The name of the ResouceGroup where the log analytics workspace is located
 
 ```yaml
 Type: String
@@ -60,7 +60,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-Enter the name of the workspace manager member
+The name of the workspace manager assignment
 
 ```yaml
 Type: String
