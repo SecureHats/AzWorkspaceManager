@@ -18,6 +18,7 @@ function Remove-AzWorkspaceManagerMembers {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,    
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -25,6 +26,7 @@ function Remove-AzWorkspaceManagerMembers {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
         [Parameter(Mandatory = $false)]

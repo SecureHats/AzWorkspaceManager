@@ -24,6 +24,7 @@ function Add-AzWorkspaceManagerAssignments {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [ValidateNotNullOrEmpty()]
         [string]$WorkspaceName,
 
@@ -32,10 +33,12 @@ function Add-AzWorkspaceManagerAssignments {
         [string]$ResourceGroupName,
         
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [ValidateNotNullOrEmpty()]
         [string]$GroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [array]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]

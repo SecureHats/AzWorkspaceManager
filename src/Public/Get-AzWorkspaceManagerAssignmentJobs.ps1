@@ -8,9 +8,9 @@ function Get-AzWorkspaceManagerAssignmentJobs {
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER GroupName
-      The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
       .PARAMETER Name
+      The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
+      .PARAMETER JobName
       The name of the Workspace Manager Assignment Job 
       .EXAMPLE
     #>
@@ -25,13 +25,18 @@ function Get-AzWorkspaceManagerAssignmentJobs {
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$AssignmentName,
+[ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Name
+        [string]$JobName,
+
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ResourceId
     )
 
     begin {
@@ -46,13 +51,18 @@ function Get-AzWorkspaceManagerAssignmentJobs {
             $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
         }
 
-        $null = Get-AzWorkspaceManagerAssignments -WorkspaceName $WorkspaceName -Name $AssignmentName
+        #$null = Get-AzWorkspaceManagerAssignments -WorkspaceName $WorkspaceName -Name $Name
 
-        if ($null -ne $Name) {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($AssignmentName)/jobs/$($Name)?api-version=$($SessionVariables.apiVersion)"
-        }
-        else {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($AssignmentName)/jobs?api-version=$($SessionVariables.apiVersion)"
+        if ($ResourceId) {
+            $uri = "https://management.azure.com$($ResourceId)/jobs?api-version=$($SessionVariables.apiVersion)"
+            Write-Debug "$($MyInvocation.MyCommand.Name): $uri"
+        } else {
+            if ($null -ne $JobName) {
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)/jobs/$($JobName)?api-version=$($SessionVariables.apiVersion)"
+            }
+            else {
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)/jobs?api-version=$($SessionVariables.apiVersion)"
+            }
         }
 
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
@@ -65,7 +75,8 @@ function Get-AzWorkspaceManagerAssignmentJobs {
                     Method        = 'GET'
                     ErrorVariable = 'ErrVar'
                 }
-                if ($Name) {
+
+                if ($Name -eq '' -and $ResourceId -eq '') {
                     $apiResponse = (Invoke-RestMethod @requestParam)
                 } 
                 else {
@@ -96,7 +107,7 @@ function Get-AzWorkspaceManagerAssignmentJobs {
             }
             catch {
                 if ($ErrVar.Message -like '*ResourceNotFound*') {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignment Job with name '$($Name)' found for Assignment Group '$($AssignmentName)'" -Severity 'Error'
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignment Job with name '$($JobName)' found for Assignment Group '$($Name)'" -Severity 'Error'
                 }
                 else {
                     Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'

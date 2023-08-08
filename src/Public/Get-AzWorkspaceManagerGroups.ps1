@@ -16,6 +16,7 @@ function Get-AzWorkspaceManagerGroups {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -24,6 +25,7 @@ function Get-AzWorkspaceManagerGroups {
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name
     )
 

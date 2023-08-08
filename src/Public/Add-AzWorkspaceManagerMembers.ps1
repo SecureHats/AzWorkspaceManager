@@ -36,6 +36,7 @@ function Add-AzWorkspaceManagerMembers {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -45,6 +46,7 @@ function Add-AzWorkspaceManagerMembers {
         [string]$ResourceId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [ValidatePattern('^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$', ErrorMessage="It is not a valid GUID")]
         [string]$TenantId
     )
 

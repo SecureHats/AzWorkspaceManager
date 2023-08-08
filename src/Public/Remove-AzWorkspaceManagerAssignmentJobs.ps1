@@ -19,17 +19,20 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,    
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [ValidateNotNullOrEmpty()]
         [string]$AssignmentName,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
+[ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]

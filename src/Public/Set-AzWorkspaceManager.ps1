@@ -1,26 +1,31 @@
-function Set-AzWorkspaceManagerConfiguration {
+function Set-AzWorkspaceManager {
     <#
       .SYNOPSIS
       Set Microsoft Sentinel Workspace Manager
       .DESCRIPTION
       With this function you can set the Microsoft Sentinel Workspace Manager
       .PARAMETER Name
-      Enter the Name of the log analytics workspace
+      Name of the log analytics workspace
       .PARAMETER ResourceGroupName
-      Enter the name of the ResouceGroup where the log analytics workspace is located
+      Name of the ResouceGroup where the log analytics workspace is located
+      .PARAMETER Mode
+      Status of the Workspace Manager (Enabled or Disabled)
       .EXAMPLE
+      Set-AzWorkspaceManager -Name 'workspaceName' -ResourceGroupName 'resourceGroupName' -Mode 'Enabled'
     #>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [bool]$Enabled
+        [ValidateSet("Enabled", "Disabled")]
+        [string]$Mode
     )
 
     begin {
@@ -33,18 +38,11 @@ function Set-AzWorkspaceManagerConfiguration {
         }
         else {
             Get-LogAnalyticsWorkspace -Name $WorkspaceName
-        }
-        
-        if ($Enabled -eq $true) {
-            $mode = 'Enabled'
-        }
-        else {
-            $mode = 'Disabled'
-        }
+        } 
         
         $payload = @{
             properties = @{
-                mode = $mode
+                mode = $Mode
             }
         } | ConvertTo-Json
 

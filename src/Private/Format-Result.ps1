@@ -24,6 +24,7 @@ function Format-Result {
         Name              = $split[-1]
         ResourceGroupName = $split[-9]
         ResourceType      = '{0}/{1}' -f $split[-3], $split[-2]
+        WorkspaceName     = $split[-5]
         ResourceId        = $apiResponse.id
         Tags              = $apiResponse.tags
         Properties        = $apiResponse.properties

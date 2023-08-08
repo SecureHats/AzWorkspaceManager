@@ -25,6 +25,7 @@ function Add-AzWorkspaceManagerAssignmentJobs {
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$WorkspaceName, # //TODO: Add validation for workspace name
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -32,7 +33,8 @@ function Add-AzWorkspaceManagerAssignmentJobs {
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [array]$Name,
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [array]$Name = (New-Guid).Guid,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [array]$ItemResourceId
