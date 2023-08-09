@@ -35,10 +35,10 @@ function Get-AzWorkspaceManagerGroups {
 
     process {
         if ($ResourceGroupName) {
-            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
+            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-AzWorkspaceManagerConfiguration -WorkspaceName $WorkspaceName
+            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName
         }
 
         if ($null -ne $Name) {

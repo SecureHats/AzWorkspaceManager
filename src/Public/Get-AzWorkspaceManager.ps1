@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerConfiguration {
+function Get-AzWorkspaceManager {
     <#
       .SYNOPSIS
       Get the Microsoft Sentinel Workspace Manager
