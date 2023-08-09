@@ -1,9 +1,10 @@
 function Get-AzWorkspaceManagerMembers {
     <#
       .SYNOPSIS
-      Add a Microsoft Sentinel Workspace Manager Member
+      Gets a Microsoft Sentinel Workspace Manager Member
       .DESCRIPTION
-      With this function you can add a Microsoft Sentinel Workspace Manager Member
+      The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration.
+      The members can be queried by providing a workspace name or by providing a workspace manager member name.
       .PARAMETER WorkspaceName
       Enter the Name of the log analytics workspace
       .PARAMETER ResourceGroupName
@@ -11,6 +12,17 @@ function Get-AzWorkspaceManagerMembers {
       .PARAMETER Name
       Enter the name of the workspace manager member
       .EXAMPLE
+      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
+
+      This command gets the workspace manager member(s) from the workspace configuration 'myWorkspace'
+      .EXAMPLE
+      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+      
+      This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+      .EXAMPLE
+      Get-AzWorkspaceManager -Name 'myWorkspace' | Get-AzWorkspaceManagerMembers
+      
+      This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
     #>
     [cmdletbinding()]
     param (
@@ -34,10 +46,10 @@ function Get-AzWorkspaceManagerMembers {
 
     process {
         if ($ResourceGroupName) {
-            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
+            $null = Get-AzWorkspaceManager -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
         } 
         else {
-            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName
+            $null = Get-AzWorkspaceManager -Name $WorkspaceName
         }
 
         if ($Name) {
@@ -60,11 +72,14 @@ function Get-AzWorkspaceManagerMembers {
                     $apiResponse = (Invoke-RestMethod @requestParam)
                 } 
                 else {
-                    $apiResponse = (Invoke-RestMethod @requestParam).value
+                    $apiResponse = (Invoke-RestMethod @requestParam).value 
                 }
             
                 if ($apiResponse -ne '') {
-                    $result = Format-Result -Message $apiResponse
+                    # foreach ($object in $apiResponse) {
+                        [array]$result += Format-Result -Message $apiResponse
+                    # }
+                    
                     return $result
                 }
                 else {

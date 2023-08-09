@@ -41,10 +41,10 @@ function Add-AzWorkspaceManagerAssignmentJobs {
 
     process {
         if ($ResourceGroupName) {
-            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
+            $null = Get-AzWorkspaceManager -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName
+            $null = Get-AzWorkspaceManager -Name $WorkspaceName
         }
 
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
