@@ -1,20 +1,47 @@
 function Get-AzWorkspaceManager {
     <#
       .SYNOPSIS
-      Get the Microsoft Sentinel Workspace Manager
+      Gets the Microsoft Sentinel Workspace Manager
       .DESCRIPTION
-      This function gets the Workspace Manager and returns the properties if enabled
-      .PARAMETER WorkspaceName
+      The Get-AzWorkspaceManager cmdlet retrieves a Workspace Manager Configuration from the Log Analytics workspace.
+      You can retrieve the workspace manager configuration by using just provding a workspacename.
+      Only one workspace manager configuration can be added per Microsoft Sentinel instance
+      .PARAMETER Name
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
       .EXAMPLE
+      This command gets the workspace manager for the workspace 'myWorkspace'
+      
+      Get-AzWorkspaceManager -Name 'myWorkspace'
+          
+      Name              : myWorkspace
+      ResourceGroupName : myRG
+      ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
+      WorkspaceName     : myWorkspace
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
+      Tags              : 
+      Properties        : @{mode=Enabled}
+      .EXAMPLE
+      This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
+
+      Get-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
+
+      Name              : myWorkspace
+      ResourceGroupName : myRG
+      ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
+      WorkspaceName     : myWorkspace
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
+      Tags              : 
+      Properties        : @{mode=Enabled}
+        
+      Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.  
     #>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
-        [string]$WorkspaceName,
+        [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
@@ -27,15 +54,15 @@ function Get-AzWorkspaceManager {
 
     process {
         if ($ResourceGroupName) {
-            Get-LogAnalyticsWorkspace -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
+            Get-LogAnalyticsWorkspace -Name $Name -ResourceGroupName $ResourceGroupName
         }
         else {
-            Get-LogAnalyticsWorkspace -Name $WorkspaceName
+            Get-LogAnalyticsWorkspace -Name $Name
         }
         
         try {
             if ($SessionVariables.workspace) {
-                Write-Verbose "Get Microsoft Sentinel Workspace Manager Configuration for workspace [$WorkspaceName)]"
+                Write-Verbose "Get Microsoft Sentinel Workspace Manager Configuration for workspace [$Name)]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$($SessionVariables.apiVersion)"
 
                 $requestParam = @{
@@ -46,7 +73,7 @@ function Get-AzWorkspaceManager {
                 $apiResponse = (Invoke-RestMethod @requestParam).value
             }
             else {
-                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$WorkspaceName'" -Severity 'Error'
+                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$Name'" -Severity 'Error'
             }
             
             if ($apiResponse -ne '') {
@@ -55,7 +82,7 @@ function Get-AzWorkspaceManager {
                 return $result
             }
             else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager is not 'configured' for workspace [$($WorkspaceName)]" -Severity 'Information'
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager is not 'configured' for workspace [$($Name)]" -Severity 'Information'
                 $SessionVariables.workspaceManagerConfiguration = $false
                 break
             }

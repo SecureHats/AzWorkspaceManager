@@ -3,7 +3,9 @@ function Remove-AzWorkspaceManager {
       .SYNOPSIS
       Remove Microsoft Sentinel Workspace Manager
       .DESCRIPTION
-      This function removes the Microsoft Sentinel Workspace Manager configuration
+      The Remove-AzWorkspaceManager cmdlet retrieves a Workspace Manager Configuration and removes
+      it from the Log Analytics workspace. You can remove the workspace manager configuration by
+      just providing a workspacename.
       .PARAMETER Name
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
@@ -11,13 +13,24 @@ function Remove-AzWorkspaceManager {
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
+      This command removes the workspace manager on the Sentinel workspace 'myWorkspace'
+
+      Remove-AzWorkspaceManager -Name 'myWorkspace'
+
+
+      .EXAMPLE
+      This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'
+      
+      Remove-AzWorkspaceManager -Name 'myWorkspace'
+
+
     #>
     [cmdletbinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
-        [string]$WorkspaceName,
+        [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
@@ -32,10 +45,11 @@ function Remove-AzWorkspaceManager {
 
     process {
         if ($ResourceGroupName) {
-            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName -ResourceGroupName $ResourceGroupName
+            Write-Verbose "!!Resource Group Name: $ResourceGroupName"
+            $null = Get-AzWorkspaceManager -Name $Name -ResourceGroupName $ResourceGroupName
         }
         else {
-            $null = Get-AzWorkspaceManager -WorkspaceName $WorkspaceName
+            $null = Get-AzWorkspaceManager Name $Name
         }
         if ($Force){
             $ConfirmPreference = 'None'
@@ -43,8 +57,8 @@ function Remove-AzWorkspaceManager {
         
         try {
             if ($PSCmdlet.ShouldProcess($SessionVariables.workspace)) {
-                Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$WorkspaceName'"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($WorkspaceName)?api-version=$($SessionVariables.apiVersion)"
+                Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
                 
                 $requestParam = @{
                     Headers = $authHeader

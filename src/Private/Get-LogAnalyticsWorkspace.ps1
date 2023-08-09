@@ -12,11 +12,11 @@ function Get-LogAnalyticsWorkspace {
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName
     )
 
@@ -38,7 +38,7 @@ function Get-LogAnalyticsWorkspace {
         }
         
         try {
-            Write-Verbose "Trying to get the Microsoft Sentinel workspace [$($Name)]"
+            Write-Verbose "Trying to get the Microsoft Sentinel workspace '$Name'"
 
             $requestParam = @{
                 Headers       = $authHeader
