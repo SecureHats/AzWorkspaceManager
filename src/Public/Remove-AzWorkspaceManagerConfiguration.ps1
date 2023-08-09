@@ -1,4 +1,4 @@
-function Remove-AzWorkspaceManagerConfiguration {
+function Remove-AzWorkspaceManager {
     <#
       .SYNOPSIS
       Remove Microsoft Sentinel Workspace Manager

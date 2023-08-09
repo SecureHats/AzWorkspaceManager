@@ -70,7 +70,7 @@
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = @('Get-AzWorkspaceManager', 
-        'Set-AzWorkspaceManager', 'Remove-AzWorkspaceManagerConfiguration',
+        'Set-AzWorkspaceManager', 'Remove-AzWorkspaceManager',
         'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers',
         'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups',
         'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments',
@@ -100,7 +100,7 @@
     'Public\Get-LogAnalyticsWorkspace.ps1',
     'Public\Get-AzWorkspaceManager.ps1',
     'Public\Set-AzWorkspaceManager.ps1',
-    'Public\Remove-AzWorkspaceManagerConfiguration.ps1',
+    'Public\Remove-AzWorkspaceManager.ps1',
     'Public\Get-AzWorkspaceManagerMembers.ps1',
     'Public\Add-AzWorkspaceManagerMembers.ps1',
     'Public\Remove-AzWorkspaceManagerMembers.ps1',
