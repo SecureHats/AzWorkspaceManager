@@ -60,7 +60,6 @@ function Get-LogAnalyticsWorkspace {
                 { $_ -lt 1 } { 
                     $SessionVariables.workspace = $null
                     Write-Message -FunctionName $MyInvocation.MyCommand.Name"The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -Severity 'Error'
-                    break
                 }
                 Default {}
             }
@@ -94,8 +93,6 @@ function Get-LogAnalyticsWorkspace {
                     else {
                         Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "An error has occured requesting the Log Analytics workspace" -Severity 'Error'
                     }
-                    
-                    break
                 }
             }
         }
