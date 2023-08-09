@@ -62,7 +62,7 @@ function Get-AzWorkspaceManager {
         
         try {
             if ($SessionVariables.workspace) {
-                Write-Verbose "Get Microsoft Sentinel Workspace Manager Configuration for workspace [$Name)]"
+                Write-Verbose "Get Microsoft Sentinel Workspace Manager Configuration for workspace '$Name'"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations?api-version=$($SessionVariables.apiVersion)"
 
                 $requestParam = @{
@@ -82,7 +82,7 @@ function Get-AzWorkspaceManager {
                 return $result
             }
             else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager is not 'configured' for workspace [$($Name)]" -Severity 'Information'
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager is not configured for workspace '$Name'" -Severity 'Information'
                 $SessionVariables.workspaceManagerConfiguration = $false
                 break
             }

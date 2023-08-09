@@ -89,7 +89,7 @@ function Set-AzWorkspaceManager {
             if ($SessionVariables.workspace) {
                 Write-Verbose "Configuring Microsoft Sentinel Workspace Manager Configuration for workspace [$Name]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
-                Write-Host $uri
+
                 $requestParam = @{
                     Headers       = $authHeader
                     Uri           = $uri
