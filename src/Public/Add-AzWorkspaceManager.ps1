@@ -51,7 +51,7 @@ function Add-AzWorkspaceManager {
                 return $result
             }
             else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Error configuring Workspace Manager for workspace $($Name)" -Severity 'Error'
+                Write-Debug "$($MyInvocation.MyCommand.Name): Error configuring Workspace Manager for workspace $($Name)"
             }
         }
         catch {
