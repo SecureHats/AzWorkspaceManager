@@ -12,7 +12,7 @@ Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
-```
+```powershell
 Get-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
  [<CommonParameters>]
 ```
@@ -28,28 +28,28 @@ If the workspace manager configuration is not enabled, the cmdlet returns an inf
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace'
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace'
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Group 'MyWorkspaceManagerGroup' for the workspace 'MyWorkspace'
 
 ### EXAMPLE 4
-```
+```powershell
 Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AzWorkspaceManagerGroups
 ```
 

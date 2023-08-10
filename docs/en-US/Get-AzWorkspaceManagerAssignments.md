@@ -12,7 +12,7 @@ Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
-```
+```powershell
 Get-AzWorkspaceManagerAssignments [[-WorkspaceName] <String>] [[-ResourceGroupName] <String>]
  [[-Name] <String>] [<CommonParameters>]
 ```
@@ -25,14 +25,14 @@ If a Name is specified, the cmdlet will return the details of the workspace mana
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace'
 ```
 
 This example gets all the Microsoft Sentinel Workspace Manager Assignments for the workspace 'MyWorkspace'
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
 ```
 

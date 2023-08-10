@@ -12,7 +12,7 @@ Gets a Microsoft Sentinel Workspace Manager Member
 
 ## SYNTAX
 
-```
+```powershell
 Get-AzWorkspaceManagerItems [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
  [[-Type] <String>] [<CommonParameters>]
 ```
@@ -27,28 +27,28 @@ is ignored due to API limitations.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Name 'MyAlertRule' -Type 'AlertRules'
 ```
 
 This example gets the resource id of the AlertRule 'MyAlertRule' in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AlertRules'
 ```
 
 This example gets the resource ids of all AlertRules in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'SavedSearches'
 ```
 
 This example gets the resource ids of all SavedSearches in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
 
 ### EXAMPLE 4
-```
+```powershell
 Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AutomationRules'
 ```
 

@@ -12,7 +12,7 @@ Adds a Microsoft Sentinel Workspace Manager Assignment Job
 
 ## SYNTAX
 
-```
+```powershell
 Add-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [[-Name] <String>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
@@ -24,21 +24,21 @@ By default the name of the Workspace Manager Assignment is the same as the Works
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
 ```
 
 This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' with the name 'MyWorkspaceManagerAssignment'
 
 ### EXAMPLE 2
-```
+```powershell
 Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
 ```
 
 This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' in the resourcegroup 'MyResourceGroup' with the name 'MyWorkspaceManagerAssignment'
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJobs
 ```
 

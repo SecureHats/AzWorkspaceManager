@@ -12,7 +12,7 @@ Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
-```
+```powershell
 Remove-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [[-AssignmentName] <String>] [[-Name] <String>] [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm]
  [<CommonParameters>]
@@ -25,21 +25,21 @@ When the Workspace Manager Assignment is removed, all the Workspace Manager Assi
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Remove-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'
 ```
 
 This example removes the Workspace Manager Assignment Job 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1' from the Workspace Manager Assignment 'myAssignment' in the log analytics workspace 'myWorkspace' in the resource group 'myRG'
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJobs -Force
 ```
 
 This example removes all the Workspace Manager Assignment Jobs from the Workspace Manager Assignment 'MyWorkspaceManagerAssignment' without prompting for confirmation
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerAssignments -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJobs | Remove-AzWorkspaceManagerAssignmentJobs -Force
 ```
 

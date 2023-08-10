@@ -12,7 +12,7 @@ Remove Microsoft Sentinel Workspace Manager Assignment
 
 ## SYNTAX
 
-```
+```powershell
 Remove-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [[-Name] <String>] [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -25,14 +25,14 @@ The Assignment must first be removed from the Workspace Manager Group before the
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Remove-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'
 ```
 
 This command removes the Workspace Manager Assignment 'ContosoWorkspaceManagerAssignment' from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup'.
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignments -Force
 ```
 

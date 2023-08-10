@@ -12,7 +12,7 @@ Remove Microsoft Sentinel Workspace Manager
 
 ## SYNTAX
 
-```
+```powershell
 Remove-AzWorkspaceManager [-Name] <String> [[-ResourceGroupName] <String>] [-Force] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
@@ -26,21 +26,21 @@ just providing a workspacename.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Remove-AzWorkspaceManager -Name 'myWorkspace' -Force
 ```
 
 This command removes the workspace manager on the Sentinel workspace 'myWorkspace'
 
 ### EXAMPLE 2
-```
+```powershell
 Remove-AzWorkspaceManager -Name sentinel-playground -Force
 ```
 
 This command removes the workspace manager on the Sentinel workspace 'myWorkspace' without confirmation'
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManager -Name sentinel-playground | Remove-AzWorkspaceManager -Force
 ```
 

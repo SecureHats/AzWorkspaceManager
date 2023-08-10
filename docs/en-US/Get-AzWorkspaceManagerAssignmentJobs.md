@@ -12,7 +12,7 @@ Get the Microsoft Sentinel Workspace Manager Groups
 
 ## SYNTAX
 
-```
+```powershell
 Get-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [[-Name] <String>] [[-JobName] <String>] [[-ResourceId] <String>] [<CommonParameters>]
 ```

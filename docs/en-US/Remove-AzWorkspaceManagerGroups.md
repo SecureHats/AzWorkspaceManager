@@ -12,7 +12,7 @@ Remove Microsoft Sentinel Workspace Manager
 
 ## SYNTAX
 
-```
+```powershell
 Remove-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
  [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -26,21 +26,21 @@ If an assigment is still available for the group, the group cannot be removed.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'
 ```
 
 This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace'
 
 ### EXAMPLE 2
-```
+```powershell
 Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force
 ```
 
 This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace' in the resource group 'myWorkspaceManagerGroup' without prompting for confirmation
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerGroups -Force
 ```
 

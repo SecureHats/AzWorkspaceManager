@@ -12,7 +12,7 @@ Add a Microsoft Sentinel Workspace Manager Member
 
 ## SYNTAX
 
-```
+```powershell
 Add-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-ResourceId] <Array>
  [-TenantId] <String> [<CommonParameters>]
 ```
@@ -27,7 +27,7 @@ The Workspace Manager Member name is constructed as follows: \<workspaceName\>(\
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
 ```
 

@@ -12,7 +12,7 @@ Remove a Workspace Manager Member
 
 ## SYNTAX
 
-```
+```powershell
 Remove-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
  [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -23,21 +23,21 @@ The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member t
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
 
 This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation
 
 ### EXAMPLE 2
-```
+```powershell
 Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
 ```
 
 This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
 ```
 

@@ -12,7 +12,7 @@ Add a Microsoft Sentinel Workspace Manager Group.
 
 ## SYNTAX
 
-```
+```powershell
 Add-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
  [[-Description] <String>] [[-workspaceManagerMembers] <Array>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
@@ -26,14 +26,14 @@ workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
 ```
 
 This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"
 ```
 

@@ -12,7 +12,7 @@ Gets a Microsoft Sentinel Workspace Manager Member
 
 ## SYNTAX
 
-```
+```powershell
 Get-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
  [<CommonParameters>]
 ```
@@ -25,28 +25,28 @@ When the workspace manager member name is provided, the workspace manager member
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace'
 
 ### EXAMPLE 2
-```
+```powershell
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' in the resource group 'myResourceGroup'
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Member 'myChildWorkspace(***)' for the workspace 'MyWorkspace'
 
 ### EXAMPLE 4
-```
+```powershell
 Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers
 ```
 

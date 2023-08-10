@@ -12,7 +12,7 @@ Adds a Microsoft Sentinel Workspace Manager Assignment
 
 ## SYNTAX
 
-```
+```powershell
 Add-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [-GroupName] <String> [[-Name] <Array>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
@@ -28,21 +28,21 @@ If the resource id's are not in the same instance as the workspace manager confi
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+```powershell
 Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
 ```
 
 This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
 
 ### EXAMPLE 2
-```
+```powershell
 Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"
 ```
 
 This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup' and adds the alert rule to the assignment.
 
 ### EXAMPLE 3
-```
+```powershell
 Get-AzWorkspaceManagerItems -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignments -GroupName 'myGroup'
 ```
 
