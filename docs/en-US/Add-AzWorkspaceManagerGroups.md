@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Add-AzWorkspaceManagerGroups
+# Add-AddAzWorkspaceManagerGroup
 
 ## SYNOPSIS
 Add a Microsoft Sentinel Workspace Manager Group.
@@ -13,28 +13,28 @@ Add a Microsoft Sentinel Workspace Manager Group.
 ## SYNTAX
 
 ```powershell
-Add-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
+Add-AddAzWorkspaceManagerGroup [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
  [[-Description] <String>] [[-workspaceManagerMembers] <Array>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Add-AzWorkspaceManagerGroups cmdlet adds a workspace manager group to the configuration.
+The Add-AddAzWorkspaceManagerGroup cmdlet adds a workspace manager group to the configuration.
 It is possible to add child workspaces to the group or add them later.
 For adding child
-workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.
+workspaces, use the Add-AddAzWorkspaceManagerMember cmdlet.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```powershell
-Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
+Add-AddAzWorkspaceManagerGroup -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
 ```
 
 This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.
 
 ### EXAMPLE 2
 ```powershell
-Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"
+Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" | Add-AddAzWorkspaceManagerGroup -Name "Banks"
 ```
 
 This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.

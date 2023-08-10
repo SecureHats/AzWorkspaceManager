@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-AzWorkspaceManagerMembers
+# Remove-AddAzWorkspaceManagerMember
 
 ## SYNOPSIS
 Remove a Workspace Manager Member
@@ -13,32 +13,32 @@ Remove a Workspace Manager Member
 ## SYNTAX
 
 ```powershell
-Remove-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
+Remove-AddAzWorkspaceManagerMember [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
  [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member to the configuration.
+The Remove-AddAzWorkspaceManagerMember cmdlet removes a workspace manager member to the configuration.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```powershell
-Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+Remove-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
 
 This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation
 
 ### EXAMPLE 2
 ```powershell
-Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
+Remove-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
 ```
 
 This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
 
 ### EXAMPLE 3
 ```powershell
-Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
+Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" | Remove-AddAzWorkspaceManagerMember -Force
 ```
 
 This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation

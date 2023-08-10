@@ -1,4 +1,4 @@
-function Add-AzWorkspaceManagerAssignmentJobs {
+function Add-AzWorkspaceManagerAssignmentJob {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -44,8 +44,6 @@ function Add-AzWorkspaceManagerAssignmentJobs {
                 }
                 Write-Verbose "Adding Workspace Manager Assignment Job to group '$Name'"
 
-                write-host $uri
-
                 $requestParam = @{
                     Headers       = $authHeader
                     Uri           = $uri
@@ -82,7 +80,7 @@ function Add-AzWorkspaceManagerAssignmentJobs {
         .SYNOPSIS
         Adds a Microsoft Sentinel Workspace Manager Assignment Job
         .DESCRIPTION
-        The Add-AzWorkspaceManagerAssignmentJobs command adds a Workspace Manager Assignment Job to the workspace.
+        The Add-AzWorkspaceManagerAssignmentJob command adds a Workspace Manager Assignment Job to the workspace.
         By default the name of the Workspace Manager Assignment is the same as the Workspace Manager Group.
         .PARAMETER WorkspaceName
         The name of the log analytics workspace
@@ -91,19 +89,19 @@ function Add-AzWorkspaceManagerAssignmentJobs {
         .PARAMETER Name
         The name of the workspace manager assignment. This is the same as the Workspace Manager GroupName unless specified otherwise
         .EXAMPLE
-        Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
+        Add-AzWorkspaceManagerAssignmentJob -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
 
         This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' with the name 'MyWorkspaceManagerAssignment'
         .EXAMPLE
-        Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
+        Add-AzWorkspaceManagerAssignmentJob -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
 
         This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' in the resourcegroup 'MyResourceGroup' with the name 'MyWorkspaceManagerAssignment'
         .EXAMPLE
-        Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJobs
+        Get-AzWorkspaceManagerAssignment -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJob
 
         This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' for each Workspace Manager Assignment found
         .LINK
-        Get-AzWorkspaceManagerAssignmentJobs
-        Remove-AzWorkspaceManagerAssignmentJobs
+        Get-AzWorkspaceManagerAssignmentJob
+        Remove-AzWorkspaceManagerAssignmentJob
 #>
 }

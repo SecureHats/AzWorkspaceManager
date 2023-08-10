@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-AzWorkspaceManager
+# Add-AzWorkspaceManager
 
 ## SYNOPSIS
 Creates a Workspace Manager Configuration
@@ -13,11 +13,11 @@ Creates a Workspace Manager Configuration
 ## SYNTAX
 
 ```powershell
-Set-AzWorkspaceManager [-Name] <String> [[-ResourceGroupName] <String>] [[-Mode] <String>] [<CommonParameters>]
+Add-AzWorkspaceManager [-Name] <String> [[-ResourceGroupName] <String>] [[-Mode] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Set-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature.
+The Add-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature.
 You can create a workspace manager configuration by using just a workspacename.
 The minimum requirement to to enable the
 workspace manager is that Microsoft Sentinel is enabled on the Log Analytics workspace.
@@ -27,7 +27,7 @@ Only one workspace manager configuration can be added per Microsoft Sentinel ins
 
 ### EXAMPLE 1
 ```powershell
-Set-AzWorkspaceManager -Name 'myWorkspace'
+Add-AzWorkspaceManager -Name 'myWorkspace'
 ```
 
 Name              : myWorkspace
@@ -42,7 +42,7 @@ This command creates / enables the workspace manager on the Sentinel workspace '
 
 ### EXAMPLE 2
 ```powershell
-Set-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
+Add-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
 ```
 
 Name              : myWorkspace
@@ -57,7 +57,7 @@ This command sets the workspace manager to disabled
 
 ### EXAMPLE 3
 ```powershell
-Set-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
+Add-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 ```
 
 Name              : myWorkspace

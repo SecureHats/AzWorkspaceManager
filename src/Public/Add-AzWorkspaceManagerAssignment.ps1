@@ -1,4 +1,4 @@
-function Add-AzWorkspaceManagerAssignments {
+function Add-AzWorkspaceManagerAssignment {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -99,7 +99,7 @@ function Add-AzWorkspaceManagerAssignments {
       .SYNOPSIS
       Adds a Microsoft Sentinel Workspace Manager Assignment
       .DESCRIPTION
-      The Add-AzWorkspaceManagerAssignments command adds a Workspace Manager Assignment to a Workspace Manager Group.
+      The Add-AzWorkspaceManagerAssignment command adds a Workspace Manager Assignment to a Workspace Manager Group.
       These assignments are used to provision Microsoft Sentinel workspaces. The Workspace Manager Assignment name is constructed by the GroupName.
       The resource id's of the items that are added to the assignment are stored in the properties of the assignment. These resources need to be in the same instance as the workspace manager configuration.
       If the resource id's are not in the same instance as the workspace manager configuration, the assignment will not be created and an error will be thrown.
@@ -114,21 +114,21 @@ function Add-AzWorkspaceManagerAssignments {
       .PARAMETER ResourceId
       The ResourceId's of the items that to be added to the Workspace Manager Assignment. This can be a single value or an array of values.
       .EXAMPLE
-      Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
+      Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
 
       This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
       .EXAMPLE
-      Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"
+      Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"
 
       This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup' and adds the alert rule to the assignment.
       .EXAMPLE
-      Get-AzWorkspaceManagerItems -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignments -GroupName 'myGroup'
+      Get-AzWorkspaceManagerItem -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignment -GroupName 'myGroup'
 
       This example gets all the alert rules from the workspace with the name 'myWorkspace' and adds these to the Workspace Manager Assignment with the name 'AlertRules'.
       .LINK
-      Get-AzWorkspaceManagerItems
-      Get-AzWorkspaceManagerAssignments
-      Remove-AzWorkspaceManagerAssignments
-      Get-AzWorkspaceManagerGroups
+      Get-AzWorkspaceManagerItem
+      Get-AzWorkspaceManagerAssignment
+      Remove-AzWorkspaceManagerAssignment
+      Get-AzWorkspaceManagerGroup
     #>
 }

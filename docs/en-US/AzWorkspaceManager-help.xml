@@ -2,19 +2,19 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Add-AzWorkspaceManagerAssignmentJobs</command:name>
+      <command:name>Add-AzWorkspaceManagerAssignmentJob</command:name>
       <command:verb>Add</command:verb>
-      <command:noun>AzWorkspaceManagerAssignmentJobs</command:noun>
+      <command:noun>AzWorkspaceManagerAssignmentJob</command:noun>
       <maml:description>
         <maml:para>Adds a Microsoft Sentinel Workspace Manager Assignment Job</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Add-AzWorkspaceManagerAssignmentJobs command adds a Workspace Manager Assignment Job to the workspace. By default the name of the Workspace Manager Assignment is the same as the Workspace Manager Group.</maml:para>
+      <maml:para>The Add-AzWorkspaceManagerAssignmentJob command adds a Workspace Manager Assignment Job to the workspace. By default the name of the Workspace Manager Assignment is the same as the Workspace Manager Group.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Add-AzWorkspaceManagerAssignmentJobs</maml:name>
+        <maml:name>Add-AzWorkspaceManagerAssignmentJob</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -125,21 +125,21 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignmentJob -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' with the name 'MyWorkspaceManagerAssignment'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignmentJob -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' in the resourcegroup 'MyResourceGroup' with the name 'MyWorkspaceManagerAssignment'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJobs</dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignment -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJob</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' for each Workspace Manager Assignment found</maml:para>
         </dev:remarks>
@@ -149,19 +149,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Add-AzWorkspaceManagerAssignments</command:name>
+      <command:name>Add-AzWorkspaceManagerAssignment</command:name>
       <command:verb>Add</command:verb>
-      <command:noun>AzWorkspaceManagerAssignments</command:noun>
+      <command:noun>AzWorkspaceManagerAssignment</command:noun>
       <maml:description>
         <maml:para>Adds a Microsoft Sentinel Workspace Manager Assignment</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Add-AzWorkspaceManagerAssignments command adds a Workspace Manager Assignment to a Workspace Manager Group. These assignments are used to provision Microsoft Sentinel workspaces. The Workspace Manager Assignment name is constructed by the GroupName. The resource id's of the items that are added to the assignment are stored in the properties of the assignment. These resources need to be in the same instance as the workspace manager configuration. If the resource id's are not in the same instance as the workspace manager configuration, the assignment will not be created and an error will be thrown.</maml:para>
+      <maml:para>The Add-AzWorkspaceManagerAssignment command adds a Workspace Manager Assignment to a Workspace Manager Group. These assignments are used to provision Microsoft Sentinel workspaces. The Workspace Manager Assignment name is constructed by the GroupName. The resource id's of the items that are added to the assignment are stored in the properties of the assignment. These resources need to be in the same instance as the workspace manager configuration. If the resource id's are not in the same instance as the workspace manager configuration, the assignment will not be created and an error will be thrown.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Add-AzWorkspaceManagerAssignments</maml:name>
+        <maml:name>Add-AzWorkspaceManagerAssignment</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -296,21 +296,21 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup' and adds the alert rule to the assignment.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignments -GroupName 'myGroup'</dev:code>
+        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignment -GroupName 'myGroup'</dev:code>
         <dev:remarks>
           <maml:para>This example gets all the alert rules from the workspace with the name 'myWorkspace' and adds these to the Workspace Manager Assignment with the name 'AlertRules'.</maml:para>
         </dev:remarks>
@@ -320,19 +320,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Add-AzWorkspaceManagerGroups</command:name>
+      <command:name>Add-AddAzWorkspaceManagerGroup</command:name>
       <command:verb>Add</command:verb>
-      <command:noun>AzWorkspaceManagerGroups</command:noun>
+      <command:noun>AddAzWorkspaceManagerGroup</command:noun>
       <maml:description>
         <maml:para>Add a Microsoft Sentinel Workspace Manager Group.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Add-AzWorkspaceManagerGroups cmdlet adds a workspace manager group to the configuration. It is possible to add child workspaces to the group or add them later. For adding child workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.</maml:para>
+      <maml:para>The Add-AddAzWorkspaceManagerGroup cmdlet adds a workspace manager group to the configuration. It is possible to add child workspaces to the group or add them later. For adding child workspaces, use the Add-AddAzWorkspaceManagerMember cmdlet.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Add-AzWorkspaceManagerGroups</maml:name>
+        <maml:name>Add-AddAzWorkspaceManagerGroup</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -491,14 +491,14 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'</dev:code>
+        <dev:code>Add-AddAzWorkspaceManagerGroup -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" | Add-AddAzWorkspaceManagerGroup -Name "Banks"</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.</maml:para>
         </dev:remarks>
@@ -508,19 +508,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Add-AzWorkspaceManagerMembers</command:name>
+      <command:name>Add-AddAzWorkspaceManagerMember</command:name>
       <command:verb>Add</command:verb>
-      <command:noun>AzWorkspaceManagerMembers</command:noun>
+      <command:noun>AddAzWorkspaceManagerMember</command:noun>
       <maml:description>
         <maml:para>Add a Microsoft Sentinel Workspace Manager Member</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Add-AzWorkspaceManagerMembers cmdlet adds a workspace manager member to the configuration. These members are workspaces that are linked to the workspace manager configuration. and used to provision Microsoft Sentinel workspaces. The Workspace Manager Member name is constructed as follows: &lt;workspaceName&gt;(&lt;subscriptionId&gt;)</maml:para>
+      <maml:para>The Add-AddAzWorkspaceManagerMember cmdlet adds a workspace manager member to the configuration. These members are workspaces that are linked to the workspace manager configuration. and used to provision Microsoft Sentinel workspaces. The Workspace Manager Member name is constructed as follows: &lt;workspaceName&gt;(&lt;subscriptionId&gt;)</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Add-AzWorkspaceManagerMembers</maml:name>
+        <maml:name>Add-AddAzWorkspaceManagerMember</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -631,7 +631,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"</dev:code>
+        <dev:code>Add-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"</dev:code>
         <dev:remarks>
           <maml:para>This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.</maml:para>
         </dev:remarks>
@@ -640,7 +640,7 @@
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>$resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")</dev:code>
         <dev:remarks>
-          <maml:para>PS &gt; Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId " * "</maml:para>
+          <maml:para>PS &gt; Add-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId " * "</maml:para>
           <maml:para>This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
@@ -741,19 +741,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-AzWorkspaceManagerAssignmentJobs</command:name>
+      <command:name>Get-AzWorkspaceManagerAssignmentJob</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>AzWorkspaceManagerAssignmentJobs</command:noun>
+      <command:noun>AzWorkspaceManagerAssignmentJob</command:noun>
       <maml:description>
         <maml:para>Get the Microsoft Sentinel Workspace Manager Groups</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-AzWorkspaceManagerAssignmentJobs cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.</maml:para>
+      <maml:para>The Get-AzWorkspaceManagerAssignmentJob cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-AzWorkspaceManagerAssignmentJobs</maml:name>
+        <maml:name>Get-AzWorkspaceManagerAssignmentJob</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -898,19 +898,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-AzWorkspaceManagerAssignments</command:name>
+      <command:name>Get-AzWorkspaceManagerAssignment</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>AzWorkspaceManagerAssignments</command:noun>
+      <command:noun>AzWorkspaceManagerAssignment</command:noun>
       <maml:description>
         <maml:para>Get the Microsoft Sentinel Workspace Manager Groups</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-AzWorkspaceManagerAssignments cmdlet gets the Microsoft Sentinel Workspace Manager Assignments by just specifying the workspace name When the workspace manager configuration is not 'Enabled' for the workspace, the cmdlet will return an information message If a Name is specified, the cmdlet will return the details of the workspace manager assignment</maml:para>
+      <maml:para>The Get-AzWorkspaceManagerAssignment cmdlet gets the Microsoft Sentinel Workspace Manager Assignments by just specifying the workspace name When the workspace manager configuration is not 'Enabled' for the workspace, the cmdlet will return an information message If a Name is specified, the cmdlet will return the details of the workspace manager assignment</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-AzWorkspaceManagerAssignments</maml:name>
+        <maml:name>Get-AzWorkspaceManagerAssignment</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -997,14 +997,14 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace'</dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignment -WorkspaceName 'MyWorkspace'</dev:code>
         <dev:remarks>
           <maml:para>This example gets all the Microsoft Sentinel Workspace Manager Assignments for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'</dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignment -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'</dev:code>
         <dev:remarks>
           <maml:para>This example gets the details of the Microsoft Sentinel Workspace Manager Assignment 'MyWorkspaceManagerAssignment' for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
@@ -1014,19 +1014,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-AzWorkspaceManagerGroups</command:name>
+      <command:name>Get-AddAzWorkspaceManagerGroup</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>AzWorkspaceManagerGroups</command:noun>
+      <command:noun>AddAzWorkspaceManagerGroup</command:noun>
       <maml:description>
         <maml:para>Get the Microsoft Sentinel Workspace Manager Groups</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-AzWorkspaceManagerGroups cmdlet gets the Microsoft Sentinel Workspace Manager Groups by just specifying the workspace name or by specifying the workspace name and the resource group name. The return value contains the details of the workspace manager groups including the members. If no workspace manager groups are found, the cmdlet returns an information message. If the workspace manager configuration is not enabled, the cmdlet returns an information message.</maml:para>
+      <maml:para>The Get-AddAzWorkspaceManagerGroup cmdlet gets the Microsoft Sentinel Workspace Manager Groups by just specifying the workspace name or by specifying the workspace name and the resource group name. The return value contains the details of the workspace manager groups including the members. If no workspace manager groups are found, the cmdlet returns an information message. If the workspace manager configuration is not enabled, the cmdlet returns an information message.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-AzWorkspaceManagerGroups</maml:name>
+        <maml:name>Get-AddAzWorkspaceManagerGroup</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -1113,28 +1113,28 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace'</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerGroup -WorkspaceName 'MyWorkspace'</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerGroup -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' in the resource group 'MyResourceGroup'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerGroup -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Group 'MyWorkspaceManagerGroup' for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AzWorkspaceManagerGroups</dev:code>
+        <dev:code>Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AddAzWorkspaceManagerGroup</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' using the pipeline</maml:para>
         </dev:remarks>
@@ -1298,19 +1298,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-AzWorkspaceManagerMembers</command:name>
+      <command:name>Get-AddAzWorkspaceManagerMember</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>AzWorkspaceManagerMembers</command:noun>
+      <command:noun>AddAzWorkspaceManagerMember</command:noun>
       <maml:description>
         <maml:para>Gets a Microsoft Sentinel Workspace Manager Member</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration. If the workspace manager member name is not provided, all the workspace manager members for the workspace will be returned. When the workspace manager member name is provided, the workspace manager member details will be returned.</maml:para>
+      <maml:para>The Get-AddAzWorkspaceManagerMember cmdlet gets workspace manager member(s) from the configuration. If the workspace manager member name is not provided, all the workspace manager members for the workspace will be returned. When the workspace manager member name is provided, the workspace manager member details will be returned.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-AzWorkspaceManagerMembers</maml:name>
+        <maml:name>Get-AddAzWorkspaceManagerMember</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -1397,28 +1397,28 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace"</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' in the resource group 'myResourceGroup'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Member 'myChildWorkspace( * )' for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers</dev:code>
+        <dev:code>Get-AzWorkspaceManager -Name "myWorkspace" | Get-AddAzWorkspaceManagerMember</dev:code>
         <dev:remarks>
           <maml:para>This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' using pipeline</maml:para>
         </dev:remarks>
@@ -1596,19 +1596,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-AzWorkspaceManagerAssignmentJobs</command:name>
+      <command:name>Remove-AzWorkspaceManagerAssignmentJob</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>AzWorkspaceManagerAssignmentJobs</command:noun>
+      <command:noun>AzWorkspaceManagerAssignmentJob</command:noun>
       <maml:description>
         <maml:para>Get the Microsoft Sentinel Workspace Manager Groups</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Remove-AzWorkspaceManagerAssignmentJobs cmdlet removes the Workspace Manager Assignment Jobs from the Workspace Manager Assignment. When the Workspace Manager Assignment is removed, all the Workspace Manager Assignment Jobs are removed as well.</maml:para>
+      <maml:para>The Remove-AzWorkspaceManagerAssignmentJob cmdlet removes the Workspace Manager Assignment Jobs from the Workspace Manager Assignment. When the Workspace Manager Assignment is removed, all the Workspace Manager Assignment Jobs are removed as well.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-AzWorkspaceManagerAssignmentJobs</maml:name>
+        <maml:name>Remove-AzWorkspaceManagerAssignmentJob</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -1812,21 +1812,21 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Remove-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'</dev:code>
+        <dev:code>Remove-AzWorkspaceManagerAssignmentJob -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'</dev:code>
         <dev:remarks>
           <maml:para>This example removes the Workspace Manager Assignment Job 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1' from the Workspace Manager Assignment 'myAssignment' in the log analytics workspace 'myWorkspace' in the resource group 'myRG'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJobs -Force</dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignmentJob -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJob -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes all the Workspace Manager Assignment Jobs from the Workspace Manager Assignment 'MyWorkspaceManagerAssignment' without prompting for confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJobs | Remove-AzWorkspaceManagerAssignmentJobs -Force</dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignment -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJob | Remove-AzWorkspaceManagerAssignmentJob -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes all the Workspace Manager Assignment Jobs from all the Workspace Manager Assignments in the log analytics workspace 'sentinel-playground' without prompting for confirmation</maml:para>
         </dev:remarks>
@@ -1836,19 +1836,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-AzWorkspaceManagerAssignments</command:name>
+      <command:name>Remove-AzWorkspaceManagerAssignment</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>AzWorkspaceManagerAssignments</command:noun>
+      <command:noun>AzWorkspaceManagerAssignment</command:noun>
       <maml:description>
         <maml:para>Remove Microsoft Sentinel Workspace Manager Assignment</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Remove-AzWorkspaceManagerAssignments cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace. The cmdlet will not return an error if the Workspace Manager Assignment does not exist. The Assignment must first be removed from the Workspace Manager Group before the group can be removed.</maml:para>
+      <maml:para>The Remove-AzWorkspaceManagerAssignment cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace. The cmdlet will not return an error if the Workspace Manager Assignment does not exist. The Assignment must first be removed from the Workspace Manager Group before the group can be removed.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-AzWorkspaceManagerAssignments</maml:name>
+        <maml:name>Remove-AzWorkspaceManagerAssignment</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -2028,14 +2028,14 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Remove-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'</dev:code>
+        <dev:code>Remove-AzWorkspaceManagerAssignment -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'</dev:code>
         <dev:remarks>
           <maml:para>This command removes the Workspace Manager Assignment 'ContosoWorkspaceManagerAssignment' from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup'.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignments -Force</dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignment -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignment -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes all Workspace Manager Assignments from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup' without prompting for confirmation.</maml:para>
         </dev:remarks>
@@ -2045,9 +2045,9 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-AzWorkspaceManagerGroups</command:name>
+      <command:name>Remove-AddAzWorkspaceManagerGroup</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>AzWorkspaceManagerGroups</command:noun>
+      <command:noun>AddAzWorkspaceManagerGroup</command:noun>
       <maml:description>
         <maml:para>Remove Microsoft Sentinel Workspace Manager</maml:para>
       </maml:description>
@@ -2057,7 +2057,7 @@
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-AzWorkspaceManagerGroups</maml:name>
+        <maml:name>Remove-AddAzWorkspaceManagerGroup</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -2213,21 +2213,21 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'</dev:code>
+        <dev:code>Remove-AddAzWorkspaceManagerGroup -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'</dev:code>
         <dev:remarks>
           <maml:para>This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force</dev:code>
+        <dev:code>Remove-AddAzWorkspaceManagerGroup -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace' in the resource group 'myWorkspaceManagerGroup' without prompting for confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerGroups -Force</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerGroup -WorkspaceName 'myWorkspace' | Remove-AddAzWorkspaceManagerGroup -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes all Workspace Manager Groups from the workspace 'myWorkspace' without prompting for confirmation using the pipeline</maml:para>
         </dev:remarks>
@@ -2237,19 +2237,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-AzWorkspaceManagerMembers</command:name>
+      <command:name>Remove-AddAzWorkspaceManagerMember</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>AzWorkspaceManagerMembers</command:noun>
+      <command:noun>AddAzWorkspaceManagerMember</command:noun>
       <maml:description>
         <maml:para>Remove a Workspace Manager Member</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member to the configuration.</maml:para>
+      <maml:para>The Remove-AddAzWorkspaceManagerMember cmdlet removes a workspace manager member to the configuration.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-AzWorkspaceManagerMembers</maml:name>
+        <maml:name>Remove-AddAzWorkspaceManagerMember</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
@@ -2429,21 +2429,21 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"</dev:code>
+        <dev:code>Remove-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"</dev:code>
         <dev:remarks>
           <maml:para>This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force</dev:code>
+        <dev:code>Remove-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force</dev:code>
+        <dev:code>Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" | Remove-AddAzWorkspaceManagerMember -Force</dev:code>
         <dev:remarks>
           <maml:para>This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation</maml:para>
         </dev:remarks>
@@ -2453,7 +2453,7 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Set-AzWorkspaceManager</command:name>
+      <command:name>Add-AzWorkspaceManager</command:name>
       <command:verb>Set</command:verb>
       <command:noun>AzWorkspaceManager</command:noun>
       <maml:description>
@@ -2461,11 +2461,11 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Set-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature. You can create a workspace manager configuration by using just a workspacename. The minimum requirement to to enable the workspace manager is that Microsoft Sentinel is enabled on the Log Analytics workspace. Only one workspace manager configuration can be added per Microsoft Sentinel instance.</maml:para>
+      <maml:para>The Add-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature. You can create a workspace manager configuration by using just a workspacename. The minimum requirement to to enable the workspace manager is that Microsoft Sentinel is enabled on the Log Analytics workspace. Only one workspace manager configuration can be added per Microsoft Sentinel instance.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Set-AzWorkspaceManager</maml:name>
+        <maml:name>Add-AzWorkspaceManager</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
@@ -2552,7 +2552,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Set-AzWorkspaceManager -Name 'myWorkspace'</dev:code>
+        <dev:code>Add-AzWorkspaceManager -Name 'myWorkspace'</dev:code>
         <dev:remarks>
           <maml:para>Name              : myWorkspace ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations WorkspaceName     : myWorkspace ResourceId        : /subscriptions/&lt;REDACTED&gt;/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace Tags              : Properties        : @{mode=Enabled}</maml:para>
           <maml:para>This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'</maml:para>
@@ -2560,7 +2560,7 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Set-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'</dev:code>
+        <dev:code>Add-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'</dev:code>
         <dev:remarks>
           <maml:para>Name              : myWorkspace ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations WorkspaceName     : myWorkspace ResourceId        : /subscriptions/&lt;REDACTED&gt;/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace Tags              : Properties        : @{mode=Disabled}</maml:para>
           <maml:para>This command sets the workspace manager to disabled</maml:para>
@@ -2568,7 +2568,7 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Set-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'</dev:code>
+        <dev:code>Add-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'</dev:code>
         <dev:remarks>
           <maml:para>Name              : myWorkspace ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations WorkspaceName     : myWorkspace ResourceId        : /subscriptions/&lt;REDACTED&gt;/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace Tags              : Properties        : @{mode=Enabled}</maml:para>
           <maml:para>This command enables the workspace manager for the workspace 'myWorkspace' in resource group 'myRg' Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.</maml:para>

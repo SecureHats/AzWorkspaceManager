@@ -69,13 +69,13 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Get-AzWorkspaceManager', 
-        'Set-AzWorkspaceManager', 'Remove-AzWorkspaceManager',
-        'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers',
-        'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups',
-        'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments',
-        'Get-AzWorkspaceManagerAssignmentJobs', 'Add-AzWorkspaceManagerAssignmentJobs', 'Remove-AzWorkspaceManagerAssignmentJobs',
-        'Get-AzWorkspaceManagerItems'
+    FunctionsToExport = @('Get-AzWorkspaceManager',
+        'Add-AzWorkspaceManager', 'Remove-AzWorkspaceManager',
+        'Get-AzWorkspaceManagerMember', 'Add-AzWorkspaceManagerMember', 'Remove-AzWorkspaceManagerMember',
+        'Get-AzWorkspaceManagerGroup', 'Add-AzWorkspaceManagerGroup', 'Remove-AzWorkspaceManagerGroup',
+        'Get-AzWorkspaceManagerAssignment', 'Add-AzWorkspaceManagerAssignment', 'Remove-AzWorkspaceManagerAssignment',
+        'Get-AzWorkspaceManagerAssignmentJob', 'Add-AzWorkspaceManagerAssignmentJob', 'Remove-AzWorkspaceManagerAssignmentJob',
+        'Get-AzWorkspaceManagerItem'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -100,21 +100,21 @@
     'Private\Write-Message.ps1',
     'Public\Get-LogAnalyticsWorkspace.ps1',
     'Public\Get-AzWorkspaceManager.ps1',
-    'Public\Set-AzWorkspaceManager.ps1',
+    'Public\Add-AzWorkspaceManager.ps1',
     'Public\Remove-AzWorkspaceManager.ps1',
-    'Public\Get-AzWorkspaceManagerMembers.ps1',
-    'Public\Add-AzWorkspaceManagerMembers.ps1',
-    'Public\Remove-AzWorkspaceManagerMembers.ps1',
-    'Public\Get-AzWorkspaceManagerGroups.ps1',
-    'Public\Add-AzWorkspaceManagerGroups.ps1',
-    'Public\Remove-AzWorkspaceManagerGroups.ps1',
-    'Public\Get-AzWorkspaceManagerAssignments.ps1',
-    'Public\Add-AzWorkspaceManagerAssignments.ps1',
-    'Public\Remove-AzWorkspaceManagerAssignments.ps1',
-    'Public\Get-AzWorkspaceManagerAssignmentJobs.ps1',
-    'Public\Add-AzWorkspaceManagerAssignmentJobs.ps1',
-    'Public\Remove-AzWorkspaceManagerAssignmentJobs.ps1',
-    'Public\Get-AzWorkspaceManagerItems.ps1',
+    'Public\Get-AzWorkspaceManagerMember.ps1',
+    'Public\Add-AzWorkspaceManagerMember.ps1',
+    'Public\Remove-AzWorkspaceManagerMember.ps1',
+    'Public\Get-AzWorkspaceManagerGroup.ps1',
+    'Public\Add-AzWorkspaceManagerGroup.ps1',
+    'Public\Remove-AzWorkspaceManagerGroup.ps1',
+    'Public\Get-AzWorkspaceManagerAssignment.ps1',
+    'Public\Add-AzWorkspaceManagerAssignment.ps1',
+    'Public\Remove-AzWorkspaceManagerAssignment.ps1',
+    'Public\Get-AzWorkspaceManagerAssignmentJob.ps1',
+    'Public\Add-AzWorkspaceManagerAssignmentJob.ps1',
+    'Public\Remove-AzWorkspaceManagerAssignmentJob.ps1',
+    'Public\Get-AzWorkspaceManagerItem.ps1',
     'AzWorkspaceManager.psd1',
     'AzWorkspaceManager.psm1'
 

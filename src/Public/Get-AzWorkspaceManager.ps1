@@ -73,7 +73,7 @@ function Get-AzWorkspaceManager {
     This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
     Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
     .LINK
-    Set-AzWorkspaceManager
+    Add-AzWorkspaceManager
     Remove-AzWorkspaceManager
 #>
 }

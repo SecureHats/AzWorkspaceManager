@@ -12,10 +12,10 @@ function Write-Message {
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true)]
         [string]$Message,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false)]
         [ValidateSet("Error", "Information", "Debug")]
         [string]$Severity,
 

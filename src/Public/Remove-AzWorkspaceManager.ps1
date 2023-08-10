@@ -80,6 +80,6 @@ function Remove-AzWorkspaceManager {
     This command removes the workspace manager based on a pipeline value from the Get-AzWorkspaceManager cmdlet
     .LINK
     Get-AzWorkspaceManager
-    Set-AzWorkspaceManager
+    Add-AzWorkspaceManager
 #>
 }

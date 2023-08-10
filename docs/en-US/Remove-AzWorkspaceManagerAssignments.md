@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-AzWorkspaceManagerAssignments
+# Remove-AzWorkspaceManagerAssignment
 
 ## SYNOPSIS
 Remove Microsoft Sentinel Workspace Manager Assignment
@@ -13,12 +13,12 @@ Remove Microsoft Sentinel Workspace Manager Assignment
 ## SYNTAX
 
 ```powershell
-Remove-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+Remove-AzWorkspaceManagerAssignment [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [[-Name] <String>] [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Remove-AzWorkspaceManagerAssignments cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace.
+The Remove-AzWorkspaceManagerAssignment cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace.
 The cmdlet will not return an error if the Workspace Manager Assignment does not exist.
 The Assignment must first be removed from the Workspace Manager Group before the group can be removed.
 
@@ -26,14 +26,14 @@ The Assignment must first be removed from the Workspace Manager Group before the
 
 ### EXAMPLE 1
 ```powershell
-Remove-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'
+Remove-AzWorkspaceManagerAssignment -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'
 ```
 
 This command removes the Workspace Manager Assignment 'ContosoWorkspaceManagerAssignment' from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup'.
 
 ### EXAMPLE 2
 ```powershell
-Get-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignments -Force
+Get-AzWorkspaceManagerAssignment -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignment -Force
 ```
 
 This example removes all Workspace Manager Assignments from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup' without prompting for confirmation.

@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-AzWorkspaceManagerMembers
+# Get-AddAzWorkspaceManagerMember
 
 ## SYNOPSIS
 Gets a Microsoft Sentinel Workspace Manager Member
@@ -13,12 +13,12 @@ Gets a Microsoft Sentinel Workspace Manager Member
 ## SYNTAX
 
 ```powershell
-Get-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
+Get-AddAzWorkspaceManagerMember [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration.
+The Get-AddAzWorkspaceManagerMember cmdlet gets workspace manager member(s) from the configuration.
 If the workspace manager member name is not provided, all the workspace manager members for the workspace will be returned.
 When the workspace manager member name is provided, the workspace manager member details will be returned.
 
@@ -26,28 +26,28 @@ When the workspace manager member name is provided, the workspace manager member
 
 ### EXAMPLE 1
 ```powershell
-Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
+Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace"
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace'
 
 ### EXAMPLE 2
 ```powershell
-Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"
+Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' in the resource group 'myResourceGroup'
 
 ### EXAMPLE 3
 ```powershell
-Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+Get-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Member 'myChildWorkspace(***)' for the workspace 'MyWorkspace'
 
 ### EXAMPLE 4
 ```powershell
-Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers
+Get-AzWorkspaceManager -Name "myWorkspace" | Get-AddAzWorkspaceManagerMember
 ```
 
 This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' using pipeline

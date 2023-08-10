@@ -28,9 +28,9 @@ function Get-AccessToken {
         $profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
 
         try {
-            $SessionVariables.accessToken = ([Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken))) | ConvertTo-SecureString -AsPlainText -Force
+            $SessionVariables.accessToken = ([Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken)))
             $SessionVariables.ExpiresOn = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).ExpiresOn.DateTime
-            Write-Verbose "Access Token expires on: $($SessionVariables.ExpiresOn)" 
+            Write-Verbose "Access Token expires on: $($SessionVariables.ExpiresOn)"
         }
         catch {
             Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message 'Run Connect-AzAccount to login' -Severity 'Error'

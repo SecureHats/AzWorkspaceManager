@@ -7,13 +7,13 @@ $SessionVariables = [ordered]@{
     workspace  = ''
     apiVersion = '2023-06-01-preview'
 }
-New-Variable -Name Guid -Value (New-Guid).Guid -Scope Global -Force
-New-Variable -Name SessionVariables -Value $SessionVariables -Scope Global -Force
+New-Variable -Name Guid -Value (New-Guid).Guid -Scope Script -Force
+New-Variable -Name SessionVariables -Value $SessionVariables -Scope Script -Force
 
 #region Handle Module Removal
 $OnRemoveScript = {
-    Remove-Variable -Name SessionVariables -Scope Global -Force
-    Remove-Variable -Name Guid -Scope Global -Force
+    Remove-Variable -Name SessionVariables -Scope Script -Force
+    Remove-Variable -Name Guid -Scope Script -Force
 }
 $ExecutionContext.SessionState.Module.OnRemove += $OnRemoveScript
 Register-EngineEvent -SourceIdentifier ([System.Management.Automation.PsEngineEvent]::Exiting) -Action $OnRemoveScript

@@ -12,11 +12,8 @@ function Format-Result {
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [array]$Message,
-
-        [Parameter(Mandatory = $false)]
-        [string]$FunctionName
+        [Parameter(Mandatory = $true)]
+        [array]$Message
     )
         $result = @()
 

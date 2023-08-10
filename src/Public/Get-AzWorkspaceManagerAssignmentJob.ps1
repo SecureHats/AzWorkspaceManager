@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerAssignmentJobs {
+function Get-AzWorkspaceManagerAssignmentJob {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -106,7 +106,7 @@ function Get-AzWorkspaceManagerAssignmentJobs {
         .SYNOPSIS
         Get the Microsoft Sentinel Workspace Manager Groups
         .DESCRIPTION
-        The Get-AzWorkspaceManagerAssignmentJobs cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs
+        The Get-AzWorkspaceManagerAssignmentJob cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs
         It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.
         .PARAMETER WorkspaceName
         The Name of the log analytics workspace

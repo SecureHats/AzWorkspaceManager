@@ -1,4 +1,4 @@
-function Remove-AzWorkspaceManagerAssignments {
+function Remove-AzWorkspaceManagerAssignment {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -79,7 +79,6 @@ function Remove-AzWorkspaceManagerAssignments {
                     Write-Verbose "Request URI: $($uri)"
                     Invoke-RestMethod @requestParam
 
-                    Write-Host $response
                     if ($null -eq $response) {
                         Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager Assignment '$($Name)' was removed from workspace '$WorkspaceName'" -Severity 'Information'
                     }
@@ -102,7 +101,7 @@ function Remove-AzWorkspaceManagerAssignments {
         .SYNOPSIS
         Remove Microsoft Sentinel Workspace Manager Assignment
         .DESCRIPTION
-        The Remove-AzWorkspaceManagerAssignments cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace.
+        The Remove-AzWorkspaceManagerAssignment cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace.
         The cmdlet will not return an error if the Workspace Manager Assignment does not exist.
         The Assignment must first be removed from the Workspace Manager Group before the group can be removed.
         .PARAMETER WorkspaceName
@@ -114,15 +113,15 @@ function Remove-AzWorkspaceManagerAssignments {
         .PARAMETER Force
         Confirms the removal of the Workspace manager configuration.
         .EXAMPLE
-        Remove-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -Name 'myAssignment'
+        Remove-AzWorkspaceManagerAssignment -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -Name 'myAssignment'
 
         This command removes the Workspace Manager Assignment 'myAssignment' from the workspace 'ContosoWorkspace' in the resource group 'myRG'.
         .EXAMPLE
-        Get-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignments -Force
+        Get-AzWorkspaceManagerAssignment -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignment -Force
 
         This example removes all Workspace Manager Assignments from the workspace 'ContosoWorkspace' in the resource group 'myRG' without prompting for confirmation.
         .LINK
-        Get-AzWorkspaceManagerAssignments
-        Remove-AzWorkspaceManagerAssignments
+        Get-AzWorkspaceManagerAssignment
+        Remove-AzWorkspaceManagerAssignment
     #>
 }

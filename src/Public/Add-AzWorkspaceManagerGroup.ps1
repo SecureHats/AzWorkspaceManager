@@ -1,4 +1,4 @@
-function Add-AzWorkspaceManagerGroups {
+function Add-AzWorkspaceManagerGroup {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -86,9 +86,9 @@ function Add-AzWorkspaceManagerGroups {
         .SYNOPSIS
         Add a Microsoft Sentinel Workspace Manager Group.
         .DESCRIPTION
-        The Add-AzWorkspaceManagerGroups cmdlet adds a workspace manager group to the configuration.
+        The Add-AzWorkspaceManagerGroup cmdlet adds a workspace manager group to the configuration.
         It is possible to add child workspaces to the group or add them later. For adding child
-        workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.
+        workspaces, use the Add-AzWorkspaceManagerMember cmdlet.
         .PARAMETER WorkspaceName
         The Name of the log analytics workspace.
         .PARAMETER ResourceGroupName
@@ -100,17 +100,17 @@ function Add-AzWorkspaceManagerGroups {
         .PARAMETER workspaceManagerMembers
         The workspace manager members to add to the group. The members are workspaces that are linked to the workspace manager configuration. and used to provision Microsoft Sentinel workspaces.
         .EXAMPLE
-        Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
+        Add-AzWorkspaceManagerGroup -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
 
         This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.
         .EXAMPLE
-        Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"
+        Get-AzWorkspaceManagerMember -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroup -Name "Banks"
 
         This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.
         .LINK
-        Get-AzWorkspaceManagerGroups
-        Remove-AzWorkspaceManagerGroups
-        Add-AzWorkspaceManagerMembers
-        Get-AzWorkspaceManagerMembers
+        Get-AzWorkspaceManagerGroup
+        Remove-AzWorkspaceManagerGroup
+        Add-AzWorkspaceManagerMember
+        Get-AzWorkspaceManagerMember
     #>
 }

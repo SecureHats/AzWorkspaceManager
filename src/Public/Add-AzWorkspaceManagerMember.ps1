@@ -1,4 +1,4 @@
-function Add-AzWorkspaceManagerMembers {
+function Add-AzWorkspaceManagerMember {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -86,7 +86,7 @@ function Add-AzWorkspaceManagerMembers {
       .SYNOPSIS
       Add a Microsoft Sentinel Workspace Manager Member
       .DESCRIPTION
-      The Add-AzWorkspaceManagerMembers cmdlet adds a workspace manager member to the configuration.
+      The Add-AzWorkspaceManagerMember cmdlet adds a workspace manager member to the configuration.
       These members are workspaces that are linked to the workspace manager configuration. and used to
       provision Microsoft Sentinel workspaces.
       The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
@@ -99,18 +99,18 @@ function Add-AzWorkspaceManagerMembers {
       .PARAMETER TenantId
       The TenantId of the target workspace to add as a member
       .EXAMPLE
-      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
+      Add-AzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
 
       This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.
       .EXAMPLE
       $resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")
 
-      PS > Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
+      PS > Add-AzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
 
       This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'
       .LINK
-      Get-AzWorkspaceManagerMembers
-      Remove-AzWorkspaceManagerMembers
+      Get-AzWorkspaceManagerMember
+      Remove-AzWorkspaceManagerMember
       .NOTES
       The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
     #>

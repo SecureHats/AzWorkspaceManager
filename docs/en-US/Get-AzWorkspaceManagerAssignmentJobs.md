@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-AzWorkspaceManagerAssignmentJobs
+# Get-AzWorkspaceManagerAssignmentJob
 
 ## SYNOPSIS
 Get the Microsoft Sentinel Workspace Manager Groups
@@ -13,12 +13,12 @@ Get the Microsoft Sentinel Workspace Manager Groups
 ## SYNTAX
 
 ```powershell
-Get-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+Get-AzWorkspaceManagerAssignmentJob [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
  [[-Name] <String>] [[-JobName] <String>] [[-ResourceId] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Get-AzWorkspaceManagerAssignmentJobs cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs
+The Get-AzWorkspaceManagerAssignmentJob cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs
 It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.
 
 ## EXAMPLES

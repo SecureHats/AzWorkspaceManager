@@ -4,7 +4,7 @@
 function Invoke-AzWorkspaceManager {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true)]
         [string]$FunctionName
     )
     <#
@@ -45,7 +45,7 @@ function Invoke-AzWorkspaceManager {
         # Set the subscription from AzContext
         $SessionVariables.baseUri = "https://management.azure.com/subscriptions/$($SessionVariables.subscriptionId)"
         $script:authHeader = @{
-            'Authorization' = 'Bearer ' + [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($($SessionVariables.AccessToken | ConvertFrom-SecureString -AsPlainText)))
+            'Authorization' = 'Bearer ' + [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($($SessionVariables.AccessToken)))
         }
     }
     else {

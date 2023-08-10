@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerGroups {
+function Get-AzWorkspaceManagerGroup {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -75,7 +75,7 @@ function Get-AzWorkspaceManagerGroups {
         .SYNOPSIS
         Get the Microsoft Sentinel Workspace Manager Groups
         .DESCRIPTION
-        The Get-AzWorkspaceManagerGroups cmdlet gets the Microsoft Sentinel Workspace Manager Groups by just specifying the workspace name
+        The Get-AzWorkspaceManagerGroup cmdlet gets the Microsoft Sentinel Workspace Manager Groups by just specifying the workspace name
         or by specifying the workspace name and the resource group name. The return value contains the details of the workspace manager groups
         including the members. If no workspace manager groups are found, the cmdlet returns an information message.
         If the workspace manager configuration is not enabled, the cmdlet returns an information message.
@@ -86,24 +86,24 @@ function Get-AzWorkspaceManagerGroups {
         .PARAMETER Name
         The name of the workspace manager group
         .EXAMPLE
-        Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace'
+        Get-AzWorkspaceManagerGroup -WorkspaceName 'MyWorkspace'
 
         This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace'
         .EXAMPLE
-        Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
+        Get-AzWorkspaceManagerGroup -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
 
         This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
         .EXAMPLE
-        Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'
+        Get-AzWorkspaceManagerGroup -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'
 
         This example gets the Microsoft Sentinel Workspace Manager Group 'MyWorkspaceManagerGroup' for the workspace 'MyWorkspace'
         .EXAMPLE
-        Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AzWorkspaceManagerGroups
+        Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AzWorkspaceManagerGroup
 
         This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' using the pipeline
         .LINK
-        Add-AzWorkspaceManagerGroups
-        Remove-AzWorkspaceManagerGroups
+        Add-AzWorkspaceManagerGroup
+        Remove-AzWorkspaceManagerGroup
         Get-AzWorkspaceManager
     #>
 }

@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerAssignments {
+function Get-AzWorkspaceManagerAssignment {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -81,7 +81,7 @@ function Get-AzWorkspaceManagerAssignments {
         .SYNOPSIS
         Get the Microsoft Sentinel Workspace Manager Groups
         .DESCRIPTION
-        The Get-AzWorkspaceManagerAssignments cmdlet gets the Microsoft Sentinel Workspace Manager Assignments by just specifying the workspace name
+        The Get-AzWorkspaceManagerAssignment cmdlet gets the Microsoft Sentinel Workspace Manager Assignments by just specifying the workspace name
         When the workspace manager configuration is not 'Enabled' for the workspace, the cmdlet will return an information message
         If a Name is specified, the cmdlet will return the details of the workspace manager assignment
         .PARAMETER WorkspaceName
@@ -91,15 +91,15 @@ function Get-AzWorkspaceManagerAssignments {
         .PARAMETER Name
         The name of the workspace manager assignment
         .EXAMPLE
-        Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace'
+        Get-AzWorkspaceManagerAssignment -WorkspaceName 'MyWorkspace'
 
         This example gets all the Microsoft Sentinel Workspace Manager Assignments for the workspace 'MyWorkspace'
         .EXAMPLE
-        Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
+        Get-AzWorkspaceManagerAssignment -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
 
         This example gets the details of the Microsoft Sentinel Workspace Manager Assignment 'MyWorkspaceManagerAssignment' for the workspace 'MyWorkspace'
         .LINK
-        Add-AzWorkspaceManagerAssignments
-        Remove-AzWorkspaceManagerAssignments
+        Add-AzWorkspaceManagerAssignment
+        Remove-AzWorkspaceManagerAssignment
     #>
 }

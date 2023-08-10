@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Add-AzWorkspaceManagerMembers
+# Add-AddAzWorkspaceManagerMember
 
 ## SYNOPSIS
 Add a Microsoft Sentinel Workspace Manager Member
@@ -13,12 +13,12 @@ Add a Microsoft Sentinel Workspace Manager Member
 ## SYNTAX
 
 ```powershell
-Add-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-ResourceId] <Array>
+Add-AddAzWorkspaceManagerMember [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-ResourceId] <Array>
  [-TenantId] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Add-AzWorkspaceManagerMembers cmdlet adds a workspace manager member to the configuration.
+The Add-AddAzWorkspaceManagerMember cmdlet adds a workspace manager member to the configuration.
 These members are workspaces that are linked to the workspace manager configuration.
 and used to
 provision Microsoft Sentinel workspaces.
@@ -28,7 +28,7 @@ The Workspace Manager Member name is constructed as follows: \<workspaceName\>(\
 
 ### EXAMPLE 1
 ```powershell
-Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
+Add-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
 ```
 
 This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.
@@ -38,7 +38,7 @@ This example adds a Workspace Manager Member for the workspace with the name 'my
 $resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")
 ```
 
-PS \> Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
+PS \> Add-AddAzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
 
 This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'
 

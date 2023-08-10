@@ -1,4 +1,4 @@
-function Get-AzWorkspaceManagerItems {
+function Get-AzWorkspaceManagerItem {
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -87,7 +87,7 @@ function Get-AzWorkspaceManagerItems {
         .SYNOPSIS
         Gets a Microsoft Sentinel Workspace Manager Member
         .DESCRIPTION
-        The Get-AzWorkspaceManagerItems is a helper command to get the resource ids of Microsoft Sentinel resources that can be added to assignments
+        The Get-AzWorkspaceManagerItem is a helper command to get the resource ids of Microsoft Sentinel resources that can be added to assignments
         Currently only three types of resources are supported: AlertRules, AutomationRules and SavedSearches. When using SavedSearches, the Name parameter
         This command currently not supports pipeline input and is still in development.
         is ignored due to API limitations.
@@ -100,19 +100,19 @@ function Get-AzWorkspaceManagerItems {
         .PARAMETER Type
         Select the type of resource to get. Currently only AlertRules, AutomationRules and SavedSearches are supported
         .EXAMPLE
-        Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Name 'MyAlertRule' -Type 'AlertRules'
+        Get-AzWorkspaceManagerItem -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Name 'MyAlertRule' -Type 'AlertRules'
 
         This example gets the resource id of the AlertRule 'MyAlertRule' in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
         .EXAMPLE
-        Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AlertRules'
+        Get-AzWorkspaceManagerItem -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AlertRules'
 
         This example gets the resource ids of all AlertRules in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
         .EXAMPLE
-        Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'SavedSearches'
+        Get-AzWorkspaceManagerItem -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'SavedSearches'
 
         This example gets the resource ids of all SavedSearches in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
         .EXAMPLE
-        Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AutomationRules'
+        Get-AzWorkspaceManagerItem -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AutomationRules'
 
         This example gets the resource ids of all AutomationRules in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
         .NOTES

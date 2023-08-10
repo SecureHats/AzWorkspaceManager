@@ -1,4 +1,4 @@
-function Remove-AzWorkspaceManagerGroups {
+function Remove-AzWorkspaceManagerGroup {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -97,19 +97,19 @@ function Remove-AzWorkspaceManagerGroups {
         .PARAMETER Force
         Confirms the removal of the Workspace manager configuration.
         .EXAMPLE
-        Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'
+        Remove-AzWorkspaceManagerGroup -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'
 
         This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace'
         .EXAMPLE
-        Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force
+        Remove-AzWorkspaceManagerGroup -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force
 
         This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace' in the resource group 'myWorkspaceManagerGroup' without prompting for confirmation
         .EXAMPLE
-        Get-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerGroups -Force
+        Get-AzWorkspaceManagerGroup -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerGroup -Force
 
         This example removes all Workspace Manager Groups from the workspace 'myWorkspace' without prompting for confirmation using the pipeline
         .LINK
-        Get-AzWorkspaceManagerGroups
-        Remove-AzWorkspaceManagerGroups
+        Get-AzWorkspaceManagerGroup
+        Remove-AzWorkspaceManagerGroup
     #>
 }

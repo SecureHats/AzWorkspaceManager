@@ -1,5 +1,5 @@
-function Set-AzWorkspaceManager {
-    [cmdletbinding()]
+function Add-AzWorkspaceManager {
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
@@ -62,7 +62,7 @@ function Set-AzWorkspaceManager {
         .SYNOPSIS
         Creates a Workspace Manager Configuration
         .DESCRIPTION
-        The Set-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature.
+        The Add-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature.
         You can create a workspace manager configuration by using just a workspacename. The minimum requirement to to enable the
         workspace manager is that Microsoft Sentinel is enabled on the Log Analytics workspace.
         Only one workspace manager configuration can be added per Microsoft Sentinel instance.
@@ -76,7 +76,7 @@ function Set-AzWorkspaceManager {
         Get-AzWorkspaceManager
         Remove-AzWorkspaceManager
         .EXAMPLE
-        Set-AzWorkspaceManager -Name 'myWorkspace'
+        Add-AzWorkspaceManager -Name 'myWorkspace'
 
         Name              : myWorkspace
         ResourceGroupName : myRG
@@ -88,7 +88,7 @@ function Set-AzWorkspaceManager {
 
         This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'
         .EXAMPLE
-        Set-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
+        Add-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
 
         Name              : myWorkspace
         ResourceGroupName : myRG
@@ -100,7 +100,7 @@ function Set-AzWorkspaceManager {
 
         This command sets the workspace manager to disabled
         .EXAMPLE
-        Set-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
+        Add-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 
         Name              : myWorkspace
         ResourceGroupName : myRG

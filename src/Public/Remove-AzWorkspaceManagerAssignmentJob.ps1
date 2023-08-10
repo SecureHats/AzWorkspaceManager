@@ -1,4 +1,4 @@
-function Remove-AzWorkspaceManagerAssignmentJobs {
+function Remove-AzWorkspaceManagerAssignmentJob {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -96,7 +96,7 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
         .SYNOPSIS
         Get the Microsoft Sentinel Workspace Manager Groups
         .DESCRIPTION
-        The Remove-AzWorkspaceManagerAssignmentJobs cmdlet removes the Workspace Manager Assignment Jobs from the Workspace Manager Assignment.
+        The Remove-AzWorkspaceManagerAssignmentJob cmdlet removes the Workspace Manager Assignment Jobs from the Workspace Manager Assignment.
         When the Workspace Manager Assignment is removed, all the Workspace Manager Assignment Jobs are removed as well.
         .PARAMETER WorkspaceName
         The Name of the log analytics workspace
@@ -109,15 +109,15 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
         .PARAMETER Force
         Confirms the removal of the Workspace manager configuration
         .EXAMPLE
-        Remove-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'
+        Remove-AzWorkspaceManagerAssignmentJob -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'
 
         This example removes the Workspace Manager Assignment Job 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1' from the Workspace Manager Assignment 'myAssignment' in the log analytics workspace 'myWorkspace' in the resource group 'myRG'
         .EXAMPLE
-        Get-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJobs -Force
+        Get-AzWorkspaceManagerAssignmentJob -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJob -Force
 
         This example removes all the Workspace Manager Assignment Jobs from the Workspace Manager Assignment 'MyWorkspaceManagerAssignment' without prompting for confirmation
         .EXAMPLE
-        Get-AzWorkspaceManagerAssignments -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJobs | Remove-AzWorkspaceManagerAssignmentJobs -Force
+        Get-AzWorkspaceManagerAssignment -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJob | Remove-AzWorkspaceManagerAssignmentJob -Force
 
         This example removes all the Workspace Manager Assignment Jobs from all the Workspace Manager Assignments in the log analytics workspace 'sentinel-playground' without prompting for confirmation
     #>

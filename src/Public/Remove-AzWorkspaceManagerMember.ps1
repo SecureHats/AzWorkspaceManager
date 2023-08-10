@@ -1,4 +1,4 @@
-function Remove-AzWorkspaceManagerMembers {
+function Remove-AzWorkspaceManagerMember {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -72,7 +72,6 @@ function Remove-AzWorkspaceManagerMembers {
 
                     Invoke-RestMethod @requestParam
 
-                    Write-Host $response
                     if ($null -eq $response) {
                         Write-Message -Message "Workspace Manager Member '$($Name)' was removed from workspace '$WorkspaceName'" -Severity 'Information' -FunctionName $($MyInvocation.MyCommand.Name)
                     }
@@ -98,7 +97,7 @@ function Remove-AzWorkspaceManagerMembers {
       .SYNOPSIS
       Remove a Workspace Manager Member
       .DESCRIPTION
-      The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member to the configuration.
+      The Remove-AzWorkspaceManagerMember cmdlet removes a workspace manager member to the configuration.
       .PARAMETER WorkspaceName
       The Name of the log analytics workspace
       .PARAMETER ResourceGroupName
@@ -110,19 +109,19 @@ function Remove-AzWorkspaceManagerMembers {
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
-      Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+      Remove-AzWorkspaceManagerMember -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 
       This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation
       .EXAMPLE
-      Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
+      Remove-AzWorkspaceManagerMember -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
 
       This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
       .EXAMPLE
-      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
+      Get-AzWorkspaceManagerMember -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMember -Force
 
       This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation
       .LINK
-      Get-AzWorkspaceManagerMembers
-      Add-AzWorkspaceManagerMembers
+      Get-AzWorkspaceManagerMember
+      Add-AzWorkspaceManagerMember
     #>
 }
