@@ -15,25 +15,34 @@ function Remove-AzWorkspaceManager {
       .EXAMPLE
       Remove-AzWorkspaceManager -Name 'myWorkspace' -Force
 
+      ### Output
+      ```yml
       Confirm
       Are you sure you want to perform this action?
       Performing the operation "Remove-AzWorkspaceManager" on target "https://management.azure.com/subscriptions/7570c6f7-9ca9-409b-aeaf-cb0f5ac1ad50/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/sentinel-playground".
       [Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "Y"): Y
 
       This command removes the workspace manager on the Sentinel workspace 'myWorkspace'
+      ```
       .EXAMPLE
       Remove-AzWorkspaceManager -Name sentinel-playground -Force
 
+      ### Output
+      ```yml
       Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
 
       This command removes the workspace manager on the Sentinel workspace 'myWorkspace' without confirmation'
+      ```
       .EXAMPLE
       Get-AzWorkspaceManager -Name sentinel-playground | Remove-AzWorkspaceManager -Force
 
+      ### Output
+      ```yml
       Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
 
       This command removes the workspace manager based on a pipeline value from the Get-AzWorkspaceManager cmdlet
-    #>
+      ```
+      #>
     [cmdletbinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]

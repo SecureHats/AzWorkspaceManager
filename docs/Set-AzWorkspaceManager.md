@@ -12,7 +12,7 @@ Creates a Workspace Manager Configuration
 
 ## SYNTAX
 
-```powershell
+```
 Set-AzWorkspaceManager [-Name] <String> [[-ResourceGroupName] <String>] [[-Mode] <String>] [<CommonParameters>]
 ```
 
@@ -26,11 +26,10 @@ Only one workspace manager configuration can be added per Microsoft Sentinel ins
 ## EXAMPLES
 
 ### EXAMPLE 1
-```powershell
+```
 Set-AzWorkspaceManager -Name 'myWorkspace'
 ```
 
-```yml
 Name              : myWorkspace
 ResourceGroupName : myRG
 ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
@@ -40,13 +39,12 @@ Tags              :
 Properties        : @{mode=Enabled}
 
 This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'
-```
 
 ### EXAMPLE 2
-```powershell
+```
 Set-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
 ```
-```yml
+
 Name              : myWorkspace
 ResourceGroupName : myRG
 ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
@@ -56,14 +54,12 @@ Tags              :
 Properties        : @{mode=Disabled}
 
 This command sets the workspace manager to disabled
-```
 
 ### EXAMPLE 3
-```powershell
+```
 Set-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 ```
 
-```yml
 Name              : myWorkspace
 ResourceGroupName : myRG
 ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
@@ -71,7 +67,7 @@ WorkspaceName     : myWorkspace
 ResourceId        : /subscriptions/\<REDACTED\>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
 Tags              :
 Properties        : @{mode=Enabled}
-```
+
 This command enables the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
 Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
 
