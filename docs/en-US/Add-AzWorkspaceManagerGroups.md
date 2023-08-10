@@ -143,10 +143,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-## RELATED LINKS
-
-[Get-AzWorkspaceManagerGroups
-Remove-AzWorkspaceManagerGroups
-Add-AzWorkspaceManagerMembers
-Get-AzWorkspaceManagerMembers]()
-

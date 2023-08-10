@@ -10,7 +10,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function adds a workspace manager group and adds the child workspaces</maml:para>
+      <maml:para>The Add-AzWorkspaceManagerAssignmentJobs command adds a Workspace Manager Assignment Job to the workspace. By default the name of the Workspace Manager Assignment is the same as the Workspace Manager Group.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -39,17 +39,29 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'</maml:para>
+            <maml:para>The name of the workspace manager assignment. This is the same as the Workspace Manager GroupName unless specified otherwise</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
+          <maml:name>ResourceId</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill ResourceId Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
             <maml:name>Array</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>(New-Guid).Guid</dev:defaultValue>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -78,17 +90,29 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'</maml:para>
+          <maml:para>The name of the workspace manager assignment. This is the same as the Workspace Manager GroupName unless specified otherwise</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
+        <maml:name>ResourceId</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill ResourceId Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
           <maml:name>Array</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>(New-Guid).Guid</dev:defaultValue>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes />
@@ -101,18 +125,23 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
-Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' with the name 'MyWorkspaceManagerAssignment'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
-Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;GUID&gt;)' and assigns this to the group 'myGroup'.</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' in the resourcegroup 'MyResourceGroup' with the name 'MyWorkspaceManagerAssignment'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJobs</dev:code>
+        <dev:remarks>
+          <maml:para>This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' for each Workspace Manager Assignment found</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -124,11 +153,11 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
       <command:verb>Add</command:verb>
       <command:noun>AzWorkspaceManagerAssignments</command:noun>
       <maml:description>
-        <maml:para>Adds a Microsoft Sentinel Workspace Manager Group</maml:para>
+        <maml:para>Adds a Microsoft Sentinel Workspace Manager Assignment</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function adds a workspace manager group and adds the child workspaces</maml:para>
+      <maml:para>The Add-AzWorkspaceManagerAssignments command adds a Workspace Manager Assignment to a Workspace Manager Group. These assignments are used to provision Microsoft Sentinel workspaces. The Workspace Manager Assignment name is constructed by the GroupName. The resource id's of the items that are added to the assignment are stored in the properties of the assignment. These resources need to be in the same instance as the workspace manager configuration. If the resource id's are not in the same instance as the workspace manager configuration, the assignment will not be created and an error will be thrown.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -157,7 +186,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>GroupName</maml:name>
           <maml:description>
             <maml:para>The name of the workspace manager group</maml:para>
@@ -169,10 +198,10 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'</maml:para>
+            <maml:para>The name of the workspace manager assignment</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
@@ -220,7 +249,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>GroupName</maml:name>
         <maml:description>
           <maml:para>The name of the workspace manager group</maml:para>
@@ -232,10 +261,10 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>The name of the workspace manager assignment. if no value is provided a GUID will be generated and added to the name groupname. 'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'</maml:para>
+          <maml:para>The name of the workspace manager assignment</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
@@ -267,16 +296,23 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'</dev:code>
         <dev:remarks>
-          <maml:para>Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.</maml:para>
+          <maml:para>This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'</dev:code>
+        <dev:code>Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"</dev:code>
         <dev:remarks>
-          <maml:para>Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;GUID&gt;)' and assigns this to the group 'myGroup'.</maml:para>
+          <maml:para>This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup' and adds the alert rule to the assignment.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignments -GroupName 'myGroup'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets all the alert rules from the workspace with the name 'myWorkspace' and adds these to the Workspace Manager Assignment with the name 'AlertRules'.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -288,11 +324,11 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
       <command:verb>Add</command:verb>
       <command:noun>AzWorkspaceManagerGroups</command:noun>
       <maml:description>
-        <maml:para>Adds a Microsoft Sentinel Workspace Manager Group</maml:para>
+        <maml:para>Add a Microsoft Sentinel Workspace Manager Group.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function adds a workspace manager group and adds the child workspaces</maml:para>
+      <maml:para>The Add-AzWorkspaceManagerGroups cmdlet adds a workspace manager group to the configuration. It is possible to add child workspaces to the group or add them later. For adding child workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -300,7 +336,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
-            <maml:para>The name of the log analytics workspace</maml:para>
+            <maml:para>The Name of the log analytics workspace.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -312,7 +348,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none">
           <maml:name>ResourceGroupName</maml:name>
           <maml:description>
-            <maml:para>The name of the ResouceGroup where the log analytics workspace is located</maml:para>
+            <maml:para>The name of the ResouceGroup where the log analytics workspace is located.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -321,10 +357,10 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>The name of the workspace manager group</maml:para>
+            <maml:para>The name of the workspace manager group.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -333,7 +369,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>Description</maml:name>
           <maml:description>
             <maml:para>The description of the workspace manager group. If not specified, the name will be used.</maml:para>
@@ -345,10 +381,22 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>workspaceManagerMembers</maml:name>
           <maml:description>
-            <maml:para>The name of the workspace manager member(s) to add to the workspace manager group</maml:para>
+            <maml:para>The workspace manager members to add to the group. The members are workspaces that are linked to the workspace manager configuration. and used to provision Microsoft Sentinel workspaces.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
+          <dev:type>
+            <maml:name>Array</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="6" aliases="none">
+          <maml:name>ResourceId</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill ResourceId Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
@@ -363,7 +411,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
         <maml:name>WorkspaceName</maml:name>
         <maml:description>
-          <maml:para>The name of the log analytics workspace</maml:para>
+          <maml:para>The Name of the log analytics workspace.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -375,7 +423,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none">
         <maml:name>ResourceGroupName</maml:name>
         <maml:description>
-          <maml:para>The name of the ResouceGroup where the log analytics workspace is located</maml:para>
+          <maml:para>The name of the ResouceGroup where the log analytics workspace is located.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -384,10 +432,10 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>The name of the workspace manager group</maml:para>
+          <maml:para>The name of the workspace manager group.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -396,7 +444,7 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Description</maml:name>
         <maml:description>
           <maml:para>The description of the workspace manager group. If not specified, the name will be used.</maml:para>
@@ -408,10 +456,22 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>workspaceManagerMembers</maml:name>
         <maml:description>
-          <maml:para>The name of the workspace manager member(s) to add to the workspace manager group</maml:para>
+          <maml:para>The workspace manager members to add to the group. The members are workspaces that are linked to the workspace manager configuration. and used to provision Microsoft Sentinel workspaces.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
+        <dev:type>
+          <maml:name>Array</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="6" aliases="none">
+        <maml:name>ResourceId</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill ResourceId Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
@@ -431,18 +491,16 @@ Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(&lt;
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -Description "" -workspaceManagerMembers 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)'
-Adds a Workspace Manager Group to the workspace with the name 'Banks' and adds a child workspace with the name 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)' to the group.</dev:code>
+        <dev:code>Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -ResourceGroupName 'MyRg' -Name "Banks" -Description "Group of all financial and banking institutions" -workspaceManagerMembers @('myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)', 'otherWorkspace(f5fa104e-c0e3-4747-9182-d342dc048a9e)')
-Adds a Workspace Manager Group to the workspace and adds multiple child workspaces to the group.</dev:code>
+        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -487,7 +545,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>ResourceId</maml:name>
           <maml:description>
             <maml:para>The ResourceId of the target workspace to add as a member</maml:para>
@@ -538,7 +596,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>ResourceId</maml:name>
         <maml:description>
           <maml:para>The ResourceId of the target workspace to add as a member</maml:para>
@@ -575,7 +633,6 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"</dev:code>
         <dev:remarks>
-          <maml:para>Name              : myChildWorkspace( * ) ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers WorkspaceName     : myWorkspace ResourceId        : /subscriptions/ */resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace( *) Tags              : Properties        : @{targetWorkspaceResourceId=/subscriptions/ */resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId= *}</maml:para>
           <maml:para>This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.</maml:para>
         </dev:remarks>
       </command:example>
@@ -584,10 +641,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <dev:code>$resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")</dev:code>
         <dev:remarks>
           <maml:para>PS &gt; Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId " * "</maml:para>
-          <maml:para></maml:para>
-          <maml:para>Name              : myChildWorkspace( * ) ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers WorkspaceName     : myWorkspace ResourceId        : /subscriptions/ */resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace( *) Tags              : Properties        : @{targetWorkspaceResourceId=/subscriptions/ */resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId= *}</maml:para>
-          <maml:para></maml:para>
-          <maml:para>Name              : myChildWorkspace( * ) ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers WorkspaceName     : myWorkspace ResourceId        : /subscriptions/ */resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myOtherWorkspace( *) Tags              : Properties        : @{targetWorkspaceResourceId=/subscriptions/ */resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myOtherWorkspace; targetWorkspaceTenantId= *} This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'</maml:para>
+          <maml:para>This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -672,14 +726,13 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Get-AzWorkspaceManager -Name 'myWorkspace'</dev:code>
         <dev:remarks>
-          <maml:para>Name              : myWorkspace ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations WorkspaceName     : myWorkspace ResourceId        : /subscriptions/&lt;REDACTED&gt;/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace Tags              : Properties        : @{mode=Enabled} This command gets the workspace manager for the workspace 'myWorkspace'</maml:para>
+          <maml:para>This command gets the workspace manager for the workspace 'myWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>Get-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'</dev:code>
         <dev:remarks>
-          <maml:para>Name              : myWorkspace ResourceGroupName : myRG ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations WorkspaceName     : myWorkspace ResourceId        : /subscriptions/&lt;REDACTED&gt;/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace Tags              : Properties        : @{mode=Enabled}</maml:para>
           <maml:para>This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg' Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.</maml:para>
         </dev:remarks>
       </command:example>
@@ -696,7 +749,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function gets the Workspace Manager Groups and properties</maml:para>
+      <maml:para>The Get-AzWorkspaceManagerAssignmentJobs cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -725,7 +778,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
             <maml:para>The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)</maml:para>
@@ -737,7 +790,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>JobName</maml:name>
           <maml:description>
             <maml:para>The name of the Workspace Manager Assignment Job</maml:para>
@@ -788,7 +841,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)</maml:para>
@@ -800,7 +853,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>JobName</maml:name>
         <maml:description>
           <maml:para>The name of the Workspace Manager Assignment Job</maml:para>
@@ -853,7 +906,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function gets the Workspace Manager Groups and properties</maml:para>
+      <maml:para>The Get-AzWorkspaceManagerAssignments cmdlet gets the Microsoft Sentinel Workspace Manager Assignments by just specifying the workspace name When the workspace manager configuration is not 'Enabled' for the workspace, the cmdlet will return an information message If a Name is specified, the cmdlet will return the details of the workspace manager assignment</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -944,9 +997,16 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code></dev:code>
+        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example gets all the Microsoft Sentinel Workspace Manager Assignments for the workspace 'MyWorkspace'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the details of the Microsoft Sentinel Workspace Manager Assignment 'MyWorkspaceManagerAssignment' for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -962,12 +1022,12 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function gets the Workspace Manager Groups and properties</maml:para>
+      <maml:para>The Get-AzWorkspaceManagerGroups cmdlet gets the Microsoft Sentinel Workspace Manager Groups by just specifying the workspace name or by specifying the workspace name and the resource group name. The return value contains the details of the workspace manager groups including the members. If no workspace manager groups are found, the cmdlet returns an information message. If the workspace manager configuration is not enabled, the cmdlet returns an information message.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-AzWorkspaceManagerGroups</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
           <maml:name>WorkspaceName</maml:name>
           <maml:description>
             <maml:para>The Name of the log analytics workspace</maml:para>
@@ -979,7 +1039,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="2" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none">
           <maml:name>ResourceGroupName</maml:name>
           <maml:description>
             <maml:para>The name of the ResouceGroup where the log analytics workspace is located</maml:para>
@@ -991,7 +1051,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
             <maml:para>The name of the workspace manager group</maml:para>
@@ -1006,7 +1066,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
         <maml:name>WorkspaceName</maml:name>
         <maml:description>
           <maml:para>The Name of the log analytics workspace</maml:para>
@@ -1018,7 +1078,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none">
         <maml:name>ResourceGroupName</maml:name>
         <maml:description>
           <maml:para>The name of the ResouceGroup where the log analytics workspace is located</maml:para>
@@ -1030,7 +1090,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>The name of the workspace manager group</maml:para>
@@ -1053,9 +1113,184 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code></dev:code>
+        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' in the resource group 'MyResourceGroup'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Group 'MyWorkspaceManagerGroup' for the workspace 'MyWorkspace'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AzWorkspaceManagerGroups</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' using the pipeline</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-AzWorkspaceManagerItems</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>AzWorkspaceManagerItems</command:noun>
+      <maml:description>
+        <maml:para>Gets a Microsoft Sentinel Workspace Manager Member</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-AzWorkspaceManagerItems is a helper command to get the resource ids of Microsoft Sentinel resources that can be added to assignments Currently only three types of resources are supported: AlertRules, AutomationRules and SavedSearches. When using SavedSearches, the Name parameter This command currently not supports pipeline input and is still in development. is ignored due to API limitations.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-AzWorkspaceManagerItems</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
+          <maml:name>WorkspaceName</maml:name>
+          <maml:description>
+            <maml:para>Enter the Name of the log analytics workspace</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none">
+          <maml:name>ResourceGroupName</maml:name>
+          <maml:description>
+            <maml:para>Enter the name of the ResouceGroup where the log analytics workspace is located</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Enter the name of the resource to get</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>Type</maml:name>
+          <maml:description>
+            <maml:para>Select the type of resource to get. Currently only AlertRules, AutomationRules and SavedSearches are supported</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>AlertRules</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="none">
+        <maml:name>WorkspaceName</maml:name>
+        <maml:description>
+          <maml:para>Enter the Name of the log analytics workspace</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="2" aliases="none">
+        <maml:name>ResourceGroupName</maml:name>
+        <maml:description>
+          <maml:para>Enter the name of the ResouceGroup where the log analytics workspace is located</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Enter the name of the resource to get</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>Type</maml:name>
+        <maml:description>
+          <maml:para>Select the type of resource to get. Currently only AlertRules, AutomationRules and SavedSearches are supported</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>AlertRules</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command currently not supports pipeline input and is still in development.</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Name 'MyAlertRule' -Type 'AlertRules'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the resource id of the AlertRule 'MyAlertRule' in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AlertRules'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the resource ids of all AlertRules in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'SavedSearches'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the resource ids of all SavedSearches in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerItems -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Type 'AutomationRules'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the resource ids of all AutomationRules in the log analytics workspace 'MyWorkspace' in the resource group 'MyResourceGroup'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1071,7 +1306,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration. The members can be queried by providing a workspace name or by providing a workspace manager member name.</maml:para>
+      <maml:para>The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration. If the workspace manager member name is not provided, all the workspace manager members for the workspace will be returned. When the workspace manager member name is provided, the workspace manager member details will be returned.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1100,7 +1335,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
             <maml:para>Enter the name of the workspace manager member</maml:para>
@@ -1139,7 +1374,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>Enter the name of the workspace manager member</maml:para>
@@ -1156,7 +1391,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
     <command:returnValues />
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This command currently not supports pipeline input</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -1164,14 +1399,28 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"</dev:code>
         <dev:remarks>
-          <maml:para>This command gets the workspace manager member(s) from the workspace configuration 'myWorkspace'</maml:para>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' in the resource group 'myResourceGroup'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"</dev:code>
         <dev:remarks>
-          <maml:para>This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'</maml:para>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Member 'myChildWorkspace( * )' for the workspace 'MyWorkspace'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' using pipeline</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1325,7 +1574,6 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Remove-AzWorkspaceManager -Name 'myWorkspace' -Force</dev:code>
         <dev:remarks>
-          <maml:para>Confirm Are you sure you want to perform this action? Performing the operation "Remove-AzWorkspaceManager" on target "https://management.azure.com/subscriptions/7570c6f7-9ca9-409b-aeaf-cb0f5ac1ad50/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/sentinel-playground". [Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "Y"): Y</maml:para>
           <maml:para>This command removes the workspace manager on the Sentinel workspace 'myWorkspace'</maml:para>
         </dev:remarks>
       </command:example>
@@ -1333,7 +1581,6 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>Remove-AzWorkspaceManager -Name sentinel-playground -Force</dev:code>
         <dev:remarks>
-          <maml:para>Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed</maml:para>
           <maml:para>This command removes the workspace manager on the Sentinel workspace 'myWorkspace' without confirmation'</maml:para>
         </dev:remarks>
       </command:example>
@@ -1341,7 +1588,6 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>Get-AzWorkspaceManager -Name sentinel-playground | Remove-AzWorkspaceManager -Force</dev:code>
         <dev:remarks>
-          <maml:para>Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed</maml:para>
           <maml:para>This command removes the workspace manager based on a pipeline value from the Get-AzWorkspaceManager cmdlet</maml:para>
         </dev:remarks>
       </command:example>
@@ -1358,7 +1604,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function gets the Workspace Manager Groups and properties</maml:para>
+      <maml:para>The Remove-AzWorkspaceManagerAssignmentJobs cmdlet removes the Workspace Manager Assignment Jobs from the Workspace Manager Assignment. When the Workspace Manager Assignment is removed, all the Workspace Manager Assignment Jobs are removed as well.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1402,7 +1648,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>The name of the Workspace Manager Assignment Job</maml:para>
+            <maml:para>{{ Fill Name Description }}</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1498,7 +1744,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>The name of the Workspace Manager Assignment Job</maml:para>
+          <maml:para>{{ Fill Name Description }}</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1566,9 +1812,23 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code></dev:code>
+        <dev:code>Remove-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example removes the Workspace Manager Assignment Job 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1' from the Workspace Manager Assignment 'myAssignment' in the log analytics workspace 'myWorkspace' in the resource group 'myRG'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJobs -Force</dev:code>
+        <dev:remarks>
+          <maml:para>This example removes all the Workspace Manager Assignment Jobs from the Workspace Manager Assignment 'MyWorkspaceManagerAssignment' without prompting for confirmation</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJobs | Remove-AzWorkspaceManagerAssignmentJobs -Force</dev:code>
+        <dev:remarks>
+          <maml:para>This example removes all the Workspace Manager Assignment Jobs from all the Workspace Manager Assignments in the log analytics workspace 'sentinel-playground' without prompting for confirmation</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1580,11 +1840,11 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       <command:verb>Remove</command:verb>
       <command:noun>AzWorkspaceManagerAssignments</command:noun>
       <maml:description>
-        <maml:para>Remove Microsoft Sentinel Workspace Manager</maml:para>
+        <maml:para>Remove Microsoft Sentinel Workspace Manager Assignment</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function removes a Microsoft Sentinel Workspace Manager Member</maml:para>
+      <maml:para>The Remove-AzWorkspaceManagerAssignments cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace. The cmdlet will not return an error if the Workspace Manager Assignment does not exist. The Assignment must first be removed from the Workspace Manager Group before the group can be removed.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1613,14 +1873,26 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>The Name of the Workspace Manager Group</maml:para>
+            <maml:para>The Name of the Workspace Manager Assignment</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
+          <maml:name>ResourceId</maml:name>
+          <maml:description>
+            <maml:para>{{ Fill ResourceId Description }}</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
+          <dev:type>
+            <maml:name>Array</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1685,14 +1957,26 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>The Name of the Workspace Manager Group</maml:para>
+          <maml:para>The Name of the Workspace Manager Assignment</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
+        <maml:name>ResourceId</maml:name>
+        <maml:description>
+          <maml:para>{{ Fill ResourceId Description }}</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
+        <dev:type>
+          <maml:name>Array</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -1744,9 +2028,16 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code></dev:code>
+        <dev:code>Remove-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This command removes the Workspace Manager Assignment 'ContosoWorkspaceManagerAssignment' from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup'.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignments -Force</dev:code>
+        <dev:remarks>
+          <maml:para>This example removes all Workspace Manager Assignments from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup' without prompting for confirmation.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1762,7 +2053,7 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function removes a Microsoft Sentinel Workspace Manager Member</maml:para>
+      <maml:para>This command removes a Workspace Manager Group from a Microsoft Sentinel Workspace. If the Workspace Manager Group does not exist, the command will return an error. When the Workspace Manager Group is removed the members of the group will no longer receive updates from the workspace. If an assigment is still available for the group, the group cannot be removed.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1922,9 +2213,23 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code></dev:code>
+        <dev:code>Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace'</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force</dev:code>
+        <dev:remarks>
+          <maml:para>This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace' in the resource group 'myWorkspaceManagerGroup' without prompting for confirmation</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerGroups -Force</dev:code>
+        <dev:remarks>
+          <maml:para>This example removes all Workspace Manager Groups from the workspace 'myWorkspace' without prompting for confirmation using the pipeline</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2126,21 +2431,21 @@ Adds a Workspace Manager Group to the workspace and adds multiple child workspac
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"</dev:code>
         <dev:remarks>
-          <maml:para>This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'</maml:para>
+          <maml:para>This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force</dev:code>
         <dev:remarks>
-          <maml:para>This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation</maml:para>
+          <maml:para>This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force</dev:code>
         <dev:remarks>
-          <maml:para>This command removes all workspace manager members from the workspace configuration 'myWorkspace' without confirmation</maml:para>
+          <maml:para>This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

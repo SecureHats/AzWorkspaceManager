@@ -114,8 +114,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 The Workspace Manager Member name is constructed as follows: \<workspaceName\>(\<subscriptionId\>)
 
-## RELATED LINKS
-
-[Get-AzWorkspaceManagerMembers
-Remove-AzWorkspaceManagerMembers]()
-
