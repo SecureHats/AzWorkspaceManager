@@ -4,7 +4,7 @@
 function Invoke-AzWorkspaceManager {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [string]$FunctionName
     )
     <#

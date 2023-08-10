@@ -13,7 +13,7 @@ function Get-LogAnalyticsWorkspace {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
-        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage = "It does not match expected pattern '{1}'")]
         [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
@@ -59,12 +59,12 @@ function Get-LogAnalyticsWorkspace {
                 }
                 { $_ -lt 1 } {
                     $SessionVariables.workspace = $null
-                    Write-Message -FunctionName $MyInvocation.MyCommand.Name"The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -Severity 'Error'
+                    Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found." -Severity 'Error'
                 }
                 Default {}
             }
 
-            if ($_workspacePath) {
+            if ($null -ne $SessionVariables.workspace) {
                 $uri = "$(($_workspacePath).Split('microsoft.')[0])Microsoft.OperationsManagement/solutions/SecurityInsights($($workspace.name))?api-version=2015-11-01-preview"
 
                 try {
@@ -82,16 +82,16 @@ function Get-LogAnalyticsWorkspace {
                     }
                     else {
                         $SessionVariables.workspace = $null
-                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was found under workspace '$Name' but is not yet provisioned.." -Severity 'Information'
+                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was found under workspace '$Name' but is not yet provisioned." -Severity 'Information'
                     }
                 }
                 catch {
                     $SessionVariables.workspace = $null
                     if ($ErrVar.Message -like '*ResourceNotFound*') {
-                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$Name'" -Severity 'Error'
+                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$Name'." -Severity 'Error'
                     }
                     else {
-                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "An error has occured requesting the Log Analytics workspace" -Severity 'Error'
+                        Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "An error has occured requesting the Log Analytics workspace." -Severity 'Error'
                     }
                 }
             }

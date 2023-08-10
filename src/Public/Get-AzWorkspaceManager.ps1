@@ -35,7 +35,7 @@ function Get-AzWorkspaceManager {
                 $apiResponse = (Invoke-RestMethod @requestParam).value
             }
             else {
-                Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$Name'" -Severity 'Error'
+                break
             }
 
             if ($apiResponse -ne '') {
