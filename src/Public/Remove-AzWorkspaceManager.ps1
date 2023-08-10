@@ -13,28 +13,26 @@ function Remove-AzWorkspaceManager {
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
       .EXAMPLE
-      This command removes the workspace manager on the Sentinel workspace 'myWorkspace'
-
       Remove-AzWorkspaceManager -Name 'myWorkspace' -Force
 
       Confirm
       Are you sure you want to perform this action?
       Performing the operation "Remove-AzWorkspaceManager" on target "https://management.azure.com/subscriptions/7570c6f7-9ca9-409b-aeaf-cb0f5ac1ad50/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/sentinel-playground".
       [Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "Y"): Y
-     
-      Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
-      .EXAMPLE
-      This command removes the workspace manager on the Sentinel workspace 'myWorkspace' without confirmation'
-     
-      Remove-AzWorkspaceManager -Name sentinel-playground -Force
-     
-      Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
-      .EXAMPLE
-      This command removes the workspace manager based on a pipeline value from the Get-AzWorkspaceManager cmdlet
 
+      This command removes the workspace manager on the Sentinel workspace 'myWorkspace'
+      .EXAMPLE
+      Remove-AzWorkspaceManager -Name sentinel-playground -Force
+
+      Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
+
+      This command removes the workspace manager on the Sentinel workspace 'myWorkspace' without confirmation'
+      .EXAMPLE
       Get-AzWorkspaceManager -Name sentinel-playground | Remove-AzWorkspaceManager -Force
 
       Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
+
+      This command removes the workspace manager based on a pipeline value from the Get-AzWorkspaceManager cmdlet
     #>
     [cmdletbinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
@@ -65,18 +63,18 @@ function Remove-AzWorkspaceManager {
         if ($Force){
             $ConfirmPreference = 'None'
         }
-        
+
         try {
-            if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {
+            if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled', "Remove '$($Name)")) {
                 Write-Verbose "Performing the operation 'Removing workspace manager ...' on target '$Name'"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
-                
+
                 $requestParam = @{
                     Headers = $authHeader
                     Uri     = $uri
                     Method  = 'DELETE'
                 }
-                
+
                 $reponse = Invoke-RestMethod @requestParam
                 Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager Configuration '$Name' removed" -Severity 'Information'
                 return $reponse

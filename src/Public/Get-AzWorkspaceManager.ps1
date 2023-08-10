@@ -11,31 +11,29 @@ function Get-AzWorkspaceManager {
       .PARAMETER ResourceGroupName
       The name of the ResouceGroup where the log analytics workspace is located
       .EXAMPLE
-      This command gets the workspace manager for the workspace 'myWorkspace'
-      
       Get-AzWorkspaceManager -Name 'myWorkspace'
-          
+
       Name              : myWorkspace
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
       WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
-      Tags              : 
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+      Tags              :
       Properties        : @{mode=Enabled}
+      This command gets the workspace manager for the workspace 'myWorkspace'
       .EXAMPLE
-      This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
-
       Get-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 
       Name              : myWorkspace
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
       WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
-      Tags              : 
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+      Tags              :
       Properties        : @{mode=Enabled}
-        
-      Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.  
+
+      This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
+      Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
     #>
     [cmdletbinding()]
     param (
@@ -59,7 +57,7 @@ function Get-AzWorkspaceManager {
         else {
             Get-LogAnalyticsWorkspace -Name $Name
         }
-        
+
         try {
             if ($SessionVariables.workspace) {
                 Write-Verbose "Get Microsoft Sentinel Workspace Manager Configuration for workspace '$Name'"
@@ -75,7 +73,7 @@ function Get-AzWorkspaceManager {
             else {
                 Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Microsoft Sentinel was not found under workspace '$Name'" -Severity 'Error'
             }
-            
+
             if ($apiResponse -ne '') {
                 $SessionVariables.workspaceManagerConfiguration = $apiResponse.properties.mode
                 $result = Format-Result -Message $apiResponse
@@ -84,7 +82,6 @@ function Get-AzWorkspaceManager {
             else {
                 Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager is not configured for workspace '$Name'" -Severity 'Information'
                 $SessionVariables.workspaceManagerConfiguration = $false
-                break
             }
         }
         catch {

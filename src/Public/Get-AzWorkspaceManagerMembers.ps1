@@ -17,24 +17,22 @@ function Get-AzWorkspaceManagerMembers {
       This command gets the workspace manager member(s) from the workspace configuration 'myWorkspace'
       .EXAMPLE
       Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
-      
+
       This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
-      .EXAMPLE
-      Get-AzWorkspaceManager -Name 'myWorkspace' | Get-AzWorkspaceManagerMembers
-      
-      This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+      .NOTES
+      This command currently not supports pipeline input
     #>
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
-        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage = "It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name
@@ -47,18 +45,18 @@ function Get-AzWorkspaceManagerMembers {
     process {
         if ($ResourceGroupName) {
             $null = Get-AzWorkspaceManager -Name $WorkspaceName -ResourceGroupName $ResourceGroupName
-        } 
+        }
         else {
             $null = Get-AzWorkspaceManager -Name $WorkspaceName
         }
 
-        if ($Name) {
-            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
-        } 
-        else {
+        if ($null -eq $Name) {
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers?api-version=$($SessionVariables.apiVersion)"
         }
-        
+        else {
+            $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
+        }
+
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "Get Workspace Manager Member(s) for workspace [$($WorkspaceName)]"
@@ -70,16 +68,13 @@ function Get-AzWorkspaceManagerMembers {
                 }
                 if ($Name) {
                     $apiResponse = (Invoke-RestMethod @requestParam)
-                } 
-                else {
-                    $apiResponse = (Invoke-RestMethod @requestParam).value 
                 }
-            
+                else {
+                    $apiResponse = (Invoke-RestMethod @requestParam).value
+                }
+
                 if ($apiResponse -ne '') {
-                    # foreach ($object in $apiResponse) {
-                        [array]$result += Format-Result -Message $apiResponse
-                    # }
-                    
+                    $result = Format-Result -Message $apiResponse
                     return $result
                 }
                 else {

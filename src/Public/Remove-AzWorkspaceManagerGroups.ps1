@@ -50,7 +50,7 @@ function Remove-AzWorkspaceManagerGroups {
             $ConfirmPreference = 'None'
         }
         
-        if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {
+        if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled', "Remove '$($Name)")) {
             try {
                 
                 Write-Verbose "Performing the operation 'Removing workspace manager group' on target '$Name'"

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-AzWorkspaceManagerMembers
 
 ## SYNOPSIS
-Add a Microsoft Sentinel Workspace Manager Member
+Gets a Microsoft Sentinel Workspace Manager Member
 
 ## SYNTAX
 
@@ -18,14 +18,24 @@ Get-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <S
 ```
 
 ## DESCRIPTION
-With this function you can add a Microsoft Sentinel Workspace Manager Member
+The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration.
+The members can be queried by providing a workspace name or by providing a workspace manager member name.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-
+Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
 ```
+
+This command gets the workspace manager member(s) from the workspace configuration 'myWorkspace'
+
+### EXAMPLE 2
+```
+Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+```
+
+This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
 
 ## PARAMETERS
 
@@ -40,7 +50,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -55,7 +65,7 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -70,7 +80,7 @@ Aliases:
 Required: False
 Position: 3
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -82,5 +92,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+This command currently not supports pipeline input
 
 ## RELATED LINKS

@@ -17,10 +17,10 @@ function Invoke-AzWorkspaceManager {
     .NOTES
     NAME: Invoke-AzWorkspaceManager
     #>
-    
-    Write-Verbose "Function Name: $($FunctionName)" 
+
+    Write-Verbose "Function Name: $($FunctionName)"
     $azProfile = [Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureRmProfileProvider]::Instance.Profile
-  
+
     if ($azProfile.Contexts.Count -ne 0) {
         if ([string]::IsNullOrEmpty($script:accessToken)) {
             try {
@@ -34,7 +34,7 @@ function Invoke-AzWorkspaceManager {
         elseif ($SessionVariables.ExpiresOn - [datetime]::UtcNow.AddMinutes(-5) -le 0) {
             # if token expires within 5 minutes, request a new access token
             try {
-                Get-AccessToken  
+                Get-AccessToken
             }
             catch {
                 Write-Error -Exception $_.Exception.Message

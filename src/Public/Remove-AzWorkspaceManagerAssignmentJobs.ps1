@@ -13,14 +13,14 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
       .PARAMETER Name
       The name of the Workspace Manager Assignment Job
       .PARAMETER Force
-      Confirms the removal of the Workspace manager configuration 
+      Confirms the removal of the Workspace manager configuration
       .EXAMPLE
     #>
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
-        [string]$WorkspaceName,    
+        [string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
@@ -32,7 +32,7 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
-[ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
@@ -54,12 +54,12 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
         else {
             $null = Get-AzWorkspaceManager -WorkspaceName $($WorkspaceName)
         }
-        
+
         if ($Force) {
             $ConfirmPreference = 'None'
         }
 
-        try {     
+        try {
             Write-Verbose "Performing the operation 'Removing workspace manager assignment' on target '$($WorkspaceName)'."
             foreach ($id in $ResourceId) {
                 # Write-Host "Removing workspace manager assignment job '$($value)' from assignment '$($AssignmentName)'" -ForegroundColor Yellow
@@ -73,14 +73,14 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
 
                 if ($Name) {
                     $apiResponse = (Invoke-RestMethod @requestParam)
-                } 
+                }
                 else {
                     $apiResponse = (Invoke-RestMethod @requestParam).value
                 }
 
                 if ($apiResponse -ne '') {
-                    if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {    
-                        
+                    if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled', "Remove '$($Name)")) {
+
                         $requestParam = @{
                             Headers       = $authHeader
                             Uri           = $uri
@@ -89,7 +89,7 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
                         }
 
                         Invoke-RestMethod @requestParam
-        
+
                         if ($null -eq $response) {
                             Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "Workspace Manager Assignment Job '$($value)' was removed from Assignment '$($AssignmentName)'" -Severity 'Information'
                         }

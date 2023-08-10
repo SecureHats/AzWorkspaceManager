@@ -8,24 +8,40 @@ schema: 2.0.0
 # Remove-AzWorkspaceManagerMembers
 
 ## SYNOPSIS
-Remove Microsoft Sentinel Workspace Manager
+Remove a Workspace Manager Member
 
 ## SYNTAX
 
 ```
-Remove-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
- [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Name] <String>]
+ [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function removes a Microsoft Sentinel Workspace Manager Member
+The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member to the configuration.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-
+Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
+
+This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+
+### EXAMPLE 2
+```
+Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
+```
+
+This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
+
+### EXAMPLE 3
+```
+Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
+```
+
+This command removes all workspace manager members from the workspace configuration 'myWorkspace' without confirmation
 
 ## PARAMETERS
 
@@ -67,8 +83,23 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 3
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ResourceId
+The ResourceId of the target workspace manager member to remove
+
+```yaml
+Type: Array
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

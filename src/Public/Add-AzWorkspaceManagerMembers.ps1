@@ -16,30 +16,30 @@ function Add-AzWorkspaceManagerMembers {
       .PARAMETER TenantId
       The TenantId of the target workspace to add as a member
       .EXAMPLE
-      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"   
-      
+      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
+
 
       Name              : myChildWorkspace(***)
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
       WorkspaceName     : myWorkspace
       ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
-      Tags              : 
+      Tags              :
       Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
-      
+
       This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.
       .EXAMPLE
       $resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")
-      
-      PS > Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"   
-      
+
+      PS > Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
+
 
       Name              : myChildWorkspace(***)
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
       WorkspaceName     : myWorkspace
       ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
-      Tags              : 
+      Tags              :
       Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
 
 
@@ -48,7 +48,7 @@ function Add-AzWorkspaceManagerMembers {
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
       WorkspaceName     : myWorkspace
       ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myOtherWorkspace(***)
-      Tags              : 
+      Tags              :
       Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myOtherWorkspace; targetWorkspaceTenantId=***}
       This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'
       .NOTES
@@ -84,11 +84,11 @@ function Add-AzWorkspaceManagerMembers {
         else {
             $null = Get-AzWorkspaceManager -Name $WorkspaceName
         }
-        
+
         foreach ($id in $ResourceId) {
-            
+
             $Name = "$($id.Split('/')[-1])($($id.Split('/')[2]))"
-            
+
             $payload = @{
                 properties = @{
                     targetWorkspaceResourceId = $id
@@ -110,9 +110,9 @@ function Add-AzWorkspaceManagerMembers {
                         ContentType   = 'application/json'
                         ErrorVariable = "ErrVar"
                     }
-                
+
                     $apiResponse = Invoke-RestMethod @requestParam
-            
+
                     if ($apiResponse -ne '') {
                         [array]$result += Format-Result -Message $apiResponse
                     }

@@ -25,14 +25,16 @@ This function adds a workspace manager group and adds the child workspaces
 ### EXAMPLE 1
 ```
 Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
-Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
 ```
+
+Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
 
 ### EXAMPLE 2
 ```
 Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
-Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(<GUID>)' and assigns this to the group 'myGroup'.
 ```
+
+Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(\<GUID\>)' and assigns this to the group 'myGroup'.
 
 ## PARAMETERS
 

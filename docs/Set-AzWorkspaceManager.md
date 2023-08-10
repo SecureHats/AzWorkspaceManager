@@ -8,29 +8,73 @@ schema: 2.0.0
 # Set-AzWorkspaceManager
 
 ## SYNOPSIS
-Set Microsoft Sentinel Workspace Manager
+Creates a Workspace Manager Configuration
 
 ## SYNTAX
 
 ```
-Set-AzWorkspaceManager [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [[-Mode] <String>]
- [<CommonParameters>]
+Set-AzWorkspaceManager [-Name] <String> [[-ResourceGroupName] <String>] [[-Mode] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-With this function you can set the Microsoft Sentinel Workspace Manager
+The Set-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature.
+You can create a workspace manager configuration by using just a workspacename.
+The minimum requirement to to enable the
+workspace manager is that Microsoft Sentinel is enabled on the Log Analytics workspace.
+Only one workspace manager configuration can be added per Microsoft Sentinel instance.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-AzWorkspaceManager -Name 'workspaceName' -ResourceGroupName 'resourceGroupName' -Mode 'Enabled'
+Set-AzWorkspaceManager -Name 'myWorkspace'
 ```
+
+Name              : myWorkspace
+ResourceGroupName : myRG
+ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
+WorkspaceName     : myWorkspace
+ResourceId        : /subscriptions/\<REDACTED\>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+Tags              :
+Properties        : @{mode=Enabled}
+
+This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'
+
+### EXAMPLE 2
+```
+Set-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
+```
+
+Name              : myWorkspace
+ResourceGroupName : myRG
+ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
+WorkspaceName     : myWorkspace
+ResourceId        : /subscriptions/\<REDACTED\>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+Tags              :
+Properties        : @{mode=Disabled}
+
+This command sets the workspace manager to disabled
+
+### EXAMPLE 3
+```
+Set-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
+```
+
+Name              : myWorkspace
+ResourceGroupName : myRG
+ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
+WorkspaceName     : myWorkspace
+ResourceId        : /subscriptions/\<REDACTED\>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+Tags              :
+Properties        : @{mode=Enabled}
+
+This command enables the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
+Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
 
 ## PARAMETERS
 
-### -WorkspaceName
-{{ Fill WorkspaceName Description }}
+### -Name
+Name of the log analytics workspace
 
 ```yaml
 Type: String
@@ -69,7 +113,7 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: None
+Default value: Enabled
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```

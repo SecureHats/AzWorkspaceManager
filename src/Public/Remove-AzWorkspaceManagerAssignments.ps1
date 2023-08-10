@@ -63,7 +63,7 @@ function Remove-AzWorkspaceManagerAssignments {
             $apiResponse = Invoke-RestMethod @requestParam
 
             if ($apiResponse -ne '') {
-                if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled')) {    
+                if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled', "Remove '$($Name)")) {    
                     $requestParam = @{
                         Headers       = $authHeader
                         Uri           = $uri

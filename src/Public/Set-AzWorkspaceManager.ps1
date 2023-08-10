@@ -4,7 +4,7 @@ function Set-AzWorkspaceManager {
       Creates a Workspace Manager Configuration
       .DESCRIPTION
       The Set-AzWorkspaceManager cmdlet creates a Workspace Manager Configuration that is required to use workspace manager feature.
-      You can create a workspace manager configuration by using just a workspacename. The minimum requirement to to enable the 
+      You can create a workspace manager configuration by using just a workspacename. The minimum requirement to to enable the
       workspace manager is that Microsoft Sentinel is enabled on the Log Analytics workspace.
       Only one workspace manager configuration can be added per Microsoft Sentinel instance.
       .PARAMETER Name
@@ -14,42 +14,41 @@ function Set-AzWorkspaceManager {
       .PARAMETER Mode
       Status of the Workspace Manager (Enabled or Disabled)
       .EXAMPLE
-      This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'    
-      
       Set-AzWorkspaceManager -Name 'myWorkspace'
-          
+
       Name              : myWorkspace
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
       WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
-      Tags              : 
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+      Tags              :
       Properties        : @{mode=Enabled}
-      .EXAMPLE
-      This command sets the workspace manager to disabled
 
+      This command creates / enables the workspace manager on the Sentinel workspace 'myWorkspace'
+      .EXAMPLE
       Set-AzWorkspaceManager -Name 'myworkspace' -Mode 'Disabled'
-       
+
       Name              : myWorkspace
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
       WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
-      Tags              : 
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+      Tags              :
       Properties        : @{mode=Disabled}
-      .EXAMPLE 
-      This command enables the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
 
+      This command sets the workspace manager to disabled
+      .EXAMPLE
       Set-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 
       Name              : myWorkspace
       ResourceGroupName : myRG
       ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
       WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace     
-      Tags              : 
+      ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
+      Tags              :
       Properties        : @{mode=Enabled}
-        
+
+      This command enables the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
       Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
     #>
     [cmdletbinding()]
@@ -77,8 +76,8 @@ function Set-AzWorkspaceManager {
         }
         else {
             Get-LogAnalyticsWorkspace -Name $Name
-        } 
-        
+        }
+
         $payload = @{
             properties = @{
                 mode = "$Mode"
