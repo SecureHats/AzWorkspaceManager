@@ -93,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceId
-{{ Fill ResourceId Description }}
+The ResourceId is for support of pipeline values 
 
 ```yaml
 Type: Array

@@ -54,7 +54,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
           <maml:name>ResourceId</maml:name>
           <maml:description>
-            <maml:para>{{ Fill ResourceId Description }}</maml:para>
+            <maml:para>The ResourceId is for support of pipeline values </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
@@ -105,7 +105,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
         <maml:name>ResourceId</maml:name>
         <maml:description>
-          <maml:para>{{ Fill ResourceId Description }}</maml:para>
+          <maml:para>The ResourceId is for support of pipeline values </maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
@@ -396,7 +396,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="6" aliases="none">
           <maml:name>ResourceId</maml:name>
           <maml:description>
-            <maml:para>{{ Fill ResourceId Description }}</maml:para>
+            <maml:para>The ResourceId is for support of pipeline values </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
@@ -471,7 +471,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="6" aliases="none">
         <maml:name>ResourceId</maml:name>
         <maml:description>
-          <maml:para>{{ Fill ResourceId Description }}</maml:para>
+          <maml:para>The ResourceId is for support of pipeline values </maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
@@ -805,7 +805,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="5" aliases="none">
           <maml:name>ResourceId</maml:name>
           <maml:description>
-            <maml:para>{{ Fill ResourceId Description }}</maml:para>
+            <maml:para>The ResourceId is for support of pipeline values </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -868,7 +868,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="5" aliases="none">
         <maml:name>ResourceId</maml:name>
         <maml:description>
-          <maml:para>{{ Fill ResourceId Description }}</maml:para>
+          <maml:para>The ResourceId is for support of pipeline values </maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1660,7 +1660,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="5" aliases="none">
           <maml:name>ResourceId</maml:name>
           <maml:description>
-            <maml:para>{{ Fill ResourceId Description }}</maml:para>
+            <maml:para>The ResourceId is for support of pipeline values </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
@@ -1756,7 +1756,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="5" aliases="none">
         <maml:name>ResourceId</maml:name>
         <maml:description>
-          <maml:para>{{ Fill ResourceId Description }}</maml:para>
+          <maml:para>The ResourceId is for support of pipeline values </maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
@@ -1888,7 +1888,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
           <maml:name>ResourceId</maml:name>
           <maml:description>
-            <maml:para>{{ Fill ResourceId Description }}</maml:para>
+            <maml:para>The ResourceId is for support of pipeline values </maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
           <dev:type>
@@ -1972,7 +1972,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="4" aliases="none">
         <maml:name>ResourceId</maml:name>
         <maml:description>
-          <maml:para>{{ Fill ResourceId Description }}</maml:para>
+          <maml:para>The ResourceId is for support of pipeline values </maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Array</command:parameterValue>
         <dev:type>
