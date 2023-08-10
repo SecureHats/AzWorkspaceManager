@@ -17,19 +17,17 @@ This module is especially useful in scenario's where you want to manage the Work
 
 ## Common setup
 
+To get started with this PowerShell module you only need to follow some simple steps.
+
 ### Prerequisites
 
 - [PowerShell Core](https://github.com/PowerShell/PowerShell)
-- [Clone this repository]()
+- Clone this repository
 
   ```powershell
   Import-Module -AzWorkspaceManager
   ```
 
-To get started with this PowerShell module you only need to follow some simple steps.
-
-
-This 
 <!-- This SecureHats repository is used to organize project information and artifacts. 
 > Note field
 - [ ] unchecked
