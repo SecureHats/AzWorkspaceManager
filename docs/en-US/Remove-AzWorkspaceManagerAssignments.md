@@ -8,24 +8,35 @@ schema: 2.0.0
 # Remove-AzWorkspaceManagerAssignments
 
 ## SYNOPSIS
-Remove Microsoft Sentinel Workspace Manager
+Remove Microsoft Sentinel Workspace Manager Assignment
 
 ## SYNTAX
 
 ```
-Remove-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
- [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
+ [[-Name] <String>] [[-ResourceId] <Array>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function removes a Microsoft Sentinel Workspace Manager Member
+The Remove-AzWorkspaceManagerAssignments cmdlet removes a Workspace Manager Assignment from a Microsoft Sentinel Workspace.
+The cmdlet will not return an error if the Workspace Manager Assignment does not exist.
+The Assignment must first be removed from the Workspace Manager Group before the group can be removed.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-
+Remove-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' -ResourceGroupName 'ContosoResourceGroup' -Name 'ContosoWorkspaceManagerAssignment'
 ```
+
+This command removes the Workspace Manager Assignment 'ContosoWorkspaceManagerAssignment' from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup'.
+
+### EXAMPLE 2
+```
+Get-AzWorkspaceManagerAssignments -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerAssignments -Force
+```
+
+This example removes all Workspace Manager Assignments from the workspace 'ContosoWorkspace' in the resource group 'ContosoResourceGroup' without prompting for confirmation.
 
 ## PARAMETERS
 
@@ -60,15 +71,30 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-The Name of the Workspace Manager Group
+The Name of the Workspace Manager Assignment
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+{{ Fill ResourceId Description }}
+
+```yaml
+Type: Array
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 4
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -130,3 +156,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerAssignments
+Remove-AzWorkspaceManagerAssignments]()
+

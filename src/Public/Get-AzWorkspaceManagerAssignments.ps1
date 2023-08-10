@@ -1,17 +1,4 @@
 function Get-AzWorkspaceManagerAssignments {
-<#
-.SYNOPSIS
-Get the Microsoft Sentinel Workspace Manager Groups
-.DESCRIPTION
-This function gets the Workspace Manager Groups and properties
-.PARAMETER WorkspaceName
-The Name of the log analytics workspace
-.PARAMETER ResourceGroupName
-The name of the ResouceGroup where the log analytics workspace is located
-.PARAMETER Name
-The name of the workspace manager assignment
-.EXAMPLE
-#>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
@@ -47,7 +34,7 @@ The name of the workspace manager assignment
         else {
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments?api-version=$($SessionVariables.apiVersion)"
         }
-        
+
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "List Microsoft Sentinel Workspace Manager Assignments for workspace '$WorkspaceName'"
@@ -58,10 +45,10 @@ The name of the workspace manager assignment
                     Method  = 'GET'
                     ErrorVariable = 'ErrVar'
                 }
-                
+
                 if ($Name) {
                     $apiResponse = (Invoke-RestMethod @requestParam)
-                } 
+                }
                 else {
                     $apiResponse = (Invoke-RestMethod @requestParam).value
                 }
@@ -70,7 +57,7 @@ The name of the workspace manager assignment
                     foreach ($object in $apiResponse) {
                         $result = Format-Result -Message $apiResponse
                     }
-                    
+
                     return $result
                 }
                 else {
@@ -82,7 +69,7 @@ The name of the workspace manager assignment
                     Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No Workspace Manager Assignments with name '$($Name)' found under workspace '$WorkspaceName'" -Severity 'Error'
                 }
                 else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $($_.Exception.Message) -Severity 'Error'
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message (($ErrVar.ErrorRecord) | ConvertFrom-Json).error.message -Severity 'Error'
                 }
             }
         }
@@ -90,4 +77,29 @@ The name of the workspace manager assignment
             Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$WorkspaceName'" -Severity 'Information'
         }
     }
+    <#
+        .SYNOPSIS
+        Get the Microsoft Sentinel Workspace Manager Groups
+        .DESCRIPTION
+        The Get-AzWorkspaceManagerAssignments cmdlet gets the Microsoft Sentinel Workspace Manager Assignments by just specifying the workspace name
+        When the workspace manager configuration is not 'Enabled' for the workspace, the cmdlet will return an information message
+        If a Name is specified, the cmdlet will return the details of the workspace manager assignment
+        .PARAMETER WorkspaceName
+        The Name of the log analytics workspace
+        .PARAMETER ResourceGroupName
+        The name of the ResouceGroup where the log analytics workspace is located
+        .PARAMETER Name
+        The name of the workspace manager assignment
+        .EXAMPLE
+        Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace'
+
+        This example gets all the Microsoft Sentinel Workspace Manager Assignments for the workspace 'MyWorkspace'
+        .EXAMPLE
+        Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
+
+        This example gets the details of the Microsoft Sentinel Workspace Manager Assignment 'MyWorkspaceManagerAssignment' for the workspace 'MyWorkspace'
+        .LINK
+        Add-AzWorkspaceManagerAssignments
+        Remove-AzWorkspaceManagerAssignments
+    #>
 }

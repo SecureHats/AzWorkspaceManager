@@ -88,9 +88,6 @@ function Get-AzWorkspaceManagerMembers {
         Enter the name of the ResouceGroup where the log analytics workspace is located
         .PARAMETER Name
         Enter the name of the workspace manager member
-        .LINK
-        Add-AzWorkspaceManagerMembers
-        Remove-AzWorkspaceManagerMembers
         .EXAMPLE
         Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
 
@@ -107,7 +104,8 @@ function Get-AzWorkspaceManagerMembers {
         Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers
 
         This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' using pipeline
-        .NOTES
-        This command currently not supports pipeline input
+        .LINK
+        Add-AzWorkspaceManagerMembers
+        Remove-AzWorkspaceManagerMembers
     #>
 }

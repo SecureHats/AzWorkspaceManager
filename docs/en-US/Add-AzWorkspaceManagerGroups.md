@@ -8,36 +8,41 @@ schema: 2.0.0
 # Add-AzWorkspaceManagerGroups
 
 ## SYNOPSIS
-Adds a Microsoft Sentinel Workspace Manager Group
+Add a Microsoft Sentinel Workspace Manager Group.
 
 ## SYNTAX
 
 ```
 Add-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] <String>] [-Name] <String>
- [[-Description] <String>] [[-workspaceManagerMembers] <Array>] [<CommonParameters>]
+ [[-Description] <String>] [[-workspaceManagerMembers] <Array>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function adds a workspace manager group and adds the child workspaces
+The Add-AzWorkspaceManagerGroups cmdlet adds a workspace manager group to the configuration.
+It is possible to add child workspaces to the group or add them later.
+For adding child
+workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -Description "" -workspaceManagerMembers 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)'
-Adds a Workspace Manager Group to the workspace with the name 'Banks' and adds a child workspace with the name 'myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)' to the group.
+Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
 ```
+
+This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.
 
 ### EXAMPLE 2
 ```
-Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -ResourceGroupName 'MyRg' -Name "Banks" -Description "Group of all financial and banking institutions" -workspaceManagerMembers @('myWorkspace(afbd324f-6c48-459c-8710-8d1e1cd03812)', 'otherWorkspace(f5fa104e-c0e3-4747-9182-d342dc048a9e)')
-Adds a Workspace Manager Group to the workspace and adds multiple child workspaces to the group.
+Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"
 ```
+
+This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.
 
 ## PARAMETERS
 
 ### -WorkspaceName
-The name of the log analytics workspace
+The Name of the log analytics workspace.
 
 ```yaml
 Type: String
@@ -52,7 +57,7 @@ Accept wildcard characters: False
 ```
 
 ### -ResourceGroupName
-The name of the ResouceGroup where the log analytics workspace is located
+The name of the ResouceGroup where the log analytics workspace is located.
 
 ```yaml
 Type: String
@@ -67,7 +72,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-The name of the workspace manager group
+The name of the workspace manager group.
 
 ```yaml
 Type: String
@@ -77,7 +82,7 @@ Aliases:
 Required: True
 Position: 3
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -93,12 +98,14 @@ Aliases:
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -workspaceManagerMembers
-The name of the workspace manager member(s) to add to the workspace manager group
+The workspace manager members to add to the group.
+The members are workspaces that are linked to the workspace manager configuration.
+and used to provision Microsoft Sentinel workspaces.
 
 ```yaml
 Type: Array
@@ -108,7 +115,22 @@ Aliases:
 Required: False
 Position: 5
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+{{ Fill ResourceId Description }}
+
+```yaml
+Type: Array
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -122,3 +144,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerGroups
+Remove-AzWorkspaceManagerGroups
+Add-AzWorkspaceManagerMembers
+Get-AzWorkspaceManagerMembers]()
+

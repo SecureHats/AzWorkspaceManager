@@ -8,7 +8,7 @@ schema: 2.0.0
 # Add-AzWorkspaceManagerAssignments
 
 ## SYNOPSIS
-Adds a Microsoft Sentinel Workspace Manager Group
+Adds a Microsoft Sentinel Workspace Manager Assignment
 
 ## SYNTAX
 
@@ -18,23 +18,35 @@ Add-AzWorkspaceManagerAssignments [-WorkspaceName] <String> [[-ResourceGroupName
 ```
 
 ## DESCRIPTION
-This function adds a workspace manager group and adds the child workspaces
+The Add-AzWorkspaceManagerAssignments command adds a Workspace Manager Assignment to a Workspace Manager Group.
+These assignments are used to provision Microsoft Sentinel workspaces.
+The Workspace Manager Assignment name is constructed by the GroupName.
+The resource id's of the items that are added to the assignment are stored in the properties of the assignment.
+These resources need to be in the same instance as the workspace manager configuration.
+If the resource id's are not in the same instance as the workspace manager configuration, the assignment will not be created and an error will be thrown.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
+Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
 ```
 
-Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
+This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
 
 ### EXAMPLE 2
 ```
-Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
+Add-AzWorkspaceManagerAssignments -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup' -ResourceId "/subscriptions/***/resourceGroups/dev-sentinel/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/alertRules/95204744-39a6-4510-8505-ef13549bc0da"
 ```
 
-Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(\<GUID\>)' and assigns this to the group 'myGroup'.
+This example adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup' and adds the alert rule to the assignment.
+
+### EXAMPLE 3
+```
+Get-AzWorkspaceManagerItems -WorkspaceName "myWorkspace" -Type "AlertRules" | Add-AzWorkspaceManagerAssignments -GroupName 'myGroup'
+```
+
+This example gets all the alert rules from the workspace with the name 'myWorkspace' and adds these to the Workspace Manager Assignment with the name 'AlertRules'.
 
 ## PARAMETERS
 
@@ -79,14 +91,12 @@ Aliases:
 Required: True
 Position: 3
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Name
-The name of the workspace manager assignment.
-if no value is provided a GUID will be generated and added to the name groupname.
-'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
+The name of the workspace manager assignment
 
 ```yaml
 Type: Array
@@ -96,7 +106,7 @@ Aliases:
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -126,3 +136,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerItems
+Get-AzWorkspaceManagerAssignments
+Remove-AzWorkspaceManagerAssignments
+Get-AzWorkspaceManagerGroups]()
+

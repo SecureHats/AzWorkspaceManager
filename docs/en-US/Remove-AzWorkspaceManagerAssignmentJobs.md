@@ -19,14 +19,31 @@ Remove-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGro
 ```
 
 ## DESCRIPTION
-This function gets the Workspace Manager Groups and properties
+The Remove-AzWorkspaceManagerAssignmentJobs cmdlet removes the Workspace Manager Assignment Jobs from the Workspace Manager Assignment.
+When the Workspace Manager Assignment is removed, all the Workspace Manager Assignment Jobs are removed as well.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-
+Remove-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -ResourceGroupName 'myRG' -AssignmentName 'myAssignment' -JobName 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1'
 ```
+
+This example removes the Workspace Manager Assignment Job 'e53fa65b-1e2d-48cd-b079-a596dc6ea5a1' from the Workspace Manager Assignment 'myAssignment' in the log analytics workspace 'myWorkspace' in the resource group 'myRG'
+
+### EXAMPLE 2
+```
+Get-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'myWorkspace' -Name 'MyWorkspaceManagerAssignment' | Remove-AzWorkspaceManagerAssignmentJobs -Force
+```
+
+This example removes all the Workspace Manager Assignment Jobs from the Workspace Manager Assignment 'MyWorkspaceManagerAssignment' without prompting for confirmation
+
+### EXAMPLE 3
+```
+Get-AzWorkspaceManagerAssignments -WorkspaceName 'sentinel-playground' | Get-AzWorkspaceManagerAssignmentJobs | Remove-AzWorkspaceManagerAssignmentJobs -Force
+```
+
+This example removes all the Workspace Manager Assignment Jobs from all the Workspace Manager Assignments in the log analytics workspace 'sentinel-playground' without prompting for confirmation
 
 ## PARAMETERS
 
@@ -76,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-The name of the Workspace Manager Assignment Job
+{{ Fill Name Description }}
 
 ```yaml
 Type: String

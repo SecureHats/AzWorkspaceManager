@@ -101,5 +101,9 @@ function Get-AzWorkspaceManagerGroups {
         Get-AzWorkspaceManager -Name 'MyWorkspace' | Get-AzWorkspaceManagerGroups
 
         This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' using the pipeline
+        .LINK
+        Add-AzWorkspaceManagerGroups
+        Remove-AzWorkspaceManagerGroups
+        Get-AzWorkspaceManager
     #>
 }

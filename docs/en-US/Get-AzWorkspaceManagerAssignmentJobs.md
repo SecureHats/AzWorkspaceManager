@@ -18,7 +18,8 @@ Get-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupN
 ```
 
 ## DESCRIPTION
-This function gets the Workspace Manager Groups and properties
+The Get-AzWorkspaceManagerAssignmentJobs cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs
+It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.
 
 ## EXAMPLES
 
@@ -70,7 +71,7 @@ Aliases:
 Required: False
 Position: 3
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -85,7 +86,7 @@ Aliases:
 Required: False
 Position: 4
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

@@ -105,6 +105,7 @@ function Add-AzWorkspaceManagerGroups {
         This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.
         .EXAMPLE
         Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"
+
         This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.
         .LINK
         Get-AzWorkspaceManagerGroups

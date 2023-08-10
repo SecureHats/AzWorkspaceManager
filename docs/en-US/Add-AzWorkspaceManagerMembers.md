@@ -31,14 +31,6 @@ The Workspace Manager Member name is constructed as follows: \<workspaceName\>(\
 Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
 ```
 
-Name              : myChildWorkspace(***)
-ResourceGroupName : myRG
-ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
-WorkspaceName     : myWorkspace
-ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
-Tags              :
-Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
-
 This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.
 
 ### EXAMPLE 2
@@ -48,23 +40,6 @@ $resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microso
 
 PS \> Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
 
-
-Name              : myChildWorkspace(***)
-ResourceGroupName : myRG
-ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
-WorkspaceName     : myWorkspace
-ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
-Tags              :
-Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
-
-
-Name              : myChildWorkspace(***)
-ResourceGroupName : myRG
-ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
-WorkspaceName     : myWorkspace
-ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myOtherWorkspace(***)
-Tags              :
-Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myOtherWorkspace; targetWorkspaceTenantId=***}
 This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'
 
 ## PARAMETERS
@@ -110,7 +85,7 @@ Aliases:
 Required: True
 Position: 3
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -140,3 +115,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 The Workspace Manager Member name is constructed as follows: \<workspaceName\>(\<subscriptionId\>)
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerMembers
+Remove-AzWorkspaceManagerMembers]()
+

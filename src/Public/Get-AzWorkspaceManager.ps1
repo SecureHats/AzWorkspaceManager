@@ -63,32 +63,17 @@ function Get-AzWorkspaceManager {
     The Name of the log analytics workspace
     .PARAMETER ResourceGroupName
     The name of the ResouceGroup where the log analytics workspace is located
-    .LINK
-    Set-AzWorkspaceManager
-    Remove-AzWorkspaceManager
     .EXAMPLE
     Get-AzWorkspaceManager -Name 'myWorkspace'
 
-    Name              : myWorkspace
-    ResourceGroupName : myRG
-    ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
-    WorkspaceName     : myWorkspace
-    ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
-    Tags              :
-    Properties        : @{mode=Enabled}
     This command gets the workspace manager for the workspace 'myWorkspace'
     .EXAMPLE
     Get-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 
-    Name              : myWorkspace
-    ResourceGroupName : myRG
-    ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
-    WorkspaceName     : myWorkspace
-    ResourceId        : /subscriptions/<REDACTED>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
-    Tags              :
-    Properties        : @{mode=Enabled}
-
     This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
     Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
+    .LINK
+    Set-AzWorkspaceManager
+    Remove-AzWorkspaceManager
 #>
 }

@@ -14,25 +14,35 @@ Adds a Microsoft Sentinel Workspace Manager Assignment Job
 
 ```
 Add-AzWorkspaceManagerAssignmentJobs [-WorkspaceName] <String> [[-ResourceGroupName] <String>]
- [[-Name] <Array>] [<CommonParameters>]
+ [[-Name] <String>] [[-ResourceId] <Array>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-This function adds a workspace manager group and adds the child workspaces
+The Add-AzWorkspaceManagerAssignmentJobs command adds a Workspace Manager Assignment Job to the workspace.
+By default the name of the Workspace Manager Assignment is the same as the Workspace Manager Group.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -Name "AlertRules" -GroupName 'myGroup'
-Adds a Workspace Manager Assignment to the workspace with the name 'AlertRules' and assigns this to the group 'myGroup'.
+Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerAssignment'
 ```
+
+This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' with the name 'MyWorkspaceManagerAssignment'
 
 ### EXAMPLE 2
 ```
-Add-AzWorkspaceManagerAssignment -WorkspaceName "myWorkspace" -GroupName 'myGroup'
-Adds a Workspace Manager Assignment to the workspace with the name 'myGroup(<GUID>)' and assigns this to the group 'myGroup'.
+Add-AzWorkspaceManagerAssignmentJobs -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
 ```
+
+This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' in the resourcegroup 'MyResourceGroup' with the name 'MyWorkspaceManagerAssignment'
+
+### EXAMPLE 3
+```
+Get-AzWorkspaceManagerAssignments -WorkspaceName 'MyWorkspace' | Add-AzWorkspaceManagerAssignmentJobs
+```
+
+This example adds a Workspace Manager Assignment Job to the workspace 'MyWorkspace' for each Workspace Manager Assignment found
 
 ## PARAMETERS
 
@@ -68,8 +78,22 @@ Accept wildcard characters: False
 
 ### -Name
 The name of the workspace manager assignment.
-if no value is provided a GUID will be generated and added to the name groupname.
-'myGroup(afbd324f-6c48-459c-8710-8d1e1cd03812)'
+This is the same as the Workspace Manager GroupName unless specified otherwise
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourceId
+{{ Fill ResourceId Description }}
 
 ```yaml
 Type: Array
@@ -77,9 +101,9 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
-Default value: (New-Guid).Guid
-Accept pipeline input: True (ByValue)
+Position: 4
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -93,3 +117,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerAssignmentJobs
+Remove-AzWorkspaceManagerAssignmentJobs]()
+

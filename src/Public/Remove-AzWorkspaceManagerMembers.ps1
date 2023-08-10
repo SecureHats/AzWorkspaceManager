@@ -38,8 +38,9 @@ function Remove-AzWorkspaceManagerMembers {
         }
 
         try {
-            if ($null -ne $ResourceId) {
-                $uri = "https://management.azure.com$($id)?api-version=$($SessionVariables.apiVersion)"
+            if ($ResourceId) {
+                $uri = "https://management.azure.com$($ResourceId)?api-version=$($SessionVariables.apiVersion)"
+                $name = $ResourceId.Split('/')[-1]
             }
             elseif ($Name) {
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerMembers/$($Name)?api-version=$($SessionVariables.apiVersion)"
@@ -61,7 +62,7 @@ function Remove-AzWorkspaceManagerMembers {
             $apiResponse = Invoke-RestMethod @requestParam
 
             if ($apiResponse -ne '') {
-                if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled', "Remove '$($Name)")) {
+                if ($PSCmdlet.ShouldProcess($SessionVariables.workspaceManagerConfiguration -eq 'Enabled', "Remove Workspace Manager Member '$($Name)")) {
                     $requestParam = @{
                         Headers       = $authHeader
                         Uri           = $uri
@@ -108,9 +109,6 @@ function Remove-AzWorkspaceManagerMembers {
       The ResourceId of the target workspace manager member to remove
       .PARAMETER Force
       Confirms the removal of the Workspace manager configuration.
-      .LINK
-      Get-AzWorkspaceManagerMembers
-      Add-AzWorkspaceManagerMembers
       .EXAMPLE
       Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 
@@ -123,5 +121,8 @@ function Remove-AzWorkspaceManagerMembers {
       Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
 
       This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation
+      .LINK
+      Get-AzWorkspaceManagerMembers
+      Add-AzWorkspaceManagerMembers
     #>
 }

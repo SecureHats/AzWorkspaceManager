@@ -74,7 +74,8 @@
         'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers',
         'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups',
         'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments',
-        'Get-AzWorkspaceManagerAssignmentJobs', 'Add-AzWorkspaceManagerAssignmentJobs', 'Remove-AzWorkspaceManagerAssignmentJobs'
+        'Get-AzWorkspaceManagerAssignmentJobs', 'Add-AzWorkspaceManagerAssignmentJobs', 'Remove-AzWorkspaceManagerAssignmentJobs',
+        'Get-AzWorkspaceManagerItems'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -113,6 +114,7 @@
     'Public\Get-AzWorkspaceManagerAssignmentJobs.ps1',
     'Public\Add-AzWorkspaceManagerAssignmentJobs.ps1',
     'Public\Remove-AzWorkspaceManagerAssignmentJobs.ps1',
+    'Public\Get-AzWorkspaceManagerItems.ps1',
     'AzWorkspaceManager.psd1',
     'AzWorkspaceManager.psm1'
 

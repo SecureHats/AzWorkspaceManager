@@ -28,27 +28,12 @@ Only one workspace manager configuration can be added per Microsoft Sentinel ins
 Get-AzWorkspaceManager -Name 'myWorkspace'
 ```
 
-Name              : myWorkspace
-ResourceGroupName : myRG
-ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
-WorkspaceName     : myWorkspace
-ResourceId        : /subscriptions/\<REDACTED\>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
-Tags              :
-Properties        : @{mode=Enabled}
 This command gets the workspace manager for the workspace 'myWorkspace'
 
 ### EXAMPLE 2
 ```
 Get-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroupName 'myRG'
 ```
-
-Name              : myWorkspace
-ResourceGroupName : myRG
-ResourceType      : Microsoft.SecurityInsights/workspaceManagerConfigurations
-WorkspaceName     : myWorkspace
-ResourceId        : /subscriptions/\<REDACTED\>/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/myWorkspace
-Tags              :
-Properties        : @{mode=Enabled}
 
 This command gets the workspace manager for the workspace 'myWorkspace' in resource group 'myRg'
 Specifying the resource group is only needed if multiple workspaces with the same name are available in the subscription.
@@ -95,3 +80,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Set-AzWorkspaceManager
+Remove-AzWorkspaceManager]()
+

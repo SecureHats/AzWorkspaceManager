@@ -19,7 +19,8 @@ Get-AzWorkspaceManagerMembers [-WorkspaceName] <String> [[-ResourceGroupName] <S
 
 ## DESCRIPTION
 The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration.
-The members can be queried by providing a workspace name or by providing a workspace manager member name.
+If the workspace manager member name is not provided, all the workspace manager members for the workspace will be returned.
+When the workspace manager member name is provided, the workspace manager member details will be returned.
 
 ## EXAMPLES
 
@@ -28,14 +29,28 @@ The members can be queried by providing a workspace name or by providing a works
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
 ```
 
-This command gets the workspace manager member(s) from the workspace configuration 'myWorkspace'
+This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace'
 
 ### EXAMPLE 2
+```
+Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"
+```
+
+This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' in the resource group 'myResourceGroup'
+
+### EXAMPLE 3
 ```
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
 
-This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+This example gets the Microsoft Sentinel Workspace Manager Member 'myChildWorkspace(***)' for the workspace 'MyWorkspace'
+
+### EXAMPLE 4
+```
+Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers
+```
+
+This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' using pipeline
 
 ## PARAMETERS
 
@@ -80,7 +95,7 @@ Aliases:
 Required: False
 Position: 3
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -92,6 +107,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-This command currently not supports pipeline input
 
 ## RELATED LINKS
+
+[Add-AzWorkspaceManagerMembers
+Remove-AzWorkspaceManagerMembers]()
+

@@ -27,21 +27,21 @@ The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member t
 Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 ```
 
-This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation
 
 ### EXAMPLE 2
 ```
 Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
 ```
 
-This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
+This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
 
 ### EXAMPLE 3
 ```
 Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
 ```
 
-This command removes all workspace manager members from the workspace configuration 'myWorkspace' without confirmation
+This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation
 
 ## PARAMETERS
 
@@ -161,3 +161,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerMembers
+Add-AzWorkspaceManagerMembers]()
+

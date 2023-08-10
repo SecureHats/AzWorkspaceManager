@@ -18,14 +18,33 @@ Remove-AzWorkspaceManagerGroups [-WorkspaceName] <String> [[-ResourceGroupName] 
 ```
 
 ## DESCRIPTION
-This function removes a Microsoft Sentinel Workspace Manager Member
+This command removes a Workspace Manager Group from a Microsoft Sentinel Workspace.
+If the Workspace Manager Group does not exist, the command will return an error.
+When the Workspace Manager Group is removed the members of the group will no longer receive updates from the workspace.
+If an assigment is still available for the group, the group cannot be removed.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-
+Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -Name 'myChildWorkspace'
 ```
+
+This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace'
+
+### EXAMPLE 2
+```
+Remove-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' -ResourceGroupName 'myWorkspaceManagerGroup' -Name 'myChildWorkspace' -Force
+```
+
+This example removes the Workspace Manager Group 'myChildWorkspace' from the workspace 'myWorkspace' in the resource group 'myWorkspaceManagerGroup' without prompting for confirmation
+
+### EXAMPLE 3
+```
+Get-AzWorkspaceManagerGroups -WorkspaceName 'myWorkspace' | Remove-AzWorkspaceManagerGroups -Force
+```
+
+This example removes all Workspace Manager Groups from the workspace 'myWorkspace' without prompting for confirmation using the pipeline
 
 ## PARAMETERS
 
@@ -130,3 +149,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+
+[Get-AzWorkspaceManagerGroups
+Remove-AzWorkspaceManagerGroups]()
+

@@ -1,19 +1,4 @@
 function Get-AzWorkspaceManagerAssignmentJobs {
-    <#
-      .SYNOPSIS
-      Get the Microsoft Sentinel Workspace Manager Groups
-      .DESCRIPTION
-      This function gets the Workspace Manager Groups and properties
-      .PARAMETER WorkspaceName
-      The Name of the log analytics workspace
-      .PARAMETER ResourceGroupName
-      The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER Name
-      The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
-      .PARAMETER JobName
-      The name of the Workspace Manager Assignment Job 
-      .EXAMPLE
-    #>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -25,12 +10,12 @@ function Get-AzWorkspaceManagerAssignmentJobs {
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $false)]
         [ValidateNotNullOrEmpty()]
-[ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $false)]
         [ValidateNotNullOrEmpty()]
         [string]$JobName,
 
@@ -51,17 +36,17 @@ function Get-AzWorkspaceManagerAssignmentJobs {
             $null = Get-AzWorkspaceManager -Name $WorkspaceName
         }
 
-        #$null = Get-AzWorkspaceManagerAssignments -WorkspaceName $WorkspaceName -Name $Name
-
         if ($ResourceId) {
             $uri = "https://management.azure.com$($ResourceId)/jobs?api-version=$($SessionVariables.apiVersion)"
-            Write-Debug "$($MyInvocation.MyCommand.Name): $uri"
         } else {
-            if ($null -ne $JobName) {
+            if ($Name -and $JobName) {
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)/jobs/$($JobName)?api-version=$($SessionVariables.apiVersion)"
             }
-            else {
+            elseif ($Name) {
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerAssignments/$($Name)/jobs?api-version=$($SessionVariables.apiVersion)"
+            }
+            else {
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "No name for the workspace manager assignment or job was provided" -Severity 'Error'
             }
         }
 
@@ -76,10 +61,10 @@ function Get-AzWorkspaceManagerAssignmentJobs {
                     ErrorVariable = 'ErrVar'
                 }
 
-                if ($Name -eq '' -and $ResourceId -eq '') {
+                if ($JobName) {
                     $apiResponse = (Invoke-RestMethod @requestParam)
-                } 
-                else {
+                }
+                elseif ($ResourceId -or $Name ) {
                     $apiResponse = (Invoke-RestMethod @requestParam).value
                 }
 
@@ -97,7 +82,6 @@ function Get-AzWorkspaceManagerAssignmentJobs {
                             } | ConvertTo-Json -Depth 20 | ConvertFrom-Json -Depth 20
                         )
                     }
-                    
                     return $result
                 }
                 else {
@@ -118,4 +102,20 @@ function Get-AzWorkspaceManagerAssignmentJobs {
             Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$WorkspaceName'" -Severity 'Information'
         }
     }
+    <#
+        .SYNOPSIS
+        Get the Microsoft Sentinel Workspace Manager Groups
+        .DESCRIPTION
+        The Get-AzWorkspaceManagerAssignmentJobs cmdlet gets the Microsoft Sentinel Workspace Manager Assignment Jobs
+        It can be used to get all the Workspace Manager Assignment Jobs or a specific Workspace Manager Assignment Job by specifying the JobName.
+        .PARAMETER WorkspaceName
+        The Name of the log analytics workspace
+        .PARAMETER ResourceGroupName
+        The name of the ResouceGroup where the log analytics workspace is located
+        .PARAMETER Name
+        The name of the workspace manager assignment (default this has the same value as the Workspace Manager GroupName)
+        .PARAMETER JobName
+        The name of the Workspace Manager Assignment Job
+        .EXAMPLE
+    #>
 }

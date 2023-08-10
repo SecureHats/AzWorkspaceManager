@@ -65,9 +65,6 @@ function Remove-AzWorkspaceManager {
     The name of the ResouceGroup where the log analytics workspace is located
     .PARAMETER Force
     Confirms the removal of the Workspace manager configuration.
-    .LINK
-    Get-AzWorkspaceManager
-    Set-AzWorkspaceManager
     .EXAMPLE
     Remove-AzWorkspaceManager -Name 'myWorkspace' -Force
 
@@ -75,13 +72,14 @@ function Remove-AzWorkspaceManager {
     .EXAMPLE
     Remove-AzWorkspaceManager -Name sentinel-playground -Force
 
-    Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
     This command removes the workspace manager on the Sentinel workspace 'myWorkspace' without confirmation'
 
     .EXAMPLE
     Get-AzWorkspaceManager -Name sentinel-playground | Remove-AzWorkspaceManager -Force
 
-    Remove-AzWorkspaceManager: Workspace Manager Configuration 'sentinel-playground' removed
     This command removes the workspace manager based on a pipeline value from the Get-AzWorkspaceManager cmdlet
+    .LINK
+    Get-AzWorkspaceManager
+    Set-AzWorkspaceManager
 #>
 }
