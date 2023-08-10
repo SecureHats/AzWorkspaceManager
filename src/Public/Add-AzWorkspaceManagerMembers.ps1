@@ -1,59 +1,4 @@
 function Add-AzWorkspaceManagerMembers {
-    <#
-      .SYNOPSIS
-      Add a Microsoft Sentinel Workspace Manager Member
-      .DESCRIPTION
-      The Add-AzWorkspaceManagerMembers cmdlet adds a workspace manager member to the configuration.
-      These members are workspaces that are linked to the workspace manager configuration. and used to
-      provision Microsoft Sentinel workspaces.
-      The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
-      .PARAMETER WorkspaceName
-      The Name of the log analytics workspace
-      .PARAMETER ResourceGroupName
-      The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER ResourceId
-      The ResourceId of the target workspace to add as a member
-      .PARAMETER TenantId
-      The TenantId of the target workspace to add as a member
-      .EXAMPLE
-      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
-
-
-      Name              : myChildWorkspace(***)
-      ResourceGroupName : myRG
-      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
-      WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
-      Tags              :
-      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
-
-      This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.
-      .EXAMPLE
-      $resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")
-
-      PS > Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
-
-
-      Name              : myChildWorkspace(***)
-      ResourceGroupName : myRG
-      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
-      WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
-      Tags              :
-      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
-
-
-      Name              : myChildWorkspace(***)
-      ResourceGroupName : myRG
-      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
-      WorkspaceName     : myWorkspace
-      ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myOtherWorkspace(***)
-      Tags              :
-      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myOtherWorkspace; targetWorkspaceTenantId=***}
-      This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'
-      .NOTES
-      The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
-    #>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -137,4 +82,62 @@ function Add-AzWorkspaceManagerMembers {
         }
         return $result
     }
+    <#
+      .SYNOPSIS
+      Add a Microsoft Sentinel Workspace Manager Member
+      .DESCRIPTION
+      The Add-AzWorkspaceManagerMembers cmdlet adds a workspace manager member to the configuration.
+      These members are workspaces that are linked to the workspace manager configuration. and used to
+      provision Microsoft Sentinel workspaces.
+      The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
+      .PARAMETER WorkspaceName
+      The Name of the log analytics workspace
+      .PARAMETER ResourceGroupName
+      The name of the ResouceGroup where the log analytics workspace is located
+      .PARAMETER ResourceId
+      The ResourceId of the target workspace to add as a member
+      .PARAMETER TenantId
+      The TenantId of the target workspace to add as a member
+      .LINK
+      Get-AzWorkspaceManagerMembers
+      Remove-AzWorkspaceManagerMembers
+      .EXAMPLE
+      Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace" -TenantId "***"
+
+
+      Name              : myChildWorkspace(***)
+      ResourceGroupName : myRG
+      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
+      WorkspaceName     : myWorkspace
+      ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
+      Tags              :
+      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
+
+      This example adds a Workspace Manager Member for the workspace with the name 'myWorkspace' and adds the workspace with the name 'myChildWorkspace' as a member.
+      .EXAMPLE
+      $resourceIds = @("/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myChildWorkspace", "/subscriptions/***/resourcegroups/myRemoteRG/providers/microsoft.operationalinsights/workspaces/myOtherWorkspace")
+
+      PS > Add-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceId $resourceIds -TenantId "***"
+
+
+      Name              : myChildWorkspace(***)
+      ResourceGroupName : myRG
+      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
+      WorkspaceName     : myWorkspace
+      ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myChildWorkspace(***)
+      Tags              :
+      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myChildWorkspace; targetWorkspaceTenantId=***}
+
+
+      Name              : myChildWorkspace(***)
+      ResourceGroupName : myRG
+      ResourceType      : Microsoft.SecurityInsights/workspaceManagerMembers
+      WorkspaceName     : myWorkspace
+      ResourceId        : /subscriptions/***/resourceGroups/myRG/providers/Microsoft.OperationalInsights/workspaces/myWorkspace/providers/Microsoft.SecurityInsights/workspaceManagerMembers/myOtherWorkspace(***)
+      Tags              :
+      Properties        : @{targetWorkspaceResourceId=/subscriptions/***/resourceGroups/myRemoteRG/providers/Microsoft.OperationalInsights/workspaces/myOtherWorkspace; targetWorkspaceTenantId=***}
+      This example adds a multiple Members from from an array into the workspace manager with the name 'myWorkspace'
+      .NOTES
+      The Workspace Manager Member name is constructed as follows: <workspaceName>(<subscriptionId>)
+    #>
 }

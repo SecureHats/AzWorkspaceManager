@@ -1,32 +1,4 @@
 function Remove-AzWorkspaceManagerMembers {
-    <#
-      .SYNOPSIS
-      Remove a Workspace Manager Member
-      .DESCRIPTION
-      The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member to the configuration.
-      .PARAMETER WorkspaceName
-      The Name of the log analytics workspace
-      .PARAMETER ResourceGroupName
-      The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER Name
-      The Name of the Workspace Manager Member
-      .PARAMETER ResourceId
-      The ResourceId of the target workspace manager member to remove
-      .PARAMETER Force
-      Confirms the removal of the Workspace manager configuration.
-      .EXAMPLE
-      Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
-
-      This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
-      .EXAMPLE
-      Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
-
-      This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
-      .EXAMPLE
-      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
-
-      This command removes all workspace manager members from the workspace configuration 'myWorkspace' without confirmation
-    #>
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
@@ -121,4 +93,35 @@ function Remove-AzWorkspaceManagerMembers {
             }
         }
     }
+    <#
+      .SYNOPSIS
+      Remove a Workspace Manager Member
+      .DESCRIPTION
+      The Remove-AzWorkspaceManagerMembers cmdlet removes a workspace manager member to the configuration.
+      .PARAMETER WorkspaceName
+      The Name of the log analytics workspace
+      .PARAMETER ResourceGroupName
+      The name of the ResouceGroup where the log analytics workspace is located
+      .PARAMETER Name
+      The Name of the Workspace Manager Member
+      .PARAMETER ResourceId
+      The ResourceId of the target workspace manager member to remove
+      .PARAMETER Force
+      Confirms the removal of the Workspace manager configuration.
+      .LINK
+      Get-AzWorkspaceManagerMembers
+      Add-AzWorkspaceManagerMembers
+      .EXAMPLE
+      Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+
+      This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+      .EXAMPLE
+      Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
+
+      This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
+      .EXAMPLE
+      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
+
+      This command removes all workspace manager members from the workspace configuration 'myWorkspace' without confirmation
+    #>
 }
