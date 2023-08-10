@@ -1,18 +1,18 @@
 function Get-AzWorkspaceManagerGroups {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
-        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage = "It does not match expected pattern '{1}'")]
         [string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $false)]
         [ValidateNotNullOrEmpty()]
-        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        # [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage = "It does not match expected pattern '{1}'")]
         [string]$Name
     )
 
@@ -85,5 +85,19 @@ function Get-AzWorkspaceManagerGroups {
       .PARAMETER Name
       The name of the workspace manager group
       .EXAMPLE
+      Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace'
+
+      This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace'
+      .EXAMPLE
+      Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup'
+
+        This example gets the Microsoft Sentinel Workspace Manager Groups for the workspace 'MyWorkspace' in the resource group 'MyResourceGroup'
+     .EXAMPLE
+     Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -Name 'MyWorkspaceManagerGroup'
+
+    This example gets the Microsoft Sentinel Workspace Manager Group 'MyWorkspaceManagerGroup' for the workspace 'MyWorkspace'
+    .EXAMPLE
+    Get-AzWorkspaceManagerGroups -WorkspaceName 'MyWorkspace' -ResourceGroupName 'MyResourceGroup' -Name 'MyWorkspaceManagerGroup'
+
     #>
 }

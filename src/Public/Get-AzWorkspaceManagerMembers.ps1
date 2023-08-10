@@ -9,7 +9,7 @@ function Get-AzWorkspaceManagerMembers {
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $false)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name
@@ -55,7 +55,7 @@ function Get-AzWorkspaceManagerMembers {
                     return $result
                 }
                 else {
-                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) "No Workspace Manager Member(s) found for workspace [$($WorkspaceName)]" -Severity 'Information'
+                    Write-Message -FunctionName $($MyInvocation.MyCommand.Name) "No Workspace Manager Member(s) found for workspace '$WorkspaceName'" -Severity 'Information'
                     break
                 }
             }
