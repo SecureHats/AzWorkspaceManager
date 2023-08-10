@@ -26,7 +26,7 @@ function Get-AccessToken {
         $SessionVariables.tenantId = $azProfile.DefaultContext.Tenant.Id
 
         $profileClient = [Microsoft.Azure.Commands.ResourceManager.Common.RMProfileClient]::new($azProfile)
-        
+
         try {
             $SessionVariables.accessToken = ([Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes(($profileClient.AcquireAccessToken($SessionVariables.tenantId)).accessToken))) | ConvertTo-SecureString -AsPlainText -Force
             $SessionVariables.ExpiresOn = ($profileClient.AcquireAccessToken($SessionVariables.tenantId)).ExpiresOn.DateTime

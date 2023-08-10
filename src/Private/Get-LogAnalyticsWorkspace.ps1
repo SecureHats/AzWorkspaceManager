@@ -36,7 +36,7 @@ function Get-LogAnalyticsWorkspace {
             Write-Verbose "No Resource Group Name specified"
             $uri = "$($SessionVariables.baseUri)/providers/Microsoft.OperationalInsights/workspaces?api-version=$apiVersion"
         }
-        
+
         try {
             Write-Verbose "Trying to get the Microsoft Sentinel workspace '$Name'"
 
@@ -48,7 +48,7 @@ function Get-LogAnalyticsWorkspace {
             }
 
             $workspace = (
-                Invoke-RestMethod @requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name } 
+                Invoke-RestMethod @requestParam -ErrorVariable "ErrVar" ).value | Where-Object { $_.name -eq $Name }
 
             switch ($workspace.count) {
                 { $_ -eq 1 } { $_workspacePath = ("https://management.azure.com$($workspace.id)").ToLower() }
@@ -57,16 +57,16 @@ function Get-LogAnalyticsWorkspace {
                     Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Multiple resource '/Microsoft.OperationalInsights/workspaces/$($Name)' found. Please specify the resourcegroup" -Severity 'Information'
                     break
                 }
-                { $_ -lt 1 } { 
+                { $_ -lt 1 } {
                     $SessionVariables.workspace = $null
                     Write-Message -FunctionName $MyInvocation.MyCommand.Name"The Resource '/Microsoft.OperationalInsights/workspaces/$($Name)' was not found" -Severity 'Error'
                 }
                 Default {}
             }
-                
+
             if ($_workspacePath) {
                 $uri = "$(($_workspacePath).Split('microsoft.')[0])Microsoft.OperationsManagement/solutions/SecurityInsights($($workspace.name))?api-version=2015-11-01-preview"
-                    
+
                 try {
                     $requestParam = @{
                         Headers       = $authHeader
