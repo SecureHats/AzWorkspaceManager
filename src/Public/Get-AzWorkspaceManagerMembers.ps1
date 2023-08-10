@@ -51,7 +51,7 @@ function Get-AzWorkspaceManagerMembers {
                 }
 
                 if ($apiResponse -ne '') {
-                    $result = Format-Result -Message $apiResponse
+                    $result += Format-Result -Message $apiResponse
                     return $result
                 }
                 else {
@@ -76,29 +76,38 @@ function Get-AzWorkspaceManagerMembers {
         }
     }
     <#
-      .SYNOPSIS
-      Gets a Microsoft Sentinel Workspace Manager Member
-      .DESCRIPTION
-      The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration.
-      The members can be queried by providing a workspace name or by providing a workspace manager member name.
-      .PARAMETER WorkspaceName
-      Enter the Name of the log analytics workspace
-      .PARAMETER ResourceGroupName
-      Enter the name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER Name
-      Enter the name of the workspace manager member
-      .LINK
-      Add-AzWorkspaceManagerMembers
-      Remove-AzWorkspaceManagerMembers
-      .EXAMPLE
-      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
+        .SYNOPSIS
+        Gets a Microsoft Sentinel Workspace Manager Member
+        .DESCRIPTION
+        The Get-AzWorkspaceManagerMembers cmdlet gets workspace manager member(s) from the configuration.
+        If the workspace manager member name is not provided, all the workspace manager members for the workspace will be returned.
+        When the workspace manager member name is provided, the workspace manager member details will be returned.
+        .PARAMETER WorkspaceName
+        Enter the Name of the log analytics workspace
+        .PARAMETER ResourceGroupName
+        Enter the name of the ResouceGroup where the log analytics workspace is located
+        .PARAMETER Name
+        Enter the name of the workspace manager member
+        .LINK
+        Add-AzWorkspaceManagerMembers
+        Remove-AzWorkspaceManagerMembers
+        .EXAMPLE
+        Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace"
 
-      This command gets the workspace manager member(s) from the workspace configuration 'myWorkspace'
-      .EXAMPLE
-      Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+        This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace'
+        .EXAMPLE
+        Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroupName "myResourceGroup"
 
-      This command gets the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
-      .NOTES
-      This command currently not supports pipeline input
+        This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' in the resource group 'myResourceGroup'
+        .EXAMPLE
+        Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
+
+        This example gets the Microsoft Sentinel Workspace Manager Member 'myChildWorkspace(***)' for the workspace 'MyWorkspace'
+        .EXAMPLE
+        Get-AzWorkspaceManager -Name "myWorkspace" | Get-AzWorkspaceManagerMembers
+
+        This example gets the Microsoft Sentinel Workspace Manager Members for the workspace 'MyWorkspace' using pipeline
+        .NOTES
+        This command currently not supports pipeline input
     #>
 }

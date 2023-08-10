@@ -105,7 +105,7 @@ function Remove-AzWorkspaceManagerAssignmentJobs {
                 Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Assignment Job '$($value)' was not found under Assignment '$($AssignmentName)'" -Severity 'Error'
             }
             else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message ($return.ErrorRecord | ConvertFrom-Json).error.message -Severity 'Error'
             }
         }
     }

@@ -70,7 +70,7 @@ function Remove-AzWorkspaceManagerAssignments {
                         Method        = 'DELETE'
                         ErrorVariable = 'ErrVar'
                     }
-                
+
                     Invoke-RestMethod @requestParam
                     Write-Host $response
                     if ($null -eq $response) {
@@ -87,7 +87,7 @@ function Remove-AzWorkspaceManagerAssignments {
                 Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Assignment '$($Name)' was not found under workspace '$WorkspaceName'" -Severity 'Error'
             }
             else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message ($return.ErrorRecord | ConvertFrom-Json).error.message -Severity 'Error'
             }
         }
     }

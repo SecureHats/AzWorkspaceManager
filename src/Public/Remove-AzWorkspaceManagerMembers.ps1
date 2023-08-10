@@ -89,7 +89,7 @@ function Remove-AzWorkspaceManagerMembers {
                 Write-Message -FunctionName $MyInvocation.MyCommand.Name -Message "Workspace Manager Member '$($Name)' was not found under workspace '$WorkspaceName'" -Severity 'Error'
             }
             else {
-                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message $_.Exception.Message -Severity 'Error'
+                Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message ($return.ErrorRecord | ConvertFrom-Json).error.message -Severity 'Error'
             }
         }
     }
@@ -114,14 +114,14 @@ function Remove-AzWorkspaceManagerMembers {
       .EXAMPLE
       Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -Name "myChildWorkspace(***)"
 
-      This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace'
+      This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' with confirmation
       .EXAMPLE
       Remove-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" -ResourceGroup "myRG" -Name "myChildWorkspace(***)" -Force
 
-      This command removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
+      This example removes the workspace manager member myChildWorkspace from the workspace configuration 'myWorkspace' without confirmation
       .EXAMPLE
       Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Remove-AzWorkspaceManagerMembers -Force
 
-      This command removes all workspace manager members from the workspace configuration 'myWorkspace' without confirmation
+      This example removes all workspace manager members from the workspace configuration 'myWorkspace' using pipeline input without confirmation
     #>
 }

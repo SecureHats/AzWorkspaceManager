@@ -10,16 +10,19 @@ function Add-AzWorkspaceManagerGroups {
         [ValidateNotNullOrEmpty()]
         [string]$ResourceGroupName,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $false)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $false, ValueFromPipeline = $false)]
         [string]$Description = "",
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [array]$workspaceManagerMembers
+        [Parameter(Mandatory = $false, ValueFromPipeline = $false)]
+        [array]$workspaceManagerMembers,
+
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [array]$ResourceId
 
     )
 
@@ -35,6 +38,11 @@ function Add-AzWorkspaceManagerGroups {
             $null = Get-AzWorkspaceManager -Name $WorkspaceName
         }
 
+        if ($ResourceId) {
+            foreach ($resource in $ResourceId) {
+                $workspaceManagerMembers += $resource.split('/')[-1]
+            }
+        }
         $payload = @{
             properties = @{
                 displayName         = $Name
@@ -43,12 +51,10 @@ function Add-AzWorkspaceManagerGroups {
             }
         } | ConvertTo-Json
 
-        write-host $payload
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "Adding Workspace Manager Group to workspace [$WorkspaceName)]"
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups/$($Name)?api-version=$($SessionVariables.apiVersion)"
-                write-host $uri
 
                 $requestParam = @{
                     Headers     = $authHeader
@@ -77,32 +83,30 @@ function Add-AzWorkspaceManagerGroups {
         }
     }
     <#
-      .SYNOPSIS
+        .SYNOPSIS
         Add a Microsoft Sentinel Workspace Manager Group.
-      .DESCRIPTION
+        .DESCRIPTION
         The Add-AzWorkspaceManagerGroups cmdlet adds a workspace manager group to the configuration.
         It is possible to add child workspaces to the group or add them later. For adding child
         workspaces, use the Add-AzWorkspaceManagerMembers cmdlet.
-      .PARAMETER WorkspaceName
+        .PARAMETER WorkspaceName
         The Name of the log analytics workspace.
-      .PARAMETER ResourceGroupName
+        .PARAMETER ResourceGroupName
         The name of the ResouceGroup where the log analytics workspace is located.
-      .PARAMETER Name
+        .PARAMETER Name
         The name of the workspace manager group.
-      .PARAMETER Description
+        .PARAMETER Description
         The description of the workspace manager group. If not specified, the name will be used.
-      .PARAMETER workspaceManagerMembers
+        .PARAMETER workspaceManagerMembers
         The workspace manager members to add to the group. The members are workspaces that are linked to the workspace manager configuration. and used to provision Microsoft Sentinel workspaces.
-      .EXAMPLE
+        .EXAMPLE
         Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -workspaceManagerMembers 'myChildWorkspace(***)'
 
         This example adds a Workspace Manager Group 'Banks' to the workspace and adds a child workspace to the group.
-      .EXAMPLE
-        $workspaceManagerMembers = @('myChildWorkspace(***)', 'myOtherWorkspace(***)')
-        PS > Add-AzWorkspaceManagerGroups -WorkspaceName "myWorkspace" -Name "Banks" -Description "Group of all financial and banking institutions" -workspaceManagerMembers $workspaceManagerMembers'
-
-        This example adds a Workspace Manager Group 'Banks' to the workspace and adds an array of child workspaces to the group.
-       .LINK
+        .EXAMPLE
+        Get-AzWorkspaceManagerMembers -WorkspaceName "myWorkspace" | Add-AzWorkspaceManagerGroups -Name "Banks"
+        This example adds a Workspace Manager Group 'Banks' to the workspace and adds all child workspaces to the group using the pipeline.
+        .LINK
         Get-AzWorkspaceManagerGroups
         Remove-AzWorkspaceManagerGroups
         Add-AzWorkspaceManagerMembers
