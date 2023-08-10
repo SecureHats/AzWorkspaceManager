@@ -9,7 +9,7 @@ $SessionVariables = [ordered]@{
 }
 New-Variable -Name Guid -Value (New-Guid).Guid -Scope Global -Force
 New-Variable -Name SessionVariables -Value $SessionVariables -Scope Global -Force
- 
+
 #region Handle Module Removal
 $OnRemoveScript = {
     Remove-Variable -Name SessionVariables -Scope Global -Force

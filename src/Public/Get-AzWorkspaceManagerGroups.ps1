@@ -1,17 +1,4 @@
 function Get-AzWorkspaceManagerGroups {
-    <#
-      .SYNOPSIS
-      Get the Microsoft Sentinel Workspace Manager Groups
-      .DESCRIPTION
-      This function gets the Workspace Manager Groups and properties
-      .PARAMETER WorkspaceName
-      The Name of the log analytics workspace
-      .PARAMETER ResourceGroupName
-      The name of the ResouceGroup where the log analytics workspace is located
-      .PARAMETER Name
-      The name of the workspace manager group
-      .EXAMPLE
-    #>
     [cmdletbinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
@@ -47,7 +34,7 @@ function Get-AzWorkspaceManagerGroups {
         else {
             $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups?api-version=$($SessionVariables.apiVersion)"
         }
-        
+
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "List Microsoft Sentinel Workspace Manager Groups for workspace [$WorkspaceName)]"
@@ -59,7 +46,7 @@ function Get-AzWorkspaceManagerGroups {
                 }
                 if ($Name) {
                     $apiResponse = (Invoke-RestMethod @requestParam)
-                } 
+                }
                 else {
                     $apiResponse = (Invoke-RestMethod @requestParam).value
                 }
@@ -68,7 +55,7 @@ function Get-AzWorkspaceManagerGroups {
                     foreach ($object in $apiResponse) {
                         $result = Format-Result -Message $apiResponse
                     }
-                    
+
                     return $result
                 }
                 else {
@@ -83,4 +70,20 @@ function Get-AzWorkspaceManagerGroups {
             Write-Message -FunctionName $($MyInvocation.MyCommand.Name) -Message "The Workspace Manager configuration is not 'Enabled' for workspace '$($WorkspaceName)'" -Severity 'Information'
         }
     }
+    <#
+      .SYNOPSIS
+      Get the Microsoft Sentinel Workspace Manager Groups
+      .DESCRIPTION
+      The Get-AzWorkspaceManagerGroups cmdlet gets the Microsoft Sentinel Workspace Manager Groups by just specifying the workspace name
+      or by specifying the workspace name and the resource group name. The return value contains the details of the workspace manager groups
+      including the members. If no workspace manager groups are found, the cmdlet returns an information message.
+      If the workspace manager configuration is not enabled, the cmdlet returns an information message.
+      .PARAMETER WorkspaceName
+      The Name of the log analytics workspace
+      .PARAMETER ResourceGroupName
+      The name of the ResouceGroup where the log analytics workspace is located
+      .PARAMETER Name
+      The name of the workspace manager group
+      .EXAMPLE
+    #>
 }
