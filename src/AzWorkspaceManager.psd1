@@ -69,9 +69,13 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @(
-        'Get-AzWorkspaceManager',
-        ''
+    FunctionsToExport = @('Get-AzWorkspaceManager', 
+        'Set-AzWorkspaceManager', 'Remove-AzWorkspaceManager',
+        'Get-AzWorkspaceManagerMembers', 'Add-AzWorkspaceManagerMembers', 'Remove-AzWorkspaceManagerMembers',
+        'Get-AzWorkspaceManagerGroups', 'Add-AzWorkspaceManagerGroups', 'Remove-AzWorkspaceManagerGroups',
+        'Get-AzWorkspaceManagerAssignments', 'Add-AzWorkspaceManagerAssignments', 'Remove-AzWorkspaceManagerAssignments',
+        'Get-AzWorkspaceManagerAssignmentJobs', 'Add-AzWorkspaceManagerAssignmentJobs', 'Remove-AzWorkspaceManagerAssignmentJobs',
+        'Get-AzWorkspaceManagerItems'
     )
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -90,15 +94,40 @@
     # ModuleList = @()
 
     # List of all files packaged with this module
-    # FileList = @()
+    FileList = 'Private\Get-AccessToken.ps1',
+    'Private\Invoke-AzWorkspaceManager.ps1',
+    'Private\Format-Result.ps1',
+    'Private\Write-Message.ps1',
+    'Public\Get-LogAnalyticsWorkspace.ps1',
+    'Public\Get-AzWorkspaceManager.ps1',
+    'Public\Set-AzWorkspaceManager.ps1',
+    'Public\Remove-AzWorkspaceManager.ps1',
+    'Public\Get-AzWorkspaceManagerMembers.ps1',
+    'Public\Add-AzWorkspaceManagerMembers.ps1',
+    'Public\Remove-AzWorkspaceManagerMembers.ps1',
+    'Public\Get-AzWorkspaceManagerGroups.ps1',
+    'Public\Add-AzWorkspaceManagerGroups.ps1',
+    'Public\Remove-AzWorkspaceManagerGroups.ps1',
+    'Public\Get-AzWorkspaceManagerAssignments.ps1',
+    'Public\Add-AzWorkspaceManagerAssignments.ps1',
+    'Public\Remove-AzWorkspaceManagerAssignments.ps1',
+    'Public\Get-AzWorkspaceManagerAssignmentJobs.ps1',
+    'Public\Add-AzWorkspaceManagerAssignmentJobs.ps1',
+    'Public\Remove-AzWorkspaceManagerAssignmentJobs.ps1',
+    'Public\Get-AzWorkspaceManagerItems.ps1',
+    'AzWorkspaceManager.psd1',
+    'AzWorkspaceManager.psm1'
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData       = @{
 
-        PSData = @{
+        #IsPrerelease of this module
+        IsPrerelease = $true
+
+        PSData       = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = @("Sentinel", "Azure", "WorkspaceManager", "ARM")
+            Tags       = @("Sentinel", "Microsoft", "Azure", "WorkspaceManager", "ARM")
 
             # A URL to the license for this module.
             # LicenseUri = 'https://github.com/securehats/AzWorkspaceManager/blob/master/LICENSE'
@@ -130,5 +159,4 @@
 
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = ''
-
 }
