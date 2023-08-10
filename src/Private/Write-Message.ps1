@@ -11,6 +11,7 @@ function Write-Message {
     #>
 
     [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification='This Function is used for custom output messages')]
     param (
         [Parameter(Mandatory = $true)]
         [string]$Message,
