@@ -11,8 +11,8 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v3
-        with:  
-          fetch-depth: 0  
+        with:
+          fetch-depth: 0
       - name: Import code signing certificate
         env:
           NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
@@ -22,7 +22,7 @@ jobs:
         run: |
           $pfxCertFilePath = Join-Path -Path $PSScriptRoot -ChildPath "CodeSigningCertificate.pfx"
           Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -AsByteStream
-          $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My    
+          $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\LocalMachine\Root
           Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
           Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
           #Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
