@@ -6,7 +6,7 @@ on:
 jobs:
   sign_scripts:
     name: Sign and publish PowerShell scripts as pipeline artifacts
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
       - name: Import code signing certificate
         shell: powershell
