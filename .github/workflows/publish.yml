@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Sign PowerShell scripts
         shell: powershell
+        env:
+          NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
         run: |
           # remove git dir from checked out repo
           Get-ChildItem -Path "." -Filter ".git*" -Force | ForEach-Object {Remove-Item -Path $_.FullName -Recurse -Force}
