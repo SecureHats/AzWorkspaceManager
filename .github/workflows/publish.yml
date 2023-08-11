@@ -10,19 +10,45 @@ jobs:
     name: Sign and publish PowerShell scripts as pipeline artifacts
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       - name: Import code signing certificate
-        env:
-          NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
-          BASE64_PFX:  ${{ secrets.SIGNING_CERTIFICATE }}
-          PFX_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         shell: pwsh
         run: |
           $pfxCertFilePath = Join-Path -Path $PSScriptRoot -ChildPath "CodeSigningCertificate.pfx"
-          Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -AsByteStream
+          Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -Encoding Byte
+          $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
+        env:
+          BASE64_PFX: ${{ secrets.BASE64_PFX }}
+          PFX_PASSWORD: ${{ secrets.PFX_PASSWORD }}
+          NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Import code signing certificate
+        shell: pwsh
+        run: |
+          # remove git dir from checked out repository
+          Get-ChildItem -Path "." -Filter ".git*" -Force | ForEach-Object {Remove-Item -Path $_.FullName -Recurse -Force}
+
+          # get all scripts
+          $scripts = Get-ChildItem -Path . -Filter "*.ps1" -Recurse -ErrorAction Stop
+
+          # load certificate
           $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\LocalMachine\Root
-          Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
+
+          foreach ($script in $scripts) {
+              try {
+                    $scriptContent = Get-Content -Path $script.FullName
+                    Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
+
+                    # sign script file
+                    Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName -TimestampServer 'http://timestamp.digicert.com'
+              }
+              catch {
+                  Write-Error $_
+              }
+          }
+
+          # Publishing the files to the PS Gallery
           Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
           #Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
