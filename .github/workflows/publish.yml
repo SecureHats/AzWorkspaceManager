@@ -1,6 +1,6 @@
 name: Sign PowerShell Scripts
 on:
-  push
+  workflow_dispatch:
 
 env:
   ARTIFACT_NAME: PowerShell.Workflows.ScriptSigning
