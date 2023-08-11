@@ -98,7 +98,7 @@
     'Private\Invoke-AzWorkspaceManager.ps1',
     'Private\Format-Result.ps1',
     'Private\Write-Message.ps1',
-    'Public\Get-LogAnalyticsWorkspace.ps1',
+    'Private\Get-LogAnalyticsWorkspace.ps1',
     'Public\Get-AzWorkspaceManager.ps1',
     'Public\Add-AzWorkspaceManager.ps1',
     'Public\Remove-AzWorkspaceManager.ps1',
