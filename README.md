@@ -48,9 +48,10 @@ inline `code-example`
 ## Buy me a Coffee
 
 I am running on coffee and good music when busy writing code. so feel free to buy me a coffee.
-<img src=".assets/40334679/5cc0de18-1949-4185-81c0-66c619f42285" width="25" height="25" />
+  
+  
+<img src="./media/bmc.png" width="200" height="200" />
 
-![bmc_qr (1)width="200" height="400"](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/5cc0de18-1949-4185-81c0-66c619f42285)
 
 ## Not happy?
 
