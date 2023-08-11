@@ -6,10 +6,10 @@ on:
 jobs:
   sign_scripts:
     name: Sign and publish PowerShell scripts as pipeline artifacts
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
       - name: Import code signing certificate
-        shell: powershell
+        shell: pwsh
         run: |
           $pfxCertFilePath = Join-Path -Path $PSScriptRoot -ChildPath "CodeSigningCertificate.pfx"
           Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -AsByteStream
@@ -18,10 +18,12 @@ jobs:
           BASE64_PFX:  ${{ secrets.SIGNING_CERTIFICATE }}
           PFX_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
           NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
+
       - name: Check out repository
         uses: actions/checkout@v2
+
       - name: Sign PowerShell scripts
-        shell: powershell
+        shell: pwsh
         env:
           NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
         run: |
