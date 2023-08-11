@@ -27,7 +27,7 @@ jobs:
         env:
           NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
         run: |
-
+          $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
           Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
           Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
           #Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
