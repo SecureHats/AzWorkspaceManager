@@ -27,25 +27,31 @@ jobs:
         env:
           NUGET_KEY: ${{ secrets.PS_GALLERY_KEY }}
         run: |
-          # remove git dir from checked out repo
-          Get-ChildItem -Path "." -Filter ".git*" -Force | ForEach-Object {Remove-Item -Path $_.FullName -Recurse -Force}
-          $scripts = Get-ChildItem -Path . -Filter "*.ps1" -Recurse -ErrorAction Stop
-          # load cert
-          $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
+
+          Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
+          Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
+          #Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
+          # run: |
+
+          #   # remove git dir from checked out repo
+        #   Get-ChildItem -Path "." -Filter ".git*" -Force | ForEach-Object {Remove-Item -Path $_.FullName -Recurse -Force}
+        #   $scripts = Get-ChildItem -Path . -Filter "*.ps1" -Recurse -ErrorAction Stop
+        #   # load cert
+        #   $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
           
-          $scripts = Get-ChildItem src -Recurse -Force -Filter *.ps*
-          foreach ($script in $scripts) {
-              try {
-                    $scriptContent = Get-Content -Path $script.FullName
-                    Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
+        #   $scripts = Get-ChildItem src -Recurse -Force -Filter *.ps*
+        #   foreach ($script in $scripts) {
+        #       try {
+        #             $scriptContent = Get-Content -Path $script.FullName
+        #             Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
                     
-                    # sign script
-                    Set-AuthenticodeSignature -FilePath $script.FullName -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
-              }
-              catch {
-                  Write-Error $_
-              }
-          }
+        #             # sign script
+        #             Set-AuthenticodeSignature -FilePath $script.FullName -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
+        #       }
+        #       catch {
+        #           Write-Error $_
+        #       }
+        #   }
           
           #Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
           #Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
