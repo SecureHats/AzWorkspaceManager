@@ -23,6 +23,6 @@ jobs:
           $pfxCertFilePath = Join-Path -Path $PSScriptRoot -ChildPath "CodeSigningCertificate.pfx"
           Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -AsByteStream
           $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My    
-          Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $cert -TimestampServer 'http://timestamp.digicert.com'
+          Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $codeSigningCert -TimestampServer 'http://timestamp.digicert.com'
           Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
           #Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
