@@ -3,9 +3,6 @@ name: Sign PowerShell Scripts
 on:
   workflow_dispatch:
 
-env:
-  ARTIFACT_NAME: PowerShell.Workflows.ScriptSigning
-
 jobs:
   sign_scripts:
     name: Sign and publish PowerShell scripts as pipeline artifacts
@@ -15,7 +12,7 @@ jobs:
         shell: powershell
         run: |
           $pfxCertFilePath = Join-Path -Path $PSScriptRoot -ChildPath "CodeSigningCertificate.pfx"
-          Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -Encoding Byte
+          Set-Content -Value $([System.Convert]::FromBase64String($env:BASE64_PFX)) -Path $pfxCertFilePath -AsByteStream
           $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\LocalMachine\Root
         env:
           BASE64_PFX:  ${{ secrets.SIGNING_CERTIFICATE }}
