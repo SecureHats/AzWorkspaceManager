@@ -38,7 +38,7 @@ jobs:
                     Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
                     # sign script
                     $null = Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName -TimestampServer "http://timestamp.comodoca.com/rfc3161"
-                    
+
                     Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
                     Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
               }
