@@ -1,7 +1,7 @@
 #!/bin/bash
 
 failed=0
-readarray -t <<<$(git diff origin/main --diff-filter=M --name-only)
+readarray -t <<<$(git diff main --diff-filter=M --name-only)
 for (( i=0; i<${#MAPFILE[@]}; i++ ))
     #Going over all the files that were changed in this PR
     #And making sure that in every file that its filename contains the word "Detection" or "Analytic Rules" and file type must be yaml or yml, the version was updated
