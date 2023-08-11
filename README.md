@@ -22,11 +22,12 @@ To get started with this PowerShell module you only need to follow some simple s
 ### Prerequisites
 
 - [PowerShell Core](https://github.com/PowerShell/PowerShell)
-- Clone this repository
 - [Az.Accounts 2.10.0 or higher](https://www.powershellgallery.com/packages/Az.Accounts/2.12.5)
 
+Installing the module  
+
   ```powershell
-  Import-Module -AzWorkspaceManager
+  Install-Module -AzWorkspaceManager
   ```
 
 <!-- This SecureHats repository is used to organize project information and artifacts. 
