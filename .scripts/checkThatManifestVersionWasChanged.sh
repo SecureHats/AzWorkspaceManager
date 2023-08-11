@@ -20,7 +20,7 @@ for (( i=0; i<${#MAPFILE[@]}; i++ ))
 		fi
 
 	else
-		echo "${MAPFILE[$i]} is not a manifest file."		
+		echo "${MAPFILE[$i]} is not a manifest file."
     fi
 done
 
