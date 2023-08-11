@@ -17,7 +17,7 @@ jobs:
     # check out and run the script
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Check that manifest version was updated
         run: bash .scripts/checkThatManifestVersionWasChanged.sh
