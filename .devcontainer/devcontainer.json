@@ -33,7 +33,8 @@
 		"TylerLeonhardt.vscode-inline-values-powershell",
 		"GitHub.copilot",
 		"DavidAnson.vscode-markdownlint",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"shardulm94.trailing-spaces"
 	]
     }
   }
