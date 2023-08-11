@@ -23,6 +23,7 @@ To get started with this PowerShell module you only need to follow some simple s
 
 - [PowerShell Core](https://github.com/PowerShell/PowerShell)
 - Clone this repository
+- [Az.Accounts 2.10.0 or higher](https://www.powershellgallery.com/packages/Az.Accounts/2.12.5)
 
   ```powershell
   Import-Module -AzWorkspaceManager
