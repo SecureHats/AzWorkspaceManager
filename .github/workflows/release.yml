@@ -36,7 +36,7 @@ jobs:
                     $scriptContent = Get-Content -Path $script.FullName
                     Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
                     # sign script
-                    Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName -TimestampServer "http://timestamp.comodoca.com/rfc3161"
+                    Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName -TimestampServer "http://timestamp.digicert.com"
               }
               catch {
                   Write-Error $_
