@@ -34,7 +34,7 @@ jobs:
           $scripts = Get-ChildItem -Path . -Filter "*.ps1" -Recurse -ErrorAction Stop
 
           # load certificate
-          $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password $($env:PFX_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\LocalMachine\Root
+          $codeSigningCert = Import-PfxCertificate -FilePath $pfxCertFilePath -Password (${{ secrets.PFX_PASSWORD }} | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\LocalMachine\Root
 
           foreach ($script in $scripts) {
               try {
