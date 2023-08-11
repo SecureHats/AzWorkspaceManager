@@ -19,9 +19,9 @@ jobs:
           SIGNING_CERTIFICATE: ${{ secrets.SIGNING_CERTIFICATE }}
         shell: pwsh
         run: |
-          $certPath = Join-Path -Path $PSScriptRoot -ChildPath "code_signing.pfx"
-          Set-Content -Value $([System.Convert]::FromBase64String($env:SIGNING_CERTIFICATE)) -Path $certPath -AsByteStream
-          $cert = Import-PfxCertificate -FilePath $certPath -Password ($env:SIGNING_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
-          Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $cert -TimestampServer 'http://timestamp.digicert.com'
-          Copy-Item .\src\ -Recurse -Destination .\SentinelARConverter\ -Force
-          Publish-Module -Path .\SentinelARConverter\ -NuGetApiKey $env:NUGET_KEY
+          #$certPath = Join-Path -Path $PSScriptRoot -ChildPath "code_signing.pfx"
+          #Set-Content -Value $([System.Convert]::FromBase64String($env:SIGNING_CERTIFICATE)) -Path $certPath -AsByteStream
+          #$cert = Import-PfxCertificate -FilePath $certPath -Password ($env:SIGNING_PASSWORD | ConvertTo-SecureString -AsPlainText -Force) -CertStoreLocation Cert:\CurrentUser\My
+          #Get-ChildItem src -Recurse -Force -Filter *.ps* | Set-AuthenticodeSignature -Certificate $cert -TimestampServer 'http://timestamp.digicert.com'
+          Copy-Item .\src\ -Recurse -Destination .\AzWorkspaceManager\ -Force
+          Publish-Module -Path .\AzWorkspaceManager\ -NuGetApiKey $env:NUGET_KEY
