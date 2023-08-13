@@ -229,8 +229,9 @@ I am running on coffee and good music when busy writing code. so feel free to bu
 <img src="./media/bmc.png" width="200" height="200" />
 
 
-## Not happy?
+## Feedback
 
-If you encounter any issues, or have suggestions for improvements, feel free to open an Issue
+If you encounter any issues, have suggestions for improvements or anything else, feel free to open an Issue
+I will try to respond to each issue and Pull requests within 48 hours.
 
 [Create Issue](../../issues/new/choose)
