@@ -4,4 +4,4 @@ _What's new?_
 * Signature to all scripts has been added. ([#2](https://github.com/securehats/AzWorkspaceManager/issues/2))
 
 _Bug fixes_
-* N/A
+* Solved an issue that showed the payload. ([#5](https://github.com/securehats/AzWorkspaceManager/issues/5))
