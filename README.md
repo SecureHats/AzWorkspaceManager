@@ -121,27 +121,38 @@ Creating a Workspace Manager assignment.
 ```pwsh
 $arguments = @{
     workspaceName = 'myWorkspace'
+    groupName     = 'myGroup'
     resourceId    = $resourceId
-    tenantId      = $tenantId
 }
 
-  Add-AzWorkpaceManagerAssignment @arguments
+  Add-AzWorkspaceManagerAssignment @arguments
 ```
 </br>
 
-### Add Alert Rules to a Workspace Manager Assignment using pipeline input
+### Add Alert Rules to a Workspace Manager Assignment
 
 ```pwsh
-$AlertRules = Get-AzWorkspaceManagerItem -WorkspaceName 'myWorkspace' -Type 'AlertRuels' 
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    groupName     = 'myGroup'
+    resourceId    = $resourceId
+}
+
+  Add-AzWorkspaceManagerAssignment @arguments
+```
+
+### Add Alert Rules to a Workspace Manager Assignment
+
+```pwsh 
+$SavedSearches = Get-AzWorkspaceManagerItem -WorkspaceName 'myWorkspace' -Type SavedSearches
 
 $arguments = @{
     workspaceName = 'myWorkspace'
-    resourceId    = $resourceId
-    tenantId      = $tenantId
-    ResourceId    = $items.ResourceId
+    groupName     = 'myGroup'
+    resourceId    = $SavedSearches
 }
 
-  Add-AzWorkpaceManagerAssignment @arguments
+  Add-AzWorkspaceManagerAssignment @arguments
 ```
 </br>
 
