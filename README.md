@@ -18,7 +18,7 @@ This module is especially useful in scenario's where you want to manage the Work
 
 ## Common setup
 
-To get started with this PowerShell module you only need to follow some simple steps.
+To get started with this PowerShell module you only need to follow these basic steps.
 
 ### Prerequisites
 
