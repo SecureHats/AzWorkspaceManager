@@ -42,13 +42,16 @@ function Add-AzWorkspaceManagerAssignment {
                 )
             }
         }
+
         $payload = @{
             properties = @{
                 targetResourceName = $GroupName
-                items              = @($items)
             }
         }
-        write-Output $payload | ConvertTo-Json -Depth 10
+
+        if ($items ) {
+            $payload.properties.items = @($items)
+        }
 
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
