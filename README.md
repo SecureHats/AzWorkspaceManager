@@ -167,7 +167,7 @@ $arguments = @{
 
 <details>
 
-<summary>Create an Assignment Job </summary>
+<summary>Create an Assignment Job and get status </summary>
 <br/>
 
  ### Adding a Workspace Manager Assignment Job
