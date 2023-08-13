@@ -8,9 +8,9 @@ resources to help you get started extending AzWorkspaceManager:
 
 ## Coding Standards
 
-[https://steampipe.io/docs/develop/coding-standards](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines?view=powershell-7.3)
+[Coding standards](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines?view=powershell-7.3)
 
 ## PS Script Analyzer
 
-[https://steampipe.io/docs/develop/coding-standards](https://learn.microsoft.com/en-us/powershell/utility-modules/psscriptanalyzer/overview?view=ps-modules)
+[PsScriptAnalyzer](https://learn.microsoft.com/en-us/powershell/utility-modules/psscriptanalyzer/overview?view=ps-modules)
 
