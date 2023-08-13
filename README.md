@@ -116,7 +116,8 @@ $arguments = @{
 
  ### Add a Workspace Manager Assignment
 
-Creating a Workspace Manager assignment.
+This example creates an empty assignment.  
+Because the assignment name is not provided, the 'GroupName' value will be used.
 
 ```pwsh
 $arguments = @{
@@ -129,11 +130,14 @@ $arguments = @{
 ```
 </br>
 
-### Add Alert Rules to a Workspace Manager Assignment
+### Add an Alert Rules to a Workspace Manager Assignment  
+
+  This example adds the resourceId of an alert rule to an assignment
 
 ```pwsh
 $arguments = @{
     workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
     groupName     = 'myGroup'
     resourceId    = $resourceId
 }
@@ -141,18 +145,69 @@ $arguments = @{
   Add-AzWorkspaceManagerAssignment @arguments
 ```
 
-### Add Alert Rules to a Workspace Manager Assignment
+### Add Alert Rules to a Workspace Manager Assignment  
+
+  This example gets all saved searches and adds them to an assignment
 
 ```pwsh 
 $SavedSearches = Get-AzWorkspaceManagerItem -WorkspaceName 'myWorkspace' -Type SavedSearches
 
 $arguments = @{
     workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
     groupName     = 'myGroup'
-    resourceId    = $SavedSearches
+    resourceId    = $SavedSearches.resourceId
 }
 
   Add-AzWorkspaceManagerAssignment @arguments
+```
+</br>
+
+</details>
+
+<details>
+
+<summary>Create an Assignment Job </summary>
+<br/>
+
+ ### Adding a Workspace Manager Assignment Job
+
+Creating a Workspace Manager assignment job.
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
+}
+
+  Add-AzWorkspaceManagerAssignmentJob @arguments
+```
+</br>
+
+
+### Add a WorkspaceManager Assignment Job for all assignments  
+
+  This example creates an assignment job for each Workspace Manager assignment
+
+```pwsh 
+$arguments = @{
+    workspaceName = 'myWorkspace'
+}
+
+  Get-AzWorkspaceManagerAssignment @arguments | Add-AzWorkspaceManagerAssignmentJob
+```
+
+### Get all WorkspaceManager Assignment Jobs for an assignment  
+
+  This example gets all jobs for a Workspace Manager Assignment
+
+```pwsh 
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
+}
+
+  Get-AzWorkspaceManagerAssignmentJob @arguments
 ```
 </br>
 
