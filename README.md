@@ -16,7 +16,7 @@ contains some errors, I have decided to create a PowerShell Module called **AzWo
 
 This module is especially useful in scenario's where you want to manage the Workspace Manager using Infrastructure as Code or using pipelines.
 
-### Get started with the CLI
+## Installation
 
 To get started with this PowerShell module you only need to follow these basic steps.
 
@@ -32,11 +32,119 @@ To get started with this PowerShell module you only need to follow these basic s
 <details>
  <summary>Install Module</summary>
  <br/>
- 
 
-  ```powershell
-  Install-Module -AzWorkspaceManager
+</details>
+
+ ## Get started with the module
+
+This section shows a couple of examples on how to get started with this module.
+
+<details>
+
+<summary>Workspace Manager Configuration</summary>
+<br/>
+
+ ### Create a Workspace Manager configuration
+
+Creating a Workspace Manager configuration in the parent Microsoft Sentinel instance.
+  ```pwsh
+  Add-AzWorkpaceManager -Name 'myWorkspace' -ResourceGroup 'myResourceGroup'
   ```
+</br>
+</br>
+
+![Add-WorkspaceManager](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/759beecd-2768-4c74-952f-32b04c34ee2b)
+
+
+</details>
+
+<details>
+
+<summary>Add Workspace Manager Members and Groups</summary>
+<br/>
+
+ ### Add a Workspace Manager Member
+
+Creating Workspace Manager members in the Workspace Manager Configuration.
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    resourceId    = $resourceId
+    tenantId      = $tenantId
+}
+
+  Add-AzWorkpaceManagerMember @arguments
+```
+</br>
+
+### Add a Workspace Manager Group
+
+```pwsh
+$arguments = @{
+    workspaceName           = 'myWorkspace'
+    name                    = 'myGroup'
+    workspaceManagerMembers = 'mySecondWorkspace(f6426b36-04fa-4a41-a9e4-7f13abe34d55)'
+}
+
+  Add-AzWorkpaceManagerGroup @arguments
+```
+</br>
+
+### Create a member and add through pipeline to group
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    resourceId    = $resourceId
+    tenantId      = $tenantId
+}
+
+  Add-AzWorkpaceManagerMember @arguments | Add-AzWorkspaceManagerGroup - GroupName 'myGroup'
+}
+
+```
+
+![Add-WorkspaceManagerMember-Group](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/a01048f2-3aca-4d64-bf01-8f0b669269f1)
+
+</details>
+
+<details>
+
+<summary>Add Workspace Manager Assignments</summary>
+<br/>
+
+ ### Add a Workspace Manager Assignment
+
+Creating a Workspace Manager assignment.
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    resourceId    = $resourceId
+    tenantId      = $tenantId
+}
+
+  Add-AzWorkpaceManagerAssignment @arguments
+```
+</br>
+
+### Add Alert Rules to a Workspace Manager Assignment using pipeline input
+
+```pwsh
+$AlertRules = Get-AzWorkspaceManagerItem -WorkspaceName 'myWorkspace' -Type 'AlertRuels' 
+
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    resourceId    = $resourceId
+    tenantId      = $tenantId
+    ResourceId    = $items.ResourceId
+}
+
+  Add-AzWorkpaceManagerAssignment @arguments
+```
+</br>
+
 </details>
 
 ## Community
