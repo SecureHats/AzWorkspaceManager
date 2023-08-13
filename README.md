@@ -20,7 +20,7 @@ This module is especially useful in scenario's where you want to manage the Work
 
 To get started with this PowerShell module you only need to follow these basic steps.
 
-Click the topics below to fold them out.
+> Click on the topics below to fold them out.
 
 <details>
 
@@ -33,6 +33,10 @@ Click the topics below to fold them out.
 
 <details>
  <summary>Install Module</summary>
+ 
+ ```powershell
+Install-Module AzWorkspaceManager
+ ```
  <br/>
 
 </details>
