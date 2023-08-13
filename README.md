@@ -185,7 +185,7 @@ $arguments = @{
 </br>
 
 
-### Add a WorkspaceManager Assignment Job for all assignments  
+### Add a Workspace Manager Assignment Job for all assignments  
 
   This example creates an assignment job for each Workspace Manager assignment
 
@@ -197,7 +197,7 @@ $arguments = @{
   Get-AzWorkspaceManagerAssignment @arguments | Add-AzWorkspaceManagerAssignmentJob
 ```
 
-### Get all WorkspaceManager Assignment Jobs for an assignment  
+### Get all Workspace Manager Assignment Jobs for an assignment  
 
   This example gets all jobs for a Workspace Manager Assignment
 
