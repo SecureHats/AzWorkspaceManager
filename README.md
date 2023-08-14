@@ -73,6 +73,8 @@ Creating a Workspace Manager configuration in the parent Microsoft Sentinel inst
 
 Creating Workspace Manager members in the Workspace Manager Configuration.
 
+> To add a workspace member the identlty used has to have Microsoft Sentinel Contributor permissions on the target workspace.
+
 ```pwsh
 $arguments = @{
     workspaceName = 'myWorkspace'
