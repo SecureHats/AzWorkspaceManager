@@ -106,7 +106,7 @@ $arguments = @{
     tenantId      = $tenantId
 }
 
-  Add-AzWorkpaceManagerMember @arguments | Add-AzWorkspaceManagerGroup - GroupName 'myGroup'
+  Add-AzWorkpaceManagerMember @arguments | Add-AzWorkspaceManagerGroup -GroupName 'myGroup'
 }
 
 ```
