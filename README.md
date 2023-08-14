@@ -16,35 +16,216 @@ contains some errors, I have decided to create a PowerShell Module called **AzWo
 
 This module is especially useful in scenario's where you want to manage the Workspace Manager using Infrastructure as Code or using pipelines.
 
-## Common setup
+## Installation
 
 To get started with this PowerShell module you only need to follow these basic steps.
 
-### Prerequisites
+> Click on the topics below to fold them out.
+
+<details>
+
+<summary>Prerequisites</summary>
+<br/>
 
 - [PowerShell Core](https://github.com/PowerShell/PowerShell)
 - [Az.Accounts 2.10.0 or higher](https://www.powershellgallery.com/packages/Az.Accounts/2.12.5)
+</details>
 
-Installing the module  
+<details>
+ <summary>Install Module</summary>
+ 
+ ```powershell
+Install-Module AzWorkspaceManager
+ ```
+ <br/>
 
-  ```powershell
-  Install-Module -AzWorkspaceManager
+</details>
+
+ ## Get started with the module
+
+This section shows a couple of examples on how to get started with this module.
+
+<details>
+
+<summary>Workspace Manager Configuration</summary>
+<br/>
+
+ ### Create a Workspace Manager configuration
+
+Creating a Workspace Manager configuration in the parent Microsoft Sentinel instance.
+  ```pwsh
+  Add-AzWorkpaceManager -Name 'myWorkspace' -ResourceGroup 'myResourceGroup'
   ```
+</br>
+</br>
 
-<!-- This SecureHats repository is used to organize project information and artifacts. 
-> Note field
-- [ ] unchecked
-- [x] checked
-```Pwsh
-Code example
+![Add-WorkspaceManager](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/759beecd-2768-4c74-952f-32b04c34ee2b)
+
+
+</details>
+
+<details>
+
+<summary>Add Workspace Manager Members and Groups</summary>
+<br/>
+
+ ### Add a Workspace Manager Member
+
+Creating Workspace Manager members in the Workspace Manager Configuration.
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    resourceId    = $resourceId
+    tenantId      = $tenantId
+}
+
+  Add-AzWorkpaceManagerMember @arguments
 ```
-## Heading 2
-### Heading 3
-#### Heading 4
-_italic_
-**bold**
-inline `code-example` 
- -->
+</br>
+
+### Add a Workspace Manager Group
+
+```pwsh
+$arguments = @{
+    workspaceName           = 'myWorkspace'
+    name                    = 'myGroup'
+    workspaceManagerMembers = 'mySecondWorkspace(f6426b36-04fa-4a41-a9e4-7f13abe34d55)'
+}
+
+  Add-AzWorkpaceManagerGroup @arguments
+```
+</br>
+
+### Create a member and add through pipeline to group
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    resourceId    = $resourceId
+    tenantId      = $tenantId
+}
+
+  Add-AzWorkpaceManagerMember @arguments | Add-AzWorkspaceManagerGroup -GroupName 'myGroup'
+}
+
+```
+
+![Add-WorkspaceManagerMember-Group](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/a01048f2-3aca-4d64-bf01-8f0b669269f1)
+
+</details>
+
+<details>
+
+<summary>Add Workspace Manager Assignments</summary>
+<br/>
+
+ ### Add a Workspace Manager Assignment
+
+This example creates an empty assignment.  
+Because the assignment name is not provided, the 'GroupName' value will be used.
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    groupName     = 'myGroup'
+    resourceId    = $resourceId
+}
+
+  Add-AzWorkspaceManagerAssignment @arguments
+```
+</br>
+
+### Add an Alert Rules to a Workspace Manager Assignment  
+
+  This example adds the resourceId of an alert rule to an assignment
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
+    groupName     = 'myGroup'
+    resourceId    = $resourceId
+}
+
+  Add-AzWorkspaceManagerAssignment @arguments
+```
+
+### Add Alert Rules to a Workspace Manager Assignment  
+
+  This example gets all saved searches and adds them to an assignment
+
+```pwsh 
+$SavedSearches = Get-AzWorkspaceManagerItem -WorkspaceName 'myWorkspace' -Type SavedSearches
+
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
+    groupName     = 'myGroup'
+    resourceId    = $SavedSearches.resourceId
+}
+
+  Add-AzWorkspaceManagerAssignment @arguments
+```
+</br>
+
+</details>
+
+<details>
+
+<summary>Create an Assignment Job and get status </summary>
+<br/>
+
+ ### Adding a Workspace Manager Assignment Job
+
+Creating a Workspace Manager assignment job.
+
+```pwsh
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
+}
+
+  Add-AzWorkspaceManagerAssignmentJob @arguments
+```
+</br>
+
+
+### Add a Workspace Manager Assignment Job for all assignments  
+
+  This example creates an assignment job for each Workspace Manager assignment
+
+```pwsh 
+$arguments = @{
+    workspaceName = 'myWorkspace'
+}
+
+  Get-AzWorkspaceManagerAssignment @arguments | Add-AzWorkspaceManagerAssignmentJob
+```
+
+### Get all Workspace Manager Assignment Jobs for an assignment  
+
+  This example gets all jobs for a Workspace Manager Assignment
+
+```pwsh 
+$arguments = @{
+    workspaceName = 'myWorkspace'
+    name          = 'myAssignment'
+}
+
+  Get-AzWorkspaceManagerAssignmentJob @arguments
+```
+</br>
+
+</details>
+
+## Community
+
+We all thrive on feedback and community involvement!
+
+**Have a question?** → open a [GitHub issue](https://github.com/SecureHats/AzWorkspaceManager/issues/new/choose).
+
+**Want to get involved?** → Learn how to [contribute](https://github.com/SecureHats/AzWorkspaceManager/blob/main/CONTRIBUTING.md).
 
 ## Buy me a Coffee
 
@@ -54,8 +235,9 @@ I am running on coffee and good music when busy writing code. so feel free to bu
 <img src="./media/bmc.png" width="200" height="200" />
 
 
-## Not happy?
+## Feedback
 
-If you encounter any issues, or have suggestions for improvements, feel free to open an Issue
+If you encounter any issues, have suggestions for improvements or anything else, feel free to open an Issue
+I will try to respond to each issue and Pull requests within 48 hours.
 
 [Create Issue](../../issues/new/choose)
