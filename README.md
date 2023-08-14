@@ -10,9 +10,9 @@
 
 ## Why this PowerShell Module
 
-Currently the Microsoft Sentinel Workspace Manager (Preview) is only available through the Azure Portal of via de REST API.  
+Currently the Microsoft Sentinel Workspace Manager (Preview) is only available through the Azure Portal of via the REST API.</br>
 Because the Azure Portal is using API calls in the background, and because the Microsoft Sentinel Workspace Manager API  
-contains some errors, I have decided to create a PowerShell Module called **AzWorkspaceManager**
+contains some errors, I have decided to create a PowerShell Module called **AzWorkspaceManager**</br>
 
 This module is especially useful in scenario's where you want to manage the Workspace Manager using Infrastructure as Code or using pipelines.
 
