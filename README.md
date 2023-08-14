@@ -231,7 +231,7 @@ We all thrive on feedback and community involvement!
 
 ## Buy me a Coffee
 
-I am running on coffee and good music when busy writing code. so feel free to buy me a coffee.
+I am running on coffee and good music when writing code. So feel free to buy me a coffee.
   
   
 <img src="./media/bmc.png" width="200" height="200" />
