@@ -1,4 +1,4 @@
-![image](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/491129ba-6b2d-42b2-a310-7387490ab34c)
+![image](https://github.com/SecureHats/AzWorkspaceManager/assets/40334679/9698c1d5-d89e-47d1-9ee3-410851073ec7)
 
 [![Maintenance](https://img.shields.io/maintenance/yes/2023.svg?style=flat-square)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)  
