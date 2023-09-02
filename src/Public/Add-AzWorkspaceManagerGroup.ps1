@@ -12,7 +12,7 @@ function Add-AzWorkspaceManagerGroup {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $false)]
         [ValidateNotNullOrEmpty()]
-        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [ValidatePattern('^[A-Za-z0-9]+( [A-Za-z0-9-]+[A-Za-z0-9])*$', ErrorMessage="It does not match expected pattern '{1}'")]
         [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $false)]
@@ -54,7 +54,7 @@ function Add-AzWorkspaceManagerGroup {
         if ($SessionVariables.workspaceManagerConfiguration -eq 'Enabled') {
             try {
                 Write-Verbose "Adding Workspace Manager Group to workspace [$WorkspaceName)]"
-                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups/$($Name)?api-version=$($SessionVariables.apiVersion)"
+                $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerGroups/$($Name.Replace(' ', '-'))?api-version=$($SessionVariables.apiVersion)"
 
                 $requestParam = @{
                     Headers     = $authHeader
@@ -95,6 +95,8 @@ function Add-AzWorkspaceManagerGroup {
         The name of the ResouceGroup where the log analytics workspace is located.
         .PARAMETER Name
         The name of the workspace manager group.
+        If an name is provided with spaces in it, the name will be converted to a name without spaces.
+        The display name will be the name with spaces.
         .PARAMETER Description
         The description of the workspace manager group. If not specified, the name will be used.
         .PARAMETER workspaceManagerMembers
