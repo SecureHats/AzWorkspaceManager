@@ -1,3 +1,9 @@
+## v0.2.2 [2023-09-02]
+
+_Bug fixes_
+* Added support for spaces in the group name. ([#8](https://github.com/securehats/AzWorkspaceManager/issues/8))
+
+
 ## v0.2.1 [2023-08-13]
 
 _What's new?_
