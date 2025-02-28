@@ -1,13 +1,16 @@
 function Get-AzWorkspaceManagerAssignment {
     [cmdletbinding()]
     param (
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
-        [string]$WorkspaceName,
+        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceNameCompleterAttribute(
+            "Microsoft.OperationalInsights/workspaces",
+            "ResourceGroupName"
+        )][string]$WorkspaceName,
 
-        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceGroupCompleterAttribute()]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
