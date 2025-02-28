@@ -1,14 +1,16 @@
 #region load module variables
-Write-Verbose -Message "Creating modules variables"
-[System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
+Write-Verbose -Message "Creating module variables"
+[System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssignments', '')]
 $SessionVariables = [ordered]@{
     baseUri    = ''
     ExpiresOn  = ''
     workspace  = ''
-    apiVersion = '2023-06-01-preview'
+    apiVersion = '2023-10-01'
 }
-New-Variable -Name Guid -Value (New-Guid).Guid -Scope Script -Force
-New-Variable -Name SessionVariables -Value $SessionVariables -Scope Script -Force
+
+Set-Variable -Name Guid -Value (New-Guid).Guid -Scope Script -Force
+Set-Variable -Name SessionVariables -Value $SessionVariables -Scope Script -Force
+#endregion load module variables
 
 #region Handle Module Removal
 $OnRemoveScript = {
@@ -21,23 +23,24 @@ Register-EngineEvent -SourceIdentifier ([System.Management.Automation.PsEngineEv
 
 #region discover module name
 $ScriptPath = Split-Path $MyInvocation.MyCommand.Path
-$ModuleName = $ExecutionContext.SessionState.Module
+$ModuleName = $ExecutionContext.SessionState.Module.Name
 Write-Verbose -Message "Loading module $ModuleName"
 #endregion discover module name
 
 #region dot source public and private function definition files
 try {
     foreach ($Scope in 'Public', 'Private') {
-        Get-ChildItem (Join-Path -Path $ScriptPath -ChildPath $Scope) -Filter *.ps1 | ForEach-Object {
-            . $_.FullName
+        $FunctionFiles = Get-ChildItem -Path (Join-Path -Path $ScriptPath -ChildPath $Scope) -Filter *.ps1
+        foreach ($File in $FunctionFiles) {
+            . $File.FullName
             if ($Scope -eq 'Public') {
-                Export-ModuleMember -Function $_.BaseName -ErrorAction Stop
+                Export-ModuleMember -Function $File.BaseName -ErrorAction Stop
             }
         }
     }
 }
 catch {
-    Write-Error ("{0}: {1}" -f $_.BaseName, $_.Exception.Message)
+    Write-Error ("Error loading function {0}: {1}" -f $_.BaseName, $_.Exception.Message)
     exit 1
 }
 #endregion dot source public and private function definition files

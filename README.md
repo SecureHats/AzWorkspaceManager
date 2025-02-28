@@ -33,7 +33,7 @@ To get started with this PowerShell module you only need to follow these basic s
 
 <details>
  <summary>Install Module</summary>
- 
+
  ```powershell
 Install-Module AzWorkspaceManager
  ```

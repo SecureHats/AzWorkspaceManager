@@ -1,9 +1,10 @@
 # Contributing to AzWorkspaceManager
+
 Because Open Source plays a major part in how products are build,
 I see it as a matter of course to give the same effort back to our
 community by creating extensible and easy-to-use software.
 
-We welcome contributions from the community and have created some 
+We welcome contributions from the community and have created some.
 resources to help you get started extending AzWorkspaceManager:
 
 ## Coding Standards

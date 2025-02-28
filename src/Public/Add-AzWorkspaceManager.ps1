@@ -38,12 +38,13 @@ function Add-AzWorkspaceManager {
                 $uri = "$($SessionVariables.workspace)/providers/Microsoft.SecurityInsights/workspaceManagerConfigurations/$($Name)?api-version=$($SessionVariables.apiVersion)"
 
                 $requestParam = @{
-                    Headers       = $authHeader
-                    Uri           = $uri
-                    Method        = 'PUT'
-                    Body          = $payload
-                    ContentType   = 'application/json'
-                    ErrorVariable = "ErrVar"
+                    Headers         = $authHeader
+                    Uri             = $uri
+                    Method          = 'PUT'
+                    Body            = $payload
+                    ContentType     = 'application/json'
+                    UseBasicParsing = $true
+                    ErrorVariable   = "ErrVar"
                 }
 
                 $apiResponse = Invoke-RestMethod @requestParam

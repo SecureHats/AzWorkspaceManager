@@ -1,8 +1,16 @@
-## v0.2.2 [2023-09-02]
+## v0.9.0 [2025-02-28]
+
+_What's new?_
+* Updated to the latest API version that is out of preview
+* Improved processing speed by adding `UseBasicParsing`
 
 _Bug fixes_
 * Added support for spaces in the group name. ([#8](https://github.com/securehats/AzWorkspaceManager/issues/8))
 
+## v0.2.2 [2023-09-02]
+
+_Bug fixes_
+* Added support for spaces in the group name. ([#8](https://github.com/securehats/AzWorkspaceManager/issues/8))
 
 ## v0.2.1 [2023-08-13]
 
