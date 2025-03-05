@@ -54,7 +54,7 @@ This section shows a couple of examples on how to get started with this module.
 
 Creating a Workspace Manager configuration in the parent Microsoft Sentinel instance.
   ```pwsh
-  Add-AzWorkpaceManager -Name 'myWorkspace' -ResourceGroup 'myResourceGroup'
+  Add-AzWorkspaceManager -Name 'myWorkspace' -ResourceGroup 'myResourceGroup'
   ```
 </br>
 </br>
@@ -82,7 +82,7 @@ $arguments = @{
     tenantId      = $tenantId
 }
 
-  Add-AzWorkpaceManagerMember @arguments
+  Add-AzWorkspaceManagerMember @arguments
 ```
 </br>
 
@@ -95,7 +95,7 @@ $arguments = @{
     workspaceManagerMembers = 'mySecondWorkspace(f6426b36-04fa-4a41-a9e4-7f13abe34d55)'
 }
 
-  Add-AzWorkpaceManagerGroup @arguments
+  Add-AzWorkspaceManagerGroup @arguments
 ```
 </br>
 
@@ -108,7 +108,7 @@ $arguments = @{
     tenantId      = $tenantId
 }
 
-  Add-AzWorkpaceManagerMember @arguments | Add-AzWorkspaceManagerGroup -GroupName 'myGroup'
+  Add-AzWorkspaceManagerMember @arguments | Add-AzWorkspaceManagerGroup -GroupName 'myGroup'
 }
 
 ```
