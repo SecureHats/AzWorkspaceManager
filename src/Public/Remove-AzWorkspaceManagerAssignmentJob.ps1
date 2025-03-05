@@ -2,10 +2,15 @@ function Remove-AzWorkspaceManagerAssignmentJob {
     [cmdletbinding(SupportsShouldProcess = $true, ConfirmImpact = 'High')]
     param (
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
-        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage = "It does not match expected pattern '{1}'")]
-        [string]$WorkspaceName,
+        [ValidateNotNullOrEmpty()]
+        [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9-]+[A-Za-z0-9]$', ErrorMessage="It does not match expected pattern '{1}'")]
+        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceNameCompleterAttribute(
+            "Microsoft.OperationalInsights/workspaces",
+            "ResourceGroupName"
+        )][string]$WorkspaceName,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceGroupCompleterAttribute()]
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]

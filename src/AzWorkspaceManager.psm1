@@ -5,7 +5,7 @@ $SessionVariables = [ordered]@{
     baseUri    = ''
     ExpiresOn  = ''
     workspace  = ''
-    apiVersion = '2023-10-01'
+    apiVersion = '2025-01-01-preview'
 }
 
 Set-Variable -Name Guid -Value (New-Guid).Guid -Scope Script -Force
