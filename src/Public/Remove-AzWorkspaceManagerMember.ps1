@@ -19,9 +19,7 @@ function Remove-AzWorkspaceManagerMember {
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
-        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceIdCompleter(
-            "Microsoft.OperationalInsights/workspaces"
-        )][array]$ResourceId,
+        [array]$ResourceId,
 
         [Parameter(Mandatory = $false)]
         [switch]$Force

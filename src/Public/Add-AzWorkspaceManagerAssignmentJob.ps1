@@ -19,9 +19,7 @@ function Add-AzWorkspaceManagerAssignmentJob {
         [string]$Name,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
-        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceIdCompleter(
-            "Microsoft.OperationalInsights/workspaces"
-        )][array]$ResourceId
+        [array]$ResourceId
     )
 
     begin {

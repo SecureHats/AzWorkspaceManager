@@ -14,9 +14,7 @@ function Add-AzWorkspaceManagerMember {
         [string]$ResourceGroupName,
 
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $false)]
-        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceIdCompleter(
-            "Microsoft.OperationalInsights/workspaces"
-        )][array]$ResourceId,
+        [array]$ResourceId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidatePattern('^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$', ErrorMessage="It is not a valid GUID")]
