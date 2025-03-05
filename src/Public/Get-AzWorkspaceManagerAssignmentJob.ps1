@@ -24,7 +24,9 @@ function Get-AzWorkspaceManagerAssignmentJob {
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$ResourceId
+        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceIdCompleter(
+            "Microsoft.OperationalInsights/workspaces"
+        )][string]$ResourceId
     )
 
     begin {

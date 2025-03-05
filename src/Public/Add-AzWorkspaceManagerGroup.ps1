@@ -26,7 +26,9 @@ function Add-AzWorkspaceManagerGroup {
         [array]$workspaceManagerMembers,
 
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
-        [array]$ResourceId
+        [Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters.ResourceIdCompleter(
+            "Microsoft.OperationalInsights/workspaces"
+        )][array]$ResourceId
 
     )
 
